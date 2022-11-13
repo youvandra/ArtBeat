@@ -32,7 +32,7 @@ export default function Museum() {
       <Box>
         <Box py={155} className={classes.banner}>
           <Box sx={{ textAlign: "center" }}>
-            <Title size={48}>Meusems</Title>
+            <Title size={48}>Museums</Title>
 
             <Text>
               Showing a list of museums that own various magnificent art
@@ -50,7 +50,7 @@ export default function Museum() {
       <Box>
         <Box py={155} className={classes.banner}>
           <Box sx={{ textAlign: "center" }}>
-            <Title size={48}>Meusems</Title>
+            <Title size={48}>Museums</Title>
 
             <Text>
               Showing a list of museums that own various magnificent art
@@ -60,7 +60,7 @@ export default function Museum() {
         </Box>
 
         <Title px={"xl"} my={"xl"} size={36} order={2}>
-          <span style={{ color: "#C4811C" }}>Meusems</span> List
+          <span style={{ color: "#C4811C" }}>Museums</span> List
         </Title>
         <Stack mt={32} spacing={48} mb={96} px={"xl"}>
           {data.map((data) => (

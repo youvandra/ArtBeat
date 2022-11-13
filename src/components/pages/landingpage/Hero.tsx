@@ -45,10 +45,10 @@ export default function Hero() {
     <SimpleGrid className={classes.container} cols={2}>
       <Overlay zIndex={0} opacity={0.6} color="#000" />
       <Stack align={"start"} sx={{ zIndex: 1 }}>
-        <Title className={classes.heading}>The Art of Gifting</Title>
+        <Title className={classes.heading}>Break the Limits</Title>
         <Text size={"md"}>
-          Curated art marketplace that helps you discover and buy authentic
-          artworks
+        Curated art marketplace that helps you discover 
+        and buy authentic artworks across the globe
         </Text>{" "}
         <Text
           variant="link"

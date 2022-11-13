@@ -31,7 +31,7 @@ export default function Artist() {
       <Box>
         <Box py={155} className={classes.banner}>
           <Box sx={{ textAlign: "center" }}>
-            <Title size={48}>Artist</Title>
+            <Title size={48}>Artists</Title>
 
             <Text>Showing a list of talented artists all over the world</Text>
           </Box>
@@ -47,7 +47,7 @@ export default function Artist() {
       <Box>
         <Box py={155} className={classes.banner}>
           <Box sx={{ textAlign: "center" }}>
-            <Title size={48}>Artist</Title>
+            <Title size={48}>Artists</Title>
 
             <Text>Showing a list of talented artists all over the world</Text>
           </Box>
