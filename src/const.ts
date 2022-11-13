@@ -1,5 +1,5 @@
 export const YOUTUBE_VIDEO =
-  "https://youtu.be/AhyqQeS-xj4";
+  "https://www.youtube.com/embed/AhyqQeS-xj4";
 
 export const CONTRACT_ADDRESS = "0xFf32dA47e3088e49710536570595DcCB58dfF853";
 
