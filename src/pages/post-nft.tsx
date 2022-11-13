@@ -158,7 +158,7 @@ export default function PostNFT() {
               align={"center"}
               justify={"center"}
             >
-              <Title>Post NFT</Title>
+              <Title>List NFT (COA)</Title>
             </Stack>
           </Center>
           <Center>
