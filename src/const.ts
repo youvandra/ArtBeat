@@ -1,7 +1,7 @@
 export const YOUTUBE_VIDEO =
   "https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0?autoplay=1&mute=0";
 
-export const CONTRACT_ADDRESS = "0xb1718C91cbad5351b225Beee19Ce801aC28AA9E6";
+export const CONTRACT_ADDRESS = "0xFf32dA47e3088e49710536570595DcCB58dfF853";
 
 export const PINATA_KEY = "e5df88edb6306b65087b";
 
