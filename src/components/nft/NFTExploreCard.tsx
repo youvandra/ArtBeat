@@ -26,7 +26,7 @@ export default function NFTExploreCard({ metadata, price, tokenId }: NFT) {
         </Text>
       </Box>
       <Group mt={"lg"} position="apart">
-        <Text weight={"bold"}>{price} BBT</Text>
+        <Text weight={"bold"}>{price} BTT</Text>
         <Button component={NextLink} href={`/artwork/${tokenId}`} size="xs">
           Details
         </Button>
