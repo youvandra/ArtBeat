@@ -1,12 +1,12 @@
 export const YOUTUBE_VIDEO =
   "https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0?autoplay=1&mute=0";
 
-export const CONTRACT_ADDRESS = "0x2480aEA0FfABcF3bb8b92E6819B4201717f68BF4";
+export const CONTRACT_ADDRESS = "0xb1718C91cbad5351b225Beee19Ce801aC28AA9E6";
 
-export const PINATA_KEY = "adcd2f6925a3ad5af235";
+export const PINATA_KEY = "e5df88edb6306b65087b";
 
 export const PINATA_SECRET =
-  "01360437e92b8943c5f7483344d03be0194004554d79615aec26cdec5cb007b7";
+  "99dde5bc2aa012cf2c22fb10bcaf4cedd1d83550d5b2f95db8d8ffc8b7797d4a";
 
 export const CHAIN_ID = "0x405";
 
