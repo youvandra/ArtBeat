@@ -28,5 +28,6 @@ run command :
 npm install command
 npx prisma generate
 npm run dev
-
 ```
+
+## go to localhost:3000 in your browser
