@@ -10,6 +10,15 @@ Open project folder
 cd Artbeat/
 ```
 
+## Set your network on metamask with BTTC Testnet
+
+Network name : BitTorrent Chain Donau
+RPC : https://pre-rpc.bt.io/
+Chain ID : 1029
+Symbol : BTT
+Block Explorer : https://testscan.bt.io
+
+
 ## Set .env file
 
 DATABASE_URL: your prisma database connection url more info here (I recommend using planetscale its easy and free)
