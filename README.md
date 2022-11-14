@@ -30,4 +30,4 @@ npx prisma generate
 npm run dev
 ```
 
-## go to localhost:3000 in your browser
+## Go to localhost:3000 in your browser
