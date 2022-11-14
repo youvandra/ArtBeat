@@ -18,7 +18,8 @@ NEXTAUTH_SECRET=a random string to hash session tokens
 
 NEXTAUTH_URL=localhost:3000
 
-How to run locally: 
+## How to run locally: 
+
 After setting up the .env file:
 
 run command : 
