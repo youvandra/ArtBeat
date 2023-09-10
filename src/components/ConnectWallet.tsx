@@ -49,7 +49,8 @@ export default function ConnectWallet() {
   async function handleNetworkChange() {
     await switchChain(CHAIN_ID)
       .catch(async (err) => {
-        if (err.code === 4902) await addChain(CHAIN_PARAMS);
+        if (err.code === 4902)
+          await addChain(CHAIN_PARAMS).then(() => switchChain(CHAIN_ID));
       })
       .then(() => {
         router.reload();

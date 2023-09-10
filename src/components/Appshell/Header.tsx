@@ -117,7 +117,7 @@ function Navitem({
           sx={{
             height: 2,
             width: "70%",
-            backgroundColor: "#C4811C",
+            backgroundColor: "#84A98C",
             position: "absolute",
             right: 0,
           }}
@@ -170,4 +170,6 @@ const LINKS: NavItemType[] = [
   { label: "Event", link: "/event" },
   { label: "Museum", link: "/museum" },
   { label: "Explore", link: "/explore" },
+  { label: "Minting", link: "/minting" },
+  { label: "Auction", link: "/auction" },
 ];

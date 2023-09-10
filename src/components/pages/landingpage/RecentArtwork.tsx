@@ -60,40 +60,14 @@ export default function RecentArtwork() {
       });
   }, []);
   return (
-    <Box my={96} px={"xl"}>
-      <Center>
-        <Paper
-          mx={"auto"}
-          radius={"lg"}
-          p="md"
-          shadow={"xl"}
-          mt={-48 - 128}
-          className={classes.filter}
-        >
-          <Group className={classes.filterContainer} spacing={72}>
-            <Title order={2}>
-              <span style={{ color: "#C4811C" }}>Art</span> by categories
-            </Title>
-            <Group position={"center"}>
-              <Button radius={"md"} compact variant="outline">
-                Paintings
-              </Button>
-              <Button radius={"md"} compact variant="outline">
-                Photographs
-              </Button>
-              <Button radius={"md"} compact variant="outline">
-                Sculptures
-              </Button>
-            </Group>
-          </Group>
-        </Paper>
-      </Center>
-      <Group position="apart">
-        <Title my={"xl"} size={36} order={2}>
-          <span style={{ color: "#C4811C" }}>Latest</span> Artworks
+    <Box py={96} px={"xl"} style={{ backgroundColor: "#354F52" }}>
+      <Group position="apart" mb={36}>
+        <Title color="white" size={36} order={2}>
+          <span style={{ color: "#65E4A3" }}>Special Artworks</span> From Local
+          Artist
         </Title>
         <Text
-          sx={{ color: "#C4811C" }}
+          sx={{ color: "#65E4A3", fontFamily: "Libre Baskerville" }}
           component={NextLink}
           href="/explore"
           variant="link"

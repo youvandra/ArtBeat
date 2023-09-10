@@ -1,5 +1,4 @@
-export const YOUTUBE_VIDEO =
-  "https://www.youtube.com/embed/AhyqQeS-xj4";
+export const YOUTUBE_VIDEO = "https://www.youtube.com/embed/AhyqQeS-xj4";
 
 export const CONTRACT_ADDRESS = "0xFf32dA47e3088e49710536570595DcCB58dfF853";
 
@@ -15,6 +14,6 @@ export const CHAIN_PARAMS = {
   chainId: CHAIN_ID,
   nativeCurrency: { name: "BTT", decimals: 18, symbol: "BTT" },
   rpcUrls: ["https://pre-rpc.bt.io/"],
-  blockExplorerUrls: ["https://testscan.bt.io"],
+  blockExplorerUrls: ["https://testnet.bttcscan.com"],
   iconUrls: ["https://static.bt.io/production/logo/1002000.png"],
 };

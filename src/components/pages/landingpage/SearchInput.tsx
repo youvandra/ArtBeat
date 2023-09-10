@@ -8,13 +8,13 @@ export default function SearchInput() {
       styles={{
         wrapper: {
           maxWidth: 250,
-          border: "1px solid #DDAB46",
+          border: "1px solid #84A98C",
           borderRadius: 24,
         },
         input: { color: "white" },
       }}
       placeholder="Abstarct Painting"
-      icon={<MdSearch color="white" size={24} />}
+      icon={<MdSearch color="#84A98C" size={24} />}
       name="art search"
     />
   );

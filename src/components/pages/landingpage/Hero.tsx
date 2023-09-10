@@ -16,7 +16,7 @@ const useStyles = createStyles((t) => ({
   container: {
     color: "white",
     position: "relative",
-    backgroundColor: "#111",
+    backgroundColor: "#354F52",
     paddingTop: 64 + 72,
     paddingLeft: t.spacing.xl,
     paddingRight: t.spacing.xl,
@@ -43,12 +43,13 @@ export default function Hero() {
   const { classes } = useStyles();
   return (
     <SimpleGrid className={classes.container} cols={2}>
-      <Overlay zIndex={0} opacity={0.6} color="#000" />
       <Stack align={"start"} sx={{ zIndex: 1 }}>
-        <Title className={classes.heading}>Break the Limits</Title>
+        <Title className={classes.heading}>
+          Local Artwork, <br /> Globe Inspiring
+        </Title>
         <Text size={"md"}>
-        Curated art marketplace that helps you discover 
-        and buy authentic artworks across the globe
+          Curated art marketplace that helps you discover and buy authentic
+          artworks also helping to advance small businesses
         </Text>{" "}
         <Text
           variant="link"
