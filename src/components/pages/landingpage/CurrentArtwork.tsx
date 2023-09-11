@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Box,
   Center,
@@ -7,10 +8,13 @@ import {
   createStyles,
   useMantineTheme,
 } from "@mantine/core";
-import RecentArtworkCarousel from "./lib/Carousel/RecentArtworkCarousel";
+import { showNotification } from "@mantine/notifications";
 import { Carousel } from "@mantine/carousel";
-import { Image } from "@mantine/core";
+import RecentArtworkCarousel from "./lib/Carousel/RecentArtworkCarousel";
 import CurrentArtworkCard from "./lib/CurrentArtworkCard/CurrentArtworkCard";
+import { NFT } from "../../nft/NFTExploreCard";
+import { _nfts } from "./RecentArtwork";
+import { getAllNFTs } from "../../../utils/getAllNFTs";
 
 const useStyles = createStyles((theme) => ({
   banner: {
@@ -29,6 +33,26 @@ const CurrentArtwork = () => {
   const theme = useMantineTheme();
   const { classes } = useStyles();
 
+  const [nfts, setNfts] = useState<NFT[]>(_nfts);
+  const [isFetching, setIsFetching] = useState(false);
+
+  useEffect(() => {
+    setIsFetching(true);
+    getAllNFTs()
+      .then((n) => {
+        setNfts(n);
+      })
+      .catch(() => {
+        showNotification({
+          message: "there was a problem fetching the NFTs",
+          color: "red",
+        });
+      })
+      .finally(() => {
+        setIsFetching(false);
+      });
+  }, []);
+
   return (
     <Box mt={96} className={classes.banner} py="5rem">
       <Container size={1760}>
@@ -42,9 +66,9 @@ const CurrentArtwork = () => {
         </Center>
         <Divider mb={60} />
         <RecentArtworkCarousel>
-          {[...Array(5)].map((_, id) => (
+          {nfts.map((nft, id) => (
             <Carousel.Slide key={id}>
-              <CurrentArtworkCard />
+              <CurrentArtworkCard {...nft} />
             </Carousel.Slide>
           ))}
         </RecentArtworkCarousel>

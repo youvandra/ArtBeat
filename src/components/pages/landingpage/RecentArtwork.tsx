@@ -37,7 +37,7 @@ const nft: NFT = {
   price: "$200000",
 };
 
-const _nfts = [...Array(5)].map(() => nft);
+export const _nfts = [...Array(5)].map(() => nft);
 
 export default function RecentArtwork() {
   const theme = useMantineTheme();
@@ -51,20 +51,20 @@ export default function RecentArtwork() {
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
-    // setIsFetching(true);
-    // getAllNFTs()
-    //   .then((n) => {
-    //     setNfts(n);
-    //   })
-    //   .catch(() => {
-    //     showNotification({
-    //       message: "there was a problem fetching the NFTs",
-    //       color: "red",
-    //     });
-    //   })
-    //   .finally(() => {
-    //     setIsFetching(false);
-    //   });
+    setIsFetching(true);
+    getAllNFTs()
+      .then((n) => {
+        setNfts(n);
+      })
+      .catch(() => {
+        showNotification({
+          message: "there was a problem fetching the NFTs",
+          color: "red",
+        });
+      })
+      .finally(() => {
+        setIsFetching(false);
+      });
   }, []);
   return (
     <Container size="xl" my={96}>

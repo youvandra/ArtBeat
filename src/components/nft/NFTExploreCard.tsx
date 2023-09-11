@@ -68,6 +68,7 @@ export default function NFTExploreCard({ metadata, price, tokenId }: NFT) {
             color: "white",
             fontFamily: theme.headings.fontFamily,
           }}
+          lineClamp={3}
         >
           {metadata.description}
         </Text>

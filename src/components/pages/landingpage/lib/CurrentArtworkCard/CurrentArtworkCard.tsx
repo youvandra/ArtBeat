@@ -1,8 +1,9 @@
 import { Avatar, Card, Group, Image, Text, ThemeIcon } from "@mantine/core";
 
 import { HiOutlineCheckBadge } from "react-icons/hi2";
+import { NFT } from "../../../../EventCard";
 
-const CurrentArtworkCard = () => {
+const CurrentArtworkCard = ({ metadata, ...nft }: NFT) => {
   return (
     <Card
       sx={{
@@ -11,13 +12,26 @@ const CurrentArtworkCard = () => {
       }}
     >
       <Card.Section>
-        <Image src="/artwork.png" height={200} />
+        <Image
+          src={metadata.image}
+          height={235}
+          sx={{ objectFit: "contain" }}
+        />
       </Card.Section>
 
       <Group mt="-1rem">
         <Avatar src={null} size={50} sx={{ borderRadius: 99999 }} />
-        <Text>Rick Wright</Text>
-        <HiOutlineCheckBadge size={30} color="#0DBBFC"/>
+        <Text
+          sx={{
+            maxWidth: 200,
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+          }}
+        >
+          {metadata.artist}
+        </Text>
+        <HiOutlineCheckBadge size={30} color="#0DBBFC" />
       </Group>
     </Card>
   );
