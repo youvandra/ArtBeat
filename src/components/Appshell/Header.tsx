@@ -8,6 +8,7 @@ import {
   Burger,
   Drawer,
   Stack,
+  Container,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { NextLink } from "@mantine/next";
@@ -70,34 +71,36 @@ export default function Header() {
           </Stack>
         </Drawer>
       )}
-      <Group position="apart">
-        <NextLink href={"/"}>
-          <Image width={39} height={52} src={"/Logo.png"} />
-        </NextLink>
-        <Group className={classes.onBig} spacing={40}>
-          {LINKS.map((props, i) =>
-            router.pathname === props.link ? (
-              <Navitem isActive key={i} {...props} />
-            ) : (
-              <Navitem key={i} {...props} />
-            )
-          )}
+      <Container size="xl">
+        <Group position="apart">
+          <NextLink href={"/"}>
+            <Image width={39} height={52} src={"/Logo.png"} />
+          </NextLink>
+          <Group className={classes.onBig} spacing={40}>
+            {LINKS.map((props, i) =>
+              router.pathname === props.link ? (
+                <Navitem isActive key={i} {...props} />
+              ) : (
+                <Navitem key={i} {...props} />
+              )
+            )}
+          </Group>
+          <Group spacing={"xl"}>
+            <ConnectWallet />
+            <Box className={classes.onBig}>
+              <MainUserButton />
+            </Box>
+            <Burger
+              color="white"
+              opened={opened}
+              onClick={() => {
+                toggle();
+              }}
+              className={classes.onSmall}
+            />
+          </Group>
         </Group>
-        <Group spacing={"xl"}>
-          <ConnectWallet />
-          <Box className={classes.onBig}>
-            <MainUserButton />
-          </Box>
-          <Burger
-            color="white"
-            opened={opened}
-            onClick={() => {
-              toggle();
-            }}
-            className={classes.onSmall}
-          />
-        </Group>
-      </Group>
+      </Container>
     </H>
   );
 }
@@ -114,13 +117,13 @@ function Navitem({
       </Text>
       {isActive && (
         <Box
-          sx={{
+          sx={(theme) => ({
             height: 2,
             width: "70%",
-            backgroundColor: "#C4811C",
+            backgroundColor: theme.colors["ocean-blue"][0],
             position: "absolute",
             right: 0,
-          }}
+          })}
         />
       )}
     </Box>

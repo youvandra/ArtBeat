@@ -1,20 +1,31 @@
-import { TextInput } from "@mantine/core";
+import { TextInput, useMantineTheme } from "@mantine/core";
 import { MdSearch } from "react-icons/md";
 
 export default function SearchInput() {
+  const theme = useMantineTheme();
+
   return (
     <TextInput
       variant="unstyled"
       styles={{
         wrapper: {
           maxWidth: 250,
-          border: "1px solid #DDAB46",
+          border: `1px solid ${theme.colors["ocean-blue"][0]}`,
           borderRadius: 24,
         },
-        input: { color: "white" },
+        input: {
+          color: "white",
+          fontWeight: 500,
+        },
       }}
       placeholder="Abstarct Painting"
-      icon={<MdSearch color="white" size={24} />}
+      icon={
+        <MdSearch
+          color="white"
+          size={24}
+          fill={theme.colors["ocean-blue"][0]}
+        />
+      }
       name="art search"
     />
   );

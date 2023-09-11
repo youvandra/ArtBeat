@@ -1,4 +1,4 @@
-import { MantineThemeOverride } from "@mantine/core";
+import { ButtonStylesParams, MantineThemeOverride } from "@mantine/core";
 
 const theme: MantineThemeOverride = {
   colorScheme: "light",
@@ -17,7 +17,43 @@ const theme: MantineThemeOverride = {
       "#C4811C",
       "#483420",
     ],
+    "ocean-blue": [
+      // dark
+      "#84A98C",
+      // light
+      "#65E4A3",
+      "#3fdd95",
+      // main
+      "#354F52",
+      "#52796F",
+      "#1b9871",
+      "#67e4a4",
+      "#0f6c57",
+      "#034239",
+      "#0f6c26",
+    ],
+    straw: ["#DDAB46"],
   },
   primaryColor: "brand",
+  components: {
+    Button: {
+      styles: (theme, params: ButtonStylesParams) => {
+        return {
+          root: {
+            backgroundColor:
+              params.variant == "filled"
+                ? theme.colors["ocean-blue"][1]
+                : undefined,
+            ":hover": {
+              backgroundColor:
+                params.variant == "filled"
+                  ? theme.colors["ocean-blue"][2]
+                  : undefined,
+            },
+          },
+        };
+      },
+    },
+  },
 };
 export default theme;

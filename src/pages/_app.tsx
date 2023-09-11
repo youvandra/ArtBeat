@@ -1,6 +1,6 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, MantineThemeOverride } from "@mantine/core";
 import Appshell from "../components/Appshell/Appshell";
 import theme from "../utils/theme";
 import { Global } from "@emotion/react";
@@ -32,6 +32,13 @@ function App(props: AppProps<{ session: any }>) {
                 styles={[
                   `@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');`,
                 ]}
+              />
+              <Global
+                styles={(theme: MantineThemeOverride) => ({
+                  body: {
+                    backgroundColor: theme.colors["ocean-blue"][3],
+                  },
+                })}
               />
               <Appshell>
                 <Component {...pageProps} />

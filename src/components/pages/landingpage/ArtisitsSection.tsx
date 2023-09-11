@@ -2,7 +2,7 @@ import { Carousel } from "@mantine/carousel";
 import { Box, Center, createStyles, Loader, Title } from "@mantine/core";
 import { trpc } from "../../../utils/trpc";
 import ArtistCard from "./ArtistCard";
-import CustomCarousel from "./CustomCarousel";
+import CustomCarousel from "./lib/Carousel/RecentArtworkCarousel";
 
 const useStyles = createStyles((t) => ({
   banner: {
@@ -13,6 +13,7 @@ const useStyles = createStyles((t) => ({
     backgroundPositionY: "50%",
     position: "relative",
     color: "white",
+    minHeight: 720,
   },
 }));
 

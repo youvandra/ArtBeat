@@ -2,35 +2,87 @@ import {
   Box,
   Button,
   Card,
+  Center,
+  Divider,
   Group,
   Image,
+  Space,
   Stack,
   Text,
   Title,
+  useMantineTheme,
 } from "@mantine/core";
 import { NextLink } from "@mantine/next";
 
+import MintingIcon from "../icons/MintingIcon";
+
 export default function NFTExploreCard({ metadata, price, tokenId }: NFT) {
+  const theme = useMantineTheme();
+
   return (
-    <Card shadow="md" p="sm" radius="md">
-      <Card.Section>
-        <Image src={metadata.image} height={160} />
+    <Card
+      shadow="md"
+      p="lg"
+      radius="md"
+      sx={{
+        width: 290,
+        minHeight: 450,
+        background: "transparent",
+        border: "1px solid white",
+      }}
+    >
+      <Card.Section sx={{ padding: "1rem" }}>
+        <Image src={metadata.image} />
       </Card.Section>
 
       <Box>
-        <Title mt={"xl"} color={"brand"} size={18} order={3}>
+        <Text
+          color={theme.colors["ocean-blue"][1]}
+          size={18}
+          sx={{
+            fontFamily: theme.headings.fontFamily,
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            maxWidth: 248,
+          }}
+        >
           {metadata.title}
-        </Title>
-        <Text mt={4} size={"sm"}>
-          Art by: {metadata.artist}
         </Text>
       </Box>
-      <Group mt={"lg"} position="apart">
-        <Text weight={"bold"}>{price} BTT</Text>
-        <Button component={NextLink} href={`/artwork/${tokenId}`} size="xs">
-          Details
-        </Button>
+      <Group mt="xl">
+        <Stack
+          spacing="xs"
+          sx={{ color: "white", fontFamily: theme.headings.fontFamily }}
+        >
+          <Text>Price</Text>
+          <Text sx={{ color: theme.colors.straw[0] }}>{price}</Text>
+        </Stack>
+        {/* <Space w="md" /> */}
+
+        <Divider orientation="vertical" />
+        <Text
+          sx={{
+            maxWidth: 144,
+            fontSize: 16,
+            color: "white",
+            fontFamily: theme.headings.fontFamily,
+          }}
+        >
+          {metadata.description}
+        </Text>
       </Group>
+
+      <Center mt="xl">
+        <Button
+          leftIcon={<MintingIcon />}
+          variant="filled"
+          sx={{ fontFamily: theme.headings.fontFamily, color: theme.colors["ocean-blue"][3] }}
+          
+        >
+          Mint Now
+        </Button>
+      </Center>
     </Card>
   );
 }

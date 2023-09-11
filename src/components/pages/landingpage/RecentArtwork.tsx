@@ -1,119 +1,128 @@
-import { Carousel } from "@mantine/carousel";
+import { useEffect, useState } from "react";
+
+import { useMediaQuery } from "@mantine/hooks";
 import {
   Box,
-  Button,
   Center,
-  createStyles,
+  Container,
   Group,
   Loader,
-  Paper,
-  SimpleGrid,
+  Stack,
   Text,
   Title,
+  useMantineTheme,
 } from "@mantine/core";
+import { Carousel } from "@mantine/carousel";
 import { NextLink } from "@mantine/next";
 import { showNotification } from "@mantine/notifications";
-import { useEffect, useState } from "react";
-import { getAllNFTs } from "../../../utils/getAllNFTs";
-import NFTExploreCard, { NFT } from "../../nft/NFTExploreCard";
-import RecentArtworkCarousel from "./CustomCarousel";
 
-const useStyles = createStyles((t) => ({
-  container: { position: "relative" },
-  filter: {
-    position: "absolute",
-    alignSelf: "center",
-    [t.fn.smallerThan("md")]: {
-      marginLeft: 16,
-      marginRight: 16,
-    },
+import NFTExploreCard, { NFT } from "../../nft/NFTExploreCard";
+import RecentArtworkCarousel from "./lib/Carousel/RecentArtworkCarousel";
+
+import CirclePattern from "../../icons/CirclePattern";
+
+import { getAllNFTs } from "../../../utils/getAllNFTs";
+
+const nft: NFT = {
+  tokenId: "random01",
+  // @ts-ignore
+  metadata: {
+    artist: "random01",
+    image: "https://placehold.co/253x258",
+    title: "A Beautiful Art From Heaven",
+    price: "$200000",
+    year: "2022",
+    description: "A painted compass shoe inspired by west java batik",
   },
-  filterContainer: {
-    [t.fn.smallerThan("md")]: {
-      flexDirection: "column",
-      gap: 16,
-      justifyContent: "center",
-      alignItems: "center",
-    },
-  },
-}));
+  price: "$200000",
+};
+
+const _nfts = [...Array(5)].map(() => nft);
 
 export default function RecentArtwork() {
-  const { classes } = useStyles();
-  const [nfts, setNfts] = useState<NFT[]>([]);
+  const theme = useMantineTheme();
+  const isGreaterThanTabletViewport = useMediaQuery(
+    `(min-width: ${theme.breakpoints.md}px)`,
+    true,
+    { getInitialValueInEffect: false }
+  );
+
+  const [nfts, setNfts] = useState<NFT[]>(_nfts);
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
-    setIsFetching(true);
-    getAllNFTs()
-      .then((n) => {
-        setNfts(n);
-      })
-      .catch(() => {
-        showNotification({
-          message: "there was a problem fetching the NFTs",
-          color: "red",
-        });
-      })
-      .finally(() => {
-        setIsFetching(false);
-      });
+    // setIsFetching(true);
+    // getAllNFTs()
+    //   .then((n) => {
+    //     setNfts(n);
+    //   })
+    //   .catch(() => {
+    //     showNotification({
+    //       message: "there was a problem fetching the NFTs",
+    //       color: "red",
+    //     });
+    //   })
+    //   .finally(() => {
+    //     setIsFetching(false);
+    //   });
   }, []);
   return (
-    <Box my={96} px={"xl"}>
-      <Center>
-        <Paper
-          mx={"auto"}
-          radius={"lg"}
-          p="md"
-          shadow={"xl"}
-          mt={-48 - 128}
-          className={classes.filter}
-        >
-          <Group className={classes.filterContainer} spacing={72}>
-            <Title order={2}>
-              <span style={{ color: "#C4811C" }}>Art</span> by categories
-            </Title>
-            <Group position={"center"}>
-              <Button radius={"md"} compact variant="outline">
-                Paintings
-              </Button>
-              <Button radius={"md"} compact variant="outline">
-                Photographs
-              </Button>
-              <Button radius={"md"} compact variant="outline">
-                Sculptures
-              </Button>
-            </Group>
-          </Group>
-        </Paper>
-      </Center>
-      <Group position="apart">
-        <Title my={"xl"} size={36} order={2}>
-          <span style={{ color: "#C4811C" }}>Latest</span> Artworks
-        </Title>
-        <Text
-          sx={{ color: "#C4811C" }}
-          component={NextLink}
-          href="/explore"
-          variant="link"
-        >
-          See All
-        </Text>
-      </Group>
-      {isFetching ? (
-        <Center mt={"xl"}>
-          <Loader />
-        </Center>
-      ) : (
-        <RecentArtworkCarousel>
-          {nfts.reverse().map((nft, i) => (
-            <Carousel.Slide key={i}>
-              <NFTExploreCard {...nft} />
-            </Carousel.Slide>
-          ))}
-        </RecentArtworkCarousel>
-      )}
-    </Box>
+    <Container size="xl" my={96}>
+      <Stack spacing={50}>
+        <Group position="apart" sx={{ borderBottom: "1px solid white" }}>
+          <Title size={36} order={2} sx={{ color: "white" }}>
+            <Box<"span">
+              component="span"
+              sx={{
+                color: theme.colors["ocean-blue"][1],
+                position: "relative",
+              }}
+            >
+              Special Artworks{" "}
+              {isGreaterThanTabletViewport && (
+                <Box
+                  sx={{
+                    position: "absolute",
+                    width: "90%",
+                    borderBottom: `1px solid ${theme.colors["ocean-blue"][1]}`,
+                  }}
+                />
+              )}
+            </Box>{" "}
+            From Local Artist
+          </Title>
+          <Text
+            component={NextLink}
+            href="/explore"
+            variant="link"
+            sx={{
+              fontFamily: theme.headings.fontFamily,
+              color: theme.colors["ocean-blue"][1],
+              fontSize: 28,
+            }}
+          >
+            See All
+          </Text>
+        </Group>
+        {isFetching ? (
+          <Center mt={"xl"}>
+            <Loader />
+          </Center>
+        ) : (
+          <Box sx={{ position: "relative" }}>
+            <CirclePattern
+              sx={{ position: "absolute", right: 0, top: "-5rem" }}
+            />
+            <RecentArtworkCarousel>
+              {nfts.reverse().map((nft, i) => (
+                <Carousel.Slide key={i}>
+                  <NFTExploreCard {...nft} />
+                </Carousel.Slide>
+              ))}
+            </RecentArtworkCarousel>
+          </Box>
+        )}
+      </Stack>
+    </Container>
   );
 }

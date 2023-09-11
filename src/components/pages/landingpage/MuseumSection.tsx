@@ -2,6 +2,7 @@ import { Carousel } from "@mantine/carousel";
 import {
   Box,
   Center,
+  Container,
   createStyles,
   Group,
   Loader,
@@ -10,7 +11,7 @@ import {
 } from "@mantine/core";
 import { NextLink } from "@mantine/next";
 import { trpc } from "../../../utils/trpc";
-import CustomCarousel from "./CustomCarousel";
+import CustomCarousel from "./lib/Carousel/RecentArtworkCarousel";
 import MuseumCard from "./MuseumCard";
 
 const useStyles = createStyles((t) => ({
@@ -24,7 +25,7 @@ const useStyles = createStyles((t) => ({
 export default function MuseumSection() {
   const { data, isInitialLoading } = trpc.museumRouter.getAll.useQuery();
   return (
-    <Box my={96} px={"xl"}>
+    <Container my={96}>
       <Group position="apart">
         <Title my={"xl"} size={36} order={2}>
           <span style={{ color: "#C4811C" }}>Museums</span>
@@ -58,6 +59,6 @@ export default function MuseumSection() {
             ))}
         </CustomCarousel>
       )}
-    </Box>
+    </Container>
   );
 }
