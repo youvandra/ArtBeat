@@ -1,14 +1,13 @@
+// _document.tsx
 import Document, { DocumentContext } from 'next/document';
 import { ServerStyles, createStylesServer } from '@mantine/next';
+import { emotionCache } from '../../emotion-cache';
 
-// optional: you can provide your cache as a first argument in createStylesServer function
-const stylesServer = createStylesServer();
+const stylesServer = createStylesServer(emotionCache);
 
 export default class _Document extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx);
-
-    // Add your app specific logic here
 
     return {
       ...initialProps,

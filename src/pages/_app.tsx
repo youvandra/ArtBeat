@@ -1,17 +1,27 @@
+import { NextPage } from "next";
+import { FC, ReactElement, ReactNode } from "react";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { MantineProvider, MantineThemeOverride } from "@mantine/core";
-import Appshell from "../components/Appshell/Appshell";
 import theme from "../utils/theme";
 import { Global } from "@emotion/react";
 import { trpc } from "../utils/trpc";
 import { SessionProvider } from "next-auth/react";
 import { NotificationsProvider } from "@mantine/notifications";
-import Footer from "../components/Appshell/Footer";
 import { MetaMaskProvider } from "metamask-react";
+import { emotionCache } from "../../emotion-cache";
 
-function App(props: AppProps<{ session: any }>) {
+export type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+interface AppPropsExtended extends AppProps<{ session: any }> {
+  Component: NextPageWithLayout & FC;
+}
+
+function App(props: AppPropsExtended) {
   const { Component, pageProps } = props;
+  const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
     <>
@@ -24,30 +34,36 @@ function App(props: AppProps<{ session: any }>) {
         <link rel="shortcut icon" href="/Logo.png" type="image/x-icon" />
       </Head>
 
-      <SessionProvider session={pageProps.session}>
-        <MetaMaskProvider>
-          <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
-            <NotificationsProvider>
-              <Global
-                styles={[
-                  `@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');`,
-                ]}
-              />
-              <Global
-                styles={(theme: MantineThemeOverride) => ({
-                  body: {
-                    backgroundColor: theme.colors["ocean-blue"][3],
-                  },
-                })}
-              />
-              <Appshell>
-                <Component {...pageProps} />
-                <Footer />
-              </Appshell>
-            </NotificationsProvider>
-          </MantineProvider>
-        </MetaMaskProvider>
-      </SessionProvider>
+      <div>
+        <SessionProvider session={pageProps.session}>
+          <MetaMaskProvider>
+            <MantineProvider
+              withGlobalStyles
+              withNormalizeCSS
+              theme={{
+                ...theme,
+              }}
+              emotionCache={emotionCache}
+            >
+              <NotificationsProvider>
+                <Global
+                  styles={[
+                    `@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');`,
+                  ]}
+                />
+                <Global
+                  styles={(theme: MantineThemeOverride) => ({
+                    body: {
+                      backgroundColor: theme.colors["ocean-blue"][3],
+                    },
+                  })}
+                />
+                {getLayout(<Component {...pageProps.session} {...pageProps} />)}
+              </NotificationsProvider>
+            </MantineProvider>
+          </MetaMaskProvider>
+        </SessionProvider>
+      </div>
     </>
   );
 }
