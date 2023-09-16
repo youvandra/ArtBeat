@@ -17,12 +17,12 @@ const useStyles = createStyles((theme) => ({
   container: {
     color: "white",
     position: "relative",
-    paddingTop: 64 + 72,
+    paddingTop: '10rem',
     paddingBottom: 155,
     display: "flex",
     [theme.fn.largerThan("md")]: {
       display: "grid",
-      gridColumn: "1f 1fr",
+      // gridColumn: "1f 1fr",
       paddingTop: 64 + 155,
     },
   },

@@ -16,7 +16,18 @@ const AuctionSection = () => {
       <CircleCurlPattern sx={{ position: "absolute", bottom: 0 }} />
 
       <Center>
-        <SimpleGrid cols={2}>
+        <SimpleGrid
+          breakpoints={[
+            {
+              maxWidth: "md",
+              cols: 1,
+            },
+            {
+              minWidth: "md",
+              cols: 2,
+            },
+          ]}
+        >
           <Image
             src={AuctionSample1.src}
             width={405}

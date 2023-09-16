@@ -34,7 +34,7 @@ const theme: MantineThemeOverride = {
     ],
     straw: ["#DDAB46"],
   },
-  primaryColor: "brand",
+  primaryColor: "ocean-blue",
   components: {
     Button: {
       styles: (theme, params: ButtonStylesParams) => {
@@ -49,6 +49,20 @@ const theme: MantineThemeOverride = {
                 params.variant == "filled"
                   ? theme.colors["ocean-blue"][2]
                   : undefined,
+            },
+          },
+        };
+      },
+    },
+    Input: {
+      styles: (theme) => {
+        return {
+          input: {
+            color: theme.colors["ocean-blue"][8],
+            fontWeight: 500,
+            borderColor: theme.colors["ocean-blue"][4],
+            ":focus": {
+              borderColor: theme.colors["ocean-blue"][8],
             },
           },
         };

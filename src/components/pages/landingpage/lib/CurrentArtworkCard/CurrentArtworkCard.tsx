@@ -11,6 +11,8 @@ import {
 
 // import { HiOutlineCheckBadge } from "react-icons/hi2";
 import { NFT } from "../../../../EventCard";
+import { Styles } from "../../../../../const";
+import { AiOutlineArrowRight } from "react-icons/ai";
 
 const CurrentArtworkCard = ({ metadata, ...nft }: NFT) => {
   const theme = useMantineTheme();
@@ -39,10 +41,8 @@ const CurrentArtworkCard = ({ metadata, ...nft }: NFT) => {
         <Text
           size={20}
           sx={{
+            ...Styles.TRUNCATE,
             maxWidth: 285,
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
             color: theme.colors["ocean-blue"][3],
             fontWeight: 700,
             fontFamily: theme.headings.fontFamily,
@@ -54,11 +54,17 @@ const CurrentArtworkCard = ({ metadata, ...nft }: NFT) => {
         <Text>Art by: {metadata.artist}</Text>
       </Stack>
 
-      <Space h="xl"/>
+      <Space h="xl" />
 
       <Group position="apart">
-        <Text weight={700}>{nft.price} BTT</Text>
-        <Button>See Details</Button>
+        <Text>{nft.price}</Text>
+        <Button
+          variant="outline"
+          color="ocean-blue.3"
+          rightIcon={<AiOutlineArrowRight />}
+        >
+          See Details
+        </Button>
       </Group>
     </Card>
   );

@@ -17,3 +17,12 @@ export const CHAIN_PARAMS = {
   blockExplorerUrls: ["https://testnet.bttcscan.com"],
   iconUrls: ["https://static.bt.io/production/logo/1002000.png"],
 };
+
+export const Styles = {
+  PULL_IMG_COVER: 84,
+  TRUNCATE: {
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap" as const,
+    overflow: "hidden",
+  },
+};

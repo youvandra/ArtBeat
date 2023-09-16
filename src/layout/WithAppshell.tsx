@@ -1,16 +1,12 @@
-import { ReactNode } from "react";
-
-import Appshell from "../components/Appshell/Appshell";
+import Appshell, {
+  AppShellExtendedProps,
+} from "../components/Appshell/Appshell";
 import Footer from "../components/Appshell/Footer";
 
-type WithAppshellProps = {
-  children: ReactNode;
-};
-
-const WithAppshell = (props: WithAppshellProps) => {
+const WithAppshell = ({ children, ...props }: AppShellExtendedProps) => {
   return (
-    <Appshell>
-      {props.children}
+    <Appshell {...props}>
+      {children}
       <Footer />
     </Appshell>
   );

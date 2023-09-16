@@ -9,27 +9,58 @@ import {
   Drawer,
   Stack,
   Container,
+  useMantineTheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { NextLink } from "@mantine/next";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import ConnectWallet from "../ConnectWallet";
 import MainUserButton from "../MainUserButton/MainUserButton";
 
-const useStyles = createStyles((t) => ({
-  header: { backgroundColor: "transparent", position: "absolute" },
-  onBig: { [t.fn.smallerThan("sm")]: { display: "none" } },
-  onSmall: { [t.fn.largerThan("sm")]: { display: "none" } },
+const useStyles = createStyles((theme, { transparent }: HeaderProps) => ({
+  header: {
+    backgroundColor: transparent
+      ? "transparent"
+      : theme.colors["ocean-blue"][3],
+    position: "relative",
+    height: "auto",
+    maxHeight: "fit-content",
+  },
+  onBig: { [theme.fn.smallerThan("sm")]: { display: "none" } },
+  onSmall: { [theme.fn.largerThan("sm")]: { display: "none" } },
 }));
 
-export default function Header() {
-  const { classes } = useStyles();
+type HeaderProps = {
+  transparent: boolean;
+};
+
+export default function Header(props: HeaderProps) {
+  const { classes } = useStyles(props);
   const router = useRouter();
   const [opened, { close, open, toggle }] = useDisclosure(false);
+
   useEffect(() => {
     close();
   }, [router.pathname]);
+
+  const isActiveRoute = useCallback(
+    (item: NavItemType) => {
+      const HOME = "Home";
+
+      if (router.pathname == "/" && item.label == HOME) {
+        return true;
+      }
+
+      if (router.pathname.startsWith(item.link) && item.label != HOME) {
+        return true;
+      }
+
+      return false;
+    },
+    [router.pathname]
+  );
+
   return (
     <H
       className={classes.header}
@@ -48,26 +79,16 @@ export default function Header() {
         >
           <Stack align={"start"}>
             <MainUserButton color="#111" />
-            {LINKS.map((props, i) =>
-              router.pathname === props.link ? (
-                <DrawerLink
-                  onClick={() => {
-                    close();
-                  }}
-                  isActive
-                  key={i}
-                  {...props}
-                />
-              ) : (
-                <DrawerLink
-                  onClick={() => {
-                    close();
-                  }}
-                  key={i}
-                  {...props}
-                />
-              )
-            )}
+            {LINKS.map((props, i) => (
+              <DrawerLink
+                onClick={() => {
+                  close();
+                }}
+                isActive={isActiveRoute(props)}
+                key={i}
+                {...props}
+              />
+            ))}
           </Stack>
         </Drawer>
       )}
@@ -77,13 +98,9 @@ export default function Header() {
             <Image width={39} height={52} src={"/Logo.png"} />
           </NextLink>
           <Group className={classes.onBig} spacing={40}>
-            {LINKS.map((props, i) =>
-              router.pathname === props.link ? (
-                <Navitem isActive key={i} {...props} />
-              ) : (
-                <Navitem key={i} {...props} />
-              )
-            )}
+            {LINKS.map((props, i) => (
+              <Navitem isActive={isActiveRoute(props)} key={i} {...props} />
+            ))}
           </Group>
           <Group spacing={"xl"}>
             <ConnectWallet />
@@ -136,6 +153,8 @@ function DrawerLink({
   isActive = false,
   onClick,
 }: NavItemType & { isActive?: boolean; onClick: () => void }) {
+  const theme = useMantineTheme();
+
   return (
     <Box sx={{ position: "relative", color: "#111" }}>
       <Text
@@ -152,7 +171,7 @@ function DrawerLink({
           sx={{
             height: 2,
             width: "70%",
-            backgroundColor: "#C4811C",
+            backgroundColor: theme.colors["ocean-blue"][0],
             position: "absolute",
             left: 0,
           }}

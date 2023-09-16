@@ -6,30 +6,60 @@ import {
   Image,
   Stack,
   Text,
-  Title,
+  createStyles,
   useMantineTheme,
 } from "@mantine/core";
 import { NextLink } from "@mantine/next";
 import { FaDiscord, FaTwitter, FaTelegramPlane } from "react-icons/fa";
 
+const useStyles = createStyles((theme) => ({
+  container: {
+    position: "relative",
+    overflow: "hidden",
+  },
+  circle: {
+    width: 581,
+    height: 598,
+    borderRadius: 999999,
+    border: `5rem solid ${theme.colors["ocean-blue"][4]}`,
+    position: "absolute",
+    top: 0,
+    right: -300,
+  },
+  copy: {
+    order: 2,
+    [theme.fn.largerThan("sm")]: {
+      order: 1,
+    },
+  },
+  terms: {
+    order: 1,
+    ".socials": {
+      justifyContent: "flex-start",
+    },
+    [theme.fn.largerThan("sm")]: {
+      order: 2,
+      ".socials": {
+        justifyContent: "flex-end",
+      },
+    },
+  },
+}));
+
 export default function Footer() {
   const theme = useMantineTheme();
+  const { classes } = useStyles();
 
   return (
-    <Box sx={{ position: "relative", overflow: "hidden" }}>
-      <Box
-        sx={{
-          width: 581,
-          height: 598,
-          borderRadius: 999999,
-          border: `5rem solid ${theme.colors["ocean-blue"][4]}`,
-          position: "absolute",
-          top: 0,
-          right: -300,
-        }}
-      />
+    <Box className={classes.container}>
+      <Box className={classes.circle} />
 
-      <Container size={1760}>
+      <Container
+        size={1760}
+        sx={{
+          position: "relative",
+        }}
+      >
         <Stack align={"start"} p={"xl"}>
           <Group align={"end"} sx={{ width: "100%" }} position="apart">
             <Stack align={"center"} spacing={0}>
@@ -47,11 +77,17 @@ export default function Footer() {
           </Group>
 
           <Group position="apart" align="flex-end" sx={{ width: "100%" }}>
-            <Text color="ocean-blue.0" size={"sm"}>
+            <Text color="ocean-blue.0" size={"sm"} className={classes.copy}>
               Copyright 2022 Artbeat. All rights reserved.
             </Text>
-            <Stack>
-              <Group position="right" spacing={"xl"} sx={{ color: "#818181" }}>
+            <Stack className={classes.terms}>
+              <Group
+                className="socials"
+                spacing={"xl"}
+                sx={{
+                  color: "#818181",
+                }}
+              >
                 {SOCIALS.map(({ Icon, link }, i) => (
                   <ActionIcon
                     size={"xl"}
@@ -65,7 +101,7 @@ export default function Footer() {
                   </ActionIcon>
                 ))}
               </Group>
-              <Group sx={{ position: "relative" }}>
+              <Group>
                 {LINKS.map(({ label, link }) => (
                   <Text
                     key={label}
