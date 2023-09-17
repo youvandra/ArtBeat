@@ -6,6 +6,7 @@ import { MdArrowBack, MdArrowForward } from "react-icons/md";
 
 export default function RecentArtworkCarousel({
   children,
+  styles,
   ...props
 }: {
   children: React.ReactNode;
@@ -40,6 +41,7 @@ export default function RecentArtworkCarousel({
           width: "calc(100% - 8rem)",
           margin: "0 auto",
         },
+        ...styles,
       }}
       align="start"
       nextControlIcon={<MdArrowForward size="1.25em" />}

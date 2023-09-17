@@ -11,8 +11,10 @@ import {
 
 const useStyles = createStyles((theme) => ({
   card: {
-    maxWidth: 263,
     minHeight: 342,
+    [theme.fn.largerThan("md")]: {
+      maxWidth: 263,
+    },
   },
   checkbox: {
     div: {

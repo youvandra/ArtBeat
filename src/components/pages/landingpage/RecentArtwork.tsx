@@ -99,6 +99,8 @@ export default function RecentArtwork() {
               fontFamily: theme.headings.fontFamily,
               color: theme.colors["ocean-blue"][1],
               fontSize: 28,
+              position: "relative",
+              zIndex: 2,
             }}
           >
             See All

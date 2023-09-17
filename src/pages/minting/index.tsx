@@ -55,10 +55,10 @@ const MintingPage = () => {
           }}
         />
         <Grid gutter="xl" mt="2rem">
-          <Grid.Col md={8}>
+          <Grid.Col md={8} order={2} orderMd={1}>
             <MintingCards mintingData={MINTING_DATA} />
           </Grid.Col>
-          <Grid.Col md={3}>
+          <Grid.Col md={3} order={1} orderMd={2}>
             <SideFilter />
           </Grid.Col>
         </Grid>

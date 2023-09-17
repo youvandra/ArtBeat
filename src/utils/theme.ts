@@ -48,6 +48,12 @@ const theme: MantineThemeOverride = {
               backgroundColor:
                 params.variant == "filled"
                   ? theme.colors["ocean-blue"][2]
+                  : params.variant == "subtle"
+                  ? "transparent"
+                  : undefined,
+              color:
+                params.variant == "subtle"
+                  ? theme.colors["ocean-blue"][5]
                   : undefined,
             },
           },
