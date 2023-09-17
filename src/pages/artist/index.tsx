@@ -11,7 +11,6 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import ArtistCard from "../../components/pages/artist/ArtistCard";
-import UnderconstructionComponent from "../../components/pages/UnderconsturctionComponent";
 import WithAppshell from "../../layout/WithAppshell";
 import { trpc } from "../../utils/trpc";
 import { Styles } from "../../const";
@@ -78,11 +77,7 @@ const Artist = () => {
 };
 
 const Page = () => {
-  if (process.env.NODE_ENV == "development") {
-    return <Artist />;
-  }
-
-  return <UnderconstructionComponent />;
+  return <Artist />;
 };
 
 Page.getLayout = (page) => (

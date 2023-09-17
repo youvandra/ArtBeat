@@ -13,7 +13,6 @@ import AppliedFilters from "../components/pages/explore/AppliedFilters";
 import Filters from "../components/pages/explore/Filters";
 import Pagination from "../components/pages/explore/Pagination";
 import TopFilters from "../components/pages/explore/TopFilters";
-import UnderconstructionComponent from "../components/pages/UnderconsturctionComponent";
 import { NextPageWithLayout } from "./_app";
 
 import { useEffect, useState } from "react";
@@ -114,11 +113,7 @@ function Explore() {
 }
 
 const Page: NextPageWithLayout = () => {
-  if (process.env.NODE_ENV == "development") {
-    return <Explore />;
-  }
-
-  return <UnderconstructionComponent />;
+  return <Explore />;
 };
 
 Page.getLayout = (page) => (

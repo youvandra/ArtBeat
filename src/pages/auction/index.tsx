@@ -210,11 +210,7 @@ const AuctionPage = () => {
 };
 
 const Page: NextPageWithLayout = () => {
-  if (process.env.NODE_ENV == "development") {
-    return <AuctionPage />;
-  }
-
-  return <UnderconstructionComponent />;
+  return <AuctionPage />;
 };
 
 Page.getLayout = (page) => (

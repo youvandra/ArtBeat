@@ -72,11 +72,7 @@ const MintingPage = () => {
 };
 
 const Page: NextPageWithLayout = () => {
-  if (process.env.NODE_ENV == "development") {
-    return <MintingPage />;
-  }
-
-  return <UnderconstructionComponent />;
+  return <MintingPage />;
 };
 
 Page.getLayout = (page) => <WithAppshell>{page}</WithAppshell>;

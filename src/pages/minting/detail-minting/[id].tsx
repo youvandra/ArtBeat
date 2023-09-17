@@ -1,6 +1,5 @@
 import { NextPageWithLayout } from "../../_app";
 
-import UnderconstructionComponent from "../../../components/pages/UnderconsturctionComponent";
 import WithAppshell from "../../../layout/WithAppshell";
 import { Button, Container, createStyles } from "@mantine/core";
 import { AiOutlineArrowLeft } from "react-icons/ai";
@@ -39,11 +38,7 @@ const DetailMinting = () => {
 };
 
 const Page: NextPageWithLayout = () => {
-  if (process.env.NODE_ENV == "development") {
-    return <DetailMinting />;
-  }
-
-  return <UnderconstructionComponent />;
+  return <DetailMinting />;
 };
 
 Page.getLayout = (page) => <WithAppshell>{page}</WithAppshell>;

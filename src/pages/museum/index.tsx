@@ -137,11 +137,7 @@ function Museum() {
 }
 
 const Page: NextPageWithLayout = () => {
-  if (process.env.NODE_ENV == "development") {
-    return <Museum />;
-  }
-
-  return <UnderconstructionComponent />;
+  return <Museum />;
 };
 
 Page.getLayout = (page) => (

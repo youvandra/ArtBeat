@@ -8,7 +8,6 @@ import Hero from "../components/pages/landingpage/Hero";
 import RecentArtwork from "../components/pages/landingpage/RecentArtwork";
 import AuctionSection from "../components/pages/landingpage/AuctionSection";
 import CurrentArtwork from "../components/pages/landingpage/CurrentArtwork";
-import UnderconstructionComponent from "../components/pages/UnderconsturctionComponent";
 
 import WithAppshell from "../layout/WithAppshell";
 
@@ -26,18 +25,6 @@ const Landingpage: NextPageWithLayout = () => {
   );
 };
 
-// Landingpage.getLayout = (page) => <WithAppshell>{page}</WithAppshell>;
+Landingpage.getLayout = (page) => <WithAppshell>{page}</WithAppshell>;
 
-// export default Landingpage;
-
-const Page = () => {
-  if (process.env.NODE_ENV == "development") {
-    return <Landingpage />;
-  }
-  
-  return <UnderconstructionComponent />;
-};
-
-Page.getLayout = (page) => <WithAppshell>{page}</WithAppshell>;
-
-export default Page;
+export default Landingpage;
