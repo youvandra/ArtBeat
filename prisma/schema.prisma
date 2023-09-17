@@ -2,76 +2,69 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "mysql"
-  url = env("DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
   referentialIntegrity = "prisma"
 }
 
-
 model Museum {
-  id        String   @id @default(cuid())
-  name String
-  description String @db.MediumText
-  address String
-  phone String
-  website String
-  mainImage String
-  image1 String
-  image2  String
-  tokenIds TokenId[]
+  id          String    @id @default(cuid())
+  name        String
+  description String    @db.MediumText
+  address     String
+  phone       String
+  website     String
+  mainImage   String
+  image1      String
+  image2      String
+  tokenIds    TokenId[]
 }
 
-model TokenId{
-  id Int @id
-  museum Museum? @relation(fields: [museumId],references: [id])
+model TokenId {
+  id       Int     @id
+  museum   Museum? @relation(fields: [museumId], references: [id])
   museumId String?
 
-  artist ArtistProfile @relation(fields: [artistId],references: [id])
+  artist   ArtistProfile @relation(fields: [artistId], references: [id])
   artistId String
-
-
-
 }
-
 
 model Event {
-  id        String   @id @default(cuid())
-  name String
-  address String
+  id          String @id @default(cuid())
+  name        String
+  address     String
   description String @db.MediumText
-  date String
-  time String
-  mainImage String
-  image1 String
-  image2  String
+  date        String
+  time        String
+  mainImage   String
+  image1      String
+  image2      String
   ticketPrice Int
-  
 }
 
-
 model Award {
-  id String @id @default(cuid())
-  name String
-  artist ArtistProfile @relation(fields: [artistId],references: [id])
+  id       String        @id @default(cuid())
+  name     String
+  artist   ArtistProfile @relation(fields: [artistId], references: [id])
   artistId String
 }
 
 model ArtistProfile {
-  id String @id
-  user User @relation(fields: [id],references: [id],onDelete: Cascade)
-  description String @db.MediumText
-  facebook String?
-  twitter String?
-  instagram String?
-  followers Int
-  awards Award[]
+  id          String    @id
+  user        User      @relation(fields: [id], references: [id], onDelete: Cascade)
+  description String    @db.MediumText
+  facebook    String?
+  twitter     String?
+  instagram   String?
+  followers   Int
+  awards      Award[]
   //Artworks
-  tokenIds TokenId[]
+  tokenIds    TokenId[]
 }
 
 // Necessary for Next auth
@@ -81,12 +74,12 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String?  @db.Text
+  refresh_token     String? @db.Text
   access_token      String? @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String?  @db.Text
+  id_token          String? @db.Text
   session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -102,15 +95,15 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String         @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?        @unique
   emailVerified DateTime?
   image         String?
-  password String? @db.Text
+  password      String?        @db.Text
   accounts      Account[]
   sessions      Session[]
-  role Role @default(collector)
+  role          Role           @default(collector)
   artistProfile ArtistProfile?
 }
 
@@ -119,7 +112,6 @@ enum Role {
   artist
   curator
   collector
-
 }
 
 model VerificationToken {

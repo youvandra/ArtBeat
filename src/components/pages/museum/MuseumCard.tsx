@@ -18,17 +18,17 @@ import { getAllNFTsById } from "../../../utils/getAllNFTsById";
 import { NFT } from "../../EventCard";
 import NFTCard from "../../nft/NFTCard";
 
-const useStyles = createStyles((t) => ({
+const useStyles = createStyles((theme) => ({
   container: {
     borderRadius: 8,
-    border: "1px solid #DDAB46",
+    border: `1px solid ${theme.colors["ocean-blue"][0]}`,
     padding: 16,
-    [t.fn.smallerThan("sm")]: {
+    [theme.fn.smallerThan("sm")]: {
       flexDirection: "column",
     },
   },
   museumSection: {
-    [t.fn.smallerThan("sm")]: {
+    [theme.fn.smallerThan("sm")]: {
       alignSelf: "center",
       width: "100%",
       maxWidth: "9000px",
@@ -37,11 +37,16 @@ const useStyles = createStyles((t) => ({
     maxWidth: 300,
     height: "100%",
   },
-  artwokrsSection: {
+  artworksSection: {
     flexGrow: 1,
-    [t.fn.largerThan("sm")]: {
+    [theme.fn.largerThan("sm")]: {
       paddingLeft: 16,
-      borderLeft: "1px solid #DDAB46",
+      borderLeft: `1px solid ${theme.colors["ocean-blue"][0]}`,
+    },
+    h3: {
+      span: {
+        color: theme.colors["ocean-blue"][3],
+      },
     },
   },
 }));
@@ -83,9 +88,9 @@ function ArtworkSection({ data }: Props) {
     updateNFTs();
   }, []);
   return (
-    <Box className={classes.artwokrsSection}>
+    <Box className={classes.artworksSection}>
       <Title order={3}>
-        <span style={{ color: "#C4811C" }}>Recent</span> Collections
+        <span>Recent</span> Collections
       </Title>
       <SimpleGrid
         spacing={"xl"}

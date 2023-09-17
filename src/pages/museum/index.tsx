@@ -47,6 +47,8 @@ const useStyles = createStyles(() => ({
   },
 }));
 
+// const museums = CreateDummy.museums();
+
 function Museum() {
   const { classes } = useStyles();
   const { data, isInitialLoading } = trpc.museumRouter.getAll.useQuery();
