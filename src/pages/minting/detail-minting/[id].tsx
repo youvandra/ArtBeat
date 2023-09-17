@@ -4,6 +4,7 @@ import WithAppshell from "../../../layout/WithAppshell";
 import { Button, Container, createStyles } from "@mantine/core";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import MintingDetails from "../../../components/pages/minting/detail-minting/Details";
+import ButtonBack from "../../../components/ButtonBack";
 
 const useStyles = createStyles(() => ({
   container: {
@@ -22,14 +23,7 @@ const DetailMinting = () => {
   return (
     <div className={classes.container}>
       <Container mt="xl" size="xl">
-        <Button
-          className={classes.buttonBack}
-          variant="subtle"
-          leftIcon={<AiOutlineArrowLeft size={30} />}
-          px={2}
-        >
-          Back
-        </Button>
+        <ButtonBack href="/minting" />
       </Container>
 
       <MintingDetails />
