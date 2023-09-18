@@ -83,7 +83,7 @@ export default function NFTExploreCard({
       <Group mt="xl">
         <Stack spacing="xs" className={classes.price}>
           <Text {...priceProps}>Price</Text>
-          <Text sx={{ color: theme.colors.straw[0] }}>{price}</Text>
+          <Text sx={{ color: theme.colors.straw[0] }}>{price} BTT</Text>
         </Stack>
         {/* <Space w="md" /> */}
 

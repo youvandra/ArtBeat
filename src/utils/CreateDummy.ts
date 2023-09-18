@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { ArtistProfile, Museum, TokenId } from "@prisma/client";
+import { ArtistProfile, Museum, Role, TokenId, User } from "@prisma/client";
 
 export default class CreateDummy {
   static museums(total: number = 10): (Museum & { tokenIds: TokenId[] })[] {
@@ -8,8 +8,8 @@ export default class CreateDummy {
       address: faker.location.streetAddress(),
       description: faker.lorem.paragraphs(10),
       mainImage: "/detail-minting-1.jpg",
-      image1: "/detail-minting-1.jpg",
-      image2: "/detail-minting-1.jpg",
+      image1: "/detail-minting-2.jpg",
+      image2: "/detail-minting-3.jpg",
       name: faker.company.name(),
       phone: faker.phone.number(),
       website: faker.internet.url(),
@@ -30,7 +30,19 @@ export default class CreateDummy {
       facebook: faker.internet.url(),
       instagram: faker.internet.url(),
       twitter: faker.internet.url(),
-      followers: faker.number.int({ min: 0, max: 1000000000000 }),
+      followers: faker.number.int({ min: 0, max: 100000 }),
+    }));
+  }
+
+  static user(total: number = 10): User[] {
+    return [...Array(total)].map(() => ({
+      id: faker.string.uuid(),
+      email: faker.internet.email(),
+      emailVerified: faker.date.past(),
+      image: "https://placehold.co/200x200",
+      name: faker.person.fullName(),
+      password: faker.string.binary(),
+      role: faker.helpers.arrayElement(Object.values(Role)),
     }));
   }
 }

@@ -20,6 +20,7 @@ import { showNotification } from "@mantine/notifications";
 import { getAllNFTs } from "../utils/getAllNFTs";
 import WithAppshell from "../layout/WithAppshell";
 import { Styles } from "../const";
+import ArtworkCard from "../components/ArtworkCard";
 
 const useStyles = createStyles((t) => ({
   wrapper: {
@@ -89,7 +90,16 @@ function Explore() {
               ]}
             >
               {nfts.map((props, i) => (
-                <NFTExploreCard {...props} key={i} />
+                <ArtworkCard
+                  imageProps={{ src: props.metadata.image }}
+                  titleProps={{ text: props.metadata.title }}
+                  avatarProps={{ sx: { display: "none" } }}
+                  artistProps={{ text: `Art By: ${props.metadata.artist}` }}
+                  priceProps={{ text: props.price }}
+                  buttonProps={{ href: `/artwork/${props.tokenId}` }}
+                  {...props}
+                  key={i}
+                />
               ))}
             </SimpleGrid>
           )}

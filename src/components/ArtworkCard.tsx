@@ -71,7 +71,7 @@ const ArtworkCard = ({
           </Text>
         </Group>
         <Group position="apart">
-          <Text {...priceProps}>Price : ${priceProps?.text || "$500"}</Text>
+          <Text {...priceProps}>Price : {priceProps?.text || "500"} BTT</Text>
           <Button
             component={NextLink}
             variant="subtle"

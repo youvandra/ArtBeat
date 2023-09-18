@@ -30,11 +30,11 @@ const nft: NFT = {
     artist: "random01",
     image: "https://placehold.co/253x258",
     title: "A Beautiful Art From Heaven",
-    price: "$200000",
+    price: "200000",
     year: "2022",
     description: "A painted compass shoe inspired by west java batik",
   },
-  price: "$200000",
+  price: "200000",
 };
 
 export const _nfts = [...Array(5)].map(() => nft);

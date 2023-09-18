@@ -10,6 +10,7 @@ import {
 } from "@mantine/core";
 import MintingIcon from "../../../icons/MintingIcon";
 import { Styles } from "../../../../const";
+import { NFT } from "../../../nft/NFTExploreCard";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -29,13 +30,9 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export type MintingCardProps = {
-  id: number;
-  title: string;
-  price: string;
-};
+export type MintingCardProps = NFT;
 
-const MintingCard = ({ title, price }: MintingCardProps) => {
+const MintingCard = ({ tokenId, metadata, price }: MintingCardProps) => {
   const router = useRouter();
   const { classes } = useStyles();
 
@@ -44,7 +41,7 @@ const MintingCard = ({ title, price }: MintingCardProps) => {
       <Card.Section withBorder>
         <Image
           className={classes.cardImage}
-          src="https://www.placehold.co/264x253"
+          src={metadata.image || "https://www.placehold.co/264x253"}
           width="100%"
           height={253}
           radius="md"
@@ -58,7 +55,7 @@ const MintingCard = ({ title, price }: MintingCardProps) => {
         weight={400}
         className={classes.cardTitle}
       >
-        {title}
+        {metadata.title}
       </Title>
 
       <Group spacing="xl" noWrap>
@@ -74,11 +71,7 @@ const MintingCard = ({ title, price }: MintingCardProps) => {
           leftIcon={<MintingIcon />}
           radius="xl"
           fullWidth
-          onClick={() =>
-            router.push(
-              "/minting/detail-minting/3493bb21-878e-4e19-adb7-a6622b1969c1"
-            )
-          }
+          onClick={() => router.push(`/minting/detail-minting/${tokenId}`)}
         >
           Mint Now
         </Button>

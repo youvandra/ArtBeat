@@ -25,7 +25,7 @@ const MintingCards = (props: MintingCardsProps) => {
       ]}
     >
       {props.mintingData.map((data) => (
-        <MintingCard key={data.id} {...data} />
+        <MintingCard key={data.tokenId} {...data} />
       ))}
     </SimpleGrid>
   );

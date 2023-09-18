@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NextPageWithLayout } from "../_app";
 
 import {
@@ -17,6 +17,9 @@ import { MintingCardProps } from "../../components/pages/minting/lib/MintingCard
 import SideFilter from "../../components/pages/minting/SideFilter";
 
 import WithAppshell from "../../layout/WithAppshell";
+import { NFT } from "../../components/EventCard";
+import { getAllNFTs } from "../../utils/getAllNFTs";
+import { showNotification } from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -31,18 +34,38 @@ const appliedFilters: Filter[] = [
   },
 ];
 
-const MINTING: MintingCardProps = {
-  id: 1,
-  price: "$2000",
-  title: "Compass Mega Mendung",
-};
+// const MINTING: MintingCardProps = {
+//   id: 1,
+//   price: "$2000",
+//   title: "Compass Mega Mendung",
+// };
 
-const MINTING_DATA = [...Array(10)].map((_, id) => ({ ...MINTING, id }));
+// const MINTING_DATA = [...Array(10)].map((_, id) => ({ ...MINTING, id }));
 
 const MintingPage = () => {
   const { classes } = useStyles();
 
   const [searchValue, setSearchValue] = useState("Compass Shoe");
+
+  const [nfts, setNfts] = useState<NFT[]>([]);
+  const [isFetching, setIsFetching] = useState(false);
+
+  useEffect(() => {
+    setIsFetching(true);
+    getAllNFTs()
+      .then((n) => {
+        setNfts(n);
+      })
+      .catch(() => {
+        showNotification({
+          message: "there was a problem fetching the NFTs",
+          color: "red",
+        });
+      })
+      .finally(() => {
+        setIsFetching(false);
+      });
+  }, []);
 
   return (
     <Box sx={{ backgroundColor: "white" }}>
@@ -56,7 +79,7 @@ const MintingPage = () => {
         />
         <Grid gutter="xl" mt="2rem">
           <Grid.Col md={8} order={2} orderMd={1}>
-            <MintingCards mintingData={MINTING_DATA} />
+            <MintingCards mintingData={nfts} />
           </Grid.Col>
           <Grid.Col md={3} order={1} orderMd={2}>
             <SideFilter />
