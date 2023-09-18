@@ -17,6 +17,7 @@ import { AppRouter } from "../../../server/trpc/router/_app";
 import { getAllNFTsById } from "../../../utils/getAllNFTsById";
 import { NFT } from "../../EventCard";
 import NFTCard from "../../nft/NFTCard";
+import ArtworkCard from "../../ArtworkCard";
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -93,17 +94,21 @@ function ArtworkSection({ data }: Props) {
         <span>Recent</span> Collections
       </Title>
       <SimpleGrid
-        spacing={"xl"}
-        mt={"xl"}
         breakpoints={[
-          { maxWidth: "lg", cols: 2 },
           { maxWidth: "md", cols: 1 },
+          { minWidth: "md", cols: 2 },
         ]}
-        sx={{ width: "100%" }}
-        cols={3}
       >
         {nfts.map((nft) => (
-          <NFTCard key={nft.tokenId} {...nft} />
+          <ArtworkCard
+            key={nft.tokenId}
+            imageProps={{ src: nft.metadata.image }}
+            titleProps={{ text: nft.metadata.title }}
+            avatarProps={{ sx: { display: "none" } }}
+            artistProps={{ text: `Art By: ${nft.metadata.artist}` }}
+            priceProps={{ sx: { display: "none" } }}
+            buttonProps={{ sx: { display: "none" }, href: "/" }}
+          />
         ))}
       </SimpleGrid>
     </Box>

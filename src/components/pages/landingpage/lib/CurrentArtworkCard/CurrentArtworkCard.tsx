@@ -13,6 +13,7 @@ import {
 import { NFT } from "../../../../EventCard";
 import { Styles } from "../../../../../const";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { NextLink } from "@mantine/next";
 
 const CurrentArtworkCard = ({ metadata, ...nft }: NFT) => {
   const theme = useMantineTheme();
@@ -59,7 +60,9 @@ const CurrentArtworkCard = ({ metadata, ...nft }: NFT) => {
       <Group position="apart">
         <Text>{nft.price}</Text>
         <Button
-          variant="outline"
+          component={NextLink}
+          href={`/artwork/${nft.tokenId}`}
+          variant="subtle"
           color="ocean-blue.3"
           rightIcon={<AiOutlineArrowRight />}
         >

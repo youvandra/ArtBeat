@@ -100,7 +100,7 @@ export default function NFTExploreCard({
       <Center mt="xl">
         <Button
           component={NextLink}
-          href={`/artwork/${tokenId}`}
+          href={`/minting/detail-minting/${tokenId}`}
           leftIcon={<MintingIcon />}
           variant="filled"
           sx={{

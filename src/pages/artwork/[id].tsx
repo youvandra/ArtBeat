@@ -25,6 +25,7 @@ import { buyNFT } from "../../utils/buyNFT";
 import ButtonBack from "../../components/ButtonBack";
 import { NextPageWithLayout } from "../_app";
 import WithAppshell from "../../layout/WithAppshell";
+import ArtworkCard from "../../components/ArtworkCard";
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -180,16 +181,15 @@ const Artwork: NextPageWithLayout = () => {
               cols={4}
             >
               {nfts.map((props, i) => (
-                <NFTExploreCard
+                <ArtworkCard
                   {...props}
                   key={i}
-                  cardProps={{
-                    sx: (theme) => ({
-                      border: `1px solid ${theme.colors["ocean-blue"][0]}`,
-                    }),
-                  }}
-                  priceProps={{ sx: { color: "black" } }}
-                  descriptionProps={{ sx: { color: "black" } }}
+                  imageProps={{ src: props.metadata.image }}
+                  titleProps={{ text: props.metadata.title }}
+                  avatarProps={{ sx: { display: "none" } }}
+                  artistProps={{ text: `Art By: ${props.metadata.artist}` }}
+                  priceProps={{ text: props.price }}
+                  buttonProps={{ href: `/artwork/${props.tokenId}` }}
                 />
               ))}{" "}
             </SimpleGrid>

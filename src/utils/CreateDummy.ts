@@ -15,7 +15,7 @@ export default class CreateDummy {
       website: faker.internet.url(),
       tokenIds: [...Array(3)].map(
         (): TokenId => ({
-          id: faker.number.int(),
+          id: faker.number.int({ min: 1, max: 3 }),
           artistId: faker.string.uuid(),
           museumId: faker.string.uuid(),
         })
