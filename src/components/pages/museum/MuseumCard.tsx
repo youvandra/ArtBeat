@@ -108,6 +108,7 @@ function ArtworkSection({ data }: Props) {
             artistProps={{ text: `Art By: ${nft.metadata.artist}` }}
             priceProps={{ sx: { display: "none" } }}
             buttonProps={{ sx: { display: "none" }, href: "/" }}
+            {...nft}
           />
         ))}
       </SimpleGrid>

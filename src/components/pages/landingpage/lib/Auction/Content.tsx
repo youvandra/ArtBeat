@@ -35,7 +35,7 @@ const AuctionContent = () => {
           <Box<"span"> component="span" sx={{ color: "white" }}>
             Current Bid :{" "}
           </Box>
-          2550 BTT
+          2550 BTTC
         </Text>
         <Text
           size={32}

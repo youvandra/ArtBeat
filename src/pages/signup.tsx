@@ -62,7 +62,7 @@ const SignUp: NextPageWithLayout = () => {
   });
 
   return (
-    <Box sx={{ color: "white" }} mb={96}>
+    <Box sx={{ backgroundColor: "white" }} pb={120}>
       <Box className={classes.banner}></Box>
 
       <Box>

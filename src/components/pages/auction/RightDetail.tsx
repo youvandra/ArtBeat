@@ -25,7 +25,7 @@ const RightDetailAuction = () => {
     <Stack>
       <Text>Current Bid:</Text>
       <Text weight={600} size={32} color="ocean-blue.4">
-        4500 BTT
+        4500 BTTC
       </Text>
 
       <Title size={48}>The Starry Night</Title>
@@ -40,11 +40,11 @@ const RightDetailAuction = () => {
       <Group>
         <Group>
           <Text>Starting Bid:</Text>
-          <Text color="ocean-blue.3">3500 BTT</Text>
+          <Text color="ocean-blue.3">3500 BTTC</Text>
         </Group>
         <Group>
           <Text>Minimum Next Bid:</Text>
-          <Text color="ocean-blue.3">100 BTT</Text>
+          <Text color="ocean-blue.3">100 BTTC</Text>
         </Group>
       </Group>
       <Group>
@@ -53,7 +53,7 @@ const RightDetailAuction = () => {
       </Group>
 
       <Group noWrap>
-        <TextInput placeholder="Enter 4500 BTT or more" radius="md" />
+        <TextInput placeholder="Enter 4500 BTTC or more" radius="md" />
         <Button ml="-2.5rem" className={classes.button}>
           Place a Bid
         </Button>

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import {
   Avatar,
   Box,
+  Button,
   Center,
   Container,
   createStyles,
@@ -24,6 +25,7 @@ import { trpc } from "../utils/trpc";
 import { NextPageWithLayout } from "./_app";
 import WithAppshell from "../layout/WithAppshell";
 import { Styles } from "../const";
+import { MdLocalShipping } from "react-icons/md";
 
 const useStyles = createStyles((t) => ({
   banner: {
@@ -96,7 +98,7 @@ function Profile() {
           align={"start"}
           px={"xl"}
         >
-          <Stack className={classes.detailsWrapper} mt={-124} spacing={48}>
+          <Stack className={classes.detailsWrapper} mt={-124} pb="xl">
             <Paper p={24} radius={"lg"} shadow={"md"}>
               <Stack
                 className={classes.detailsContainer}
@@ -120,16 +122,14 @@ function Profile() {
                 </Group>
               </Stack>
             </Paper>
-            <Text
-              align="center"
+            <Button
               component={NextLink}
               href="/#"
-              weight={500}
-              variant="link"
-              color={"ocean-blue.3"}
+              color="ocean-blue"
+              leftIcon={<MdLocalShipping />}
             >
               Request to Ship Your Art{" "}
-            </Text>
+            </Button>
           </Stack>
 
           <Stack className={classes.collection}>
@@ -145,6 +145,7 @@ function Profile() {
                 mt={"xl"}
                 sx={{ width: "full" }}
                 cols={3}
+                spacing="xl"
                 breakpoints={[
                   { maxWidth: "lg", cols: 2 },
                   { maxWidth: "md", cols: 3 },

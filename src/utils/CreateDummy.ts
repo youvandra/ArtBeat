@@ -7,6 +7,7 @@ import {
   TokenId,
   User,
 } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
 export default class CreateDummy {
   static museums(total: number = 10): (Museum & { tokenIds: TokenId[] })[] {
@@ -42,14 +43,16 @@ export default class CreateDummy {
   }
 
   static user(total: number = 10, role: Role[] = Object.values(Role)): User[] {
+    const _role = faker.helpers.arrayElement(role);
+
     return [...Array(total)].map(() => ({
       id: faker.string.uuid(),
       email: faker.internet.email(),
       emailVerified: faker.date.past(),
       image: "https://placehold.co/200x200",
       name: faker.person.fullName(),
-      password: faker.string.binary(),
-      role: faker.helpers.arrayElement(role),
+      password: bcrypt.hashSync(_role, 12),
+      role: _role,
     }));
   }
 

@@ -141,7 +141,7 @@ const Artwork: NextPageWithLayout = () => {
                       <Property label="Year" value={nft.metadata.year} />
                     </SimpleGrid>
                     <Text mt={"xl"} size={24} weight={"bold"}>
-                      ${nft.metadata.price} BTT
+                      {nft.metadata.price} BTTC
                     </Text>
                     <Button
                       className={classes.buttonBuy}

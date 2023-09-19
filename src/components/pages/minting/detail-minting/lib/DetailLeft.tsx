@@ -56,7 +56,7 @@ const MintingDetailLeft = () => {
       <Group>
         <Text>Price : </Text>
         <Space w="xl" />
-        <Text color="ocean-blue.1">3000 BTT</Text>
+        <Text color="ocean-blue.1">3000 BTTC</Text>
       </Group>
       <Group>
         <Text>Stock : </Text>

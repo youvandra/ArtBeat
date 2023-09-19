@@ -190,7 +190,7 @@ const AuctionPage = () => {
                     <Text size={16}>Christian Buehner</Text>
                   </Group>
                   <Group position="apart">
-                    <Text>Price : 500 BTT</Text>
+                    <Text>Price : 500 BTTC</Text>
                     <Button
                       variant="subtle"
                       color="ocean-blue"

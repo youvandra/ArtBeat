@@ -27,7 +27,7 @@ const useStyles = createStyles((theme) => ({
     border: "1px solid white",
   },
   description: {
-    maxWidth: 144,
+    maxWidth: 100,
     fontSize: 16,
     color: "white",
     fontFamily: theme.headings.fontFamily,
@@ -83,7 +83,7 @@ export default function NFTExploreCard({
       <Group mt="xl">
         <Stack spacing="xs" className={classes.price}>
           <Text {...priceProps}>Price</Text>
-          <Text sx={{ color: theme.colors.straw[0] }}>{price} BTT</Text>
+          <Text sx={{ color: theme.colors.straw[0] }}>{price} BTTC</Text>
         </Stack>
         {/* <Space w="md" /> */}
 

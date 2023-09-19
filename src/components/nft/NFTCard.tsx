@@ -1,12 +1,15 @@
 import { Avatar, Card, Group, Image, Text, Title } from "@mantine/core";
 import { MdVerified } from "react-icons/md";
 import { NFT } from "./NFTExploreCard";
+import { NextLink } from "@mantine/next";
 
-export default function NFTCard({ metadata }: NFT) {
+export default function NFTCard({ metadata, tokenId }: NFT) {
   return (
     <Card shadow="sm" p="sm" radius="md">
       <Card.Section>
-        <Image src={metadata.image} height={160} />
+        <NextLink href={`/artwork/${tokenId}`}>
+          <Image src={metadata.image} height={160} />
+        </NextLink>
       </Card.Section>
       <Title mt={"xl"} color="ocean-blue.3" order={3}>
         {metadata.title}

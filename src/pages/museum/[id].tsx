@@ -26,6 +26,7 @@ import { AppRouter } from "../../server/trpc/router/_app";
 import { trpc } from "../../utils/trpc";
 import { NextPageWithLayout } from "../_app";
 import WithAppshell from "../../layout/WithAppshell";
+import ArtworkCard from "../../components/ArtworkCard";
 // import CreateDummy from "../../utils/CreateDummy";
 
 const useStyles = createStyles((theme) => ({
@@ -189,7 +190,13 @@ function RecommendedEvents({ data }: Props) {
           ]}
         >
           {nfts.map((nft) => (
-            <NFTExploreCard key={nft.tokenId} {...nft} />
+            <ArtworkCard
+              key={nft.tokenId}
+              titleProps={{ text: nft.metadata.title }}
+              artistProps={{ text: nft.metadata.artist }}
+              priceProps={{ text: nft.price }}
+              {...nft}
+            />
           ))}
         </SimpleGrid>
       </Container>
