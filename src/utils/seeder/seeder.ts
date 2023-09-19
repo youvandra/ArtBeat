@@ -1,5 +1,7 @@
 import { prisma } from "../../server/db/client";
 import ArtistSeeder from "./artist-seeder";
+import AwardSeeder from "./award-seeder";
+import EventSeeder from "./event-seeder";
 import MuseumSeeder from "./museum-seeder";
 import UserSeeder from "./user-seeder";
 
@@ -12,7 +14,13 @@ export class Seed {
 }
 
 class Seeder {
-  static seeders = [new MuseumSeeder(), new ArtistSeeder(), new UserSeeder()];
+  static seeders = [
+    new ArtistSeeder(),
+    new MuseumSeeder(),
+    new UserSeeder(),
+    new AwardSeeder(),
+    new EventSeeder(),
+  ];
 
   static async seed() {
     try {

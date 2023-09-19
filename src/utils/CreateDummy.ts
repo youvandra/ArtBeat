@@ -1,5 +1,12 @@
 import { faker } from "@faker-js/faker";
-import { ArtistProfile, Museum, Role, TokenId, User } from "@prisma/client";
+import {
+  ArtistProfile,
+  Event,
+  Museum,
+  Role,
+  TokenId,
+  User,
+} from "@prisma/client";
 
 export default class CreateDummy {
   static museums(total: number = 10): (Museum & { tokenIds: TokenId[] })[] {
@@ -43,6 +50,21 @@ export default class CreateDummy {
       name: faker.person.fullName(),
       password: faker.string.binary(),
       role: faker.helpers.arrayElement(Object.values(Role)),
+    }));
+  }
+
+  static event(total: number = 10): Event[] {
+    return [...Array(total)].map(() => ({
+      id: faker.string.uuid(),
+      address: faker.location.streetAddress(),
+      date: faker.date.future().toDateString(),
+      description: faker.lorem.lines(),
+      mainImage: "/detail-minting-1.jpg",
+      image1: "/detail-minting-2.jpg",
+      image2: "/detail-minting-3.jpg",
+      name: faker.lorem.words(),
+      time: faker.date.soon().toISOString(),
+      ticketPrice: parseInt(faker.finance.amount()),
     }));
   }
 }
