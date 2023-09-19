@@ -41,7 +41,7 @@ export default class CreateDummy {
     }));
   }
 
-  static user(total: number = 10): User[] {
+  static user(total: number = 10, role: Role[] = Object.values(Role)): User[] {
     return [...Array(total)].map(() => ({
       id: faker.string.uuid(),
       email: faker.internet.email(),
@@ -49,7 +49,7 @@ export default class CreateDummy {
       image: "https://placehold.co/200x200",
       name: faker.person.fullName(),
       password: faker.string.binary(),
-      role: faker.helpers.arrayElement(Object.values(Role)),
+      role: faker.helpers.arrayElement(role),
     }));
   }
 

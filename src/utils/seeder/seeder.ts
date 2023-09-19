@@ -15,9 +15,9 @@ export class Seed {
 
 class Seeder {
   static seeders = [
+    new UserSeeder(),
     new ArtistSeeder(),
     new MuseumSeeder(),
-    new UserSeeder(),
     new AwardSeeder(),
     new EventSeeder(),
   ];

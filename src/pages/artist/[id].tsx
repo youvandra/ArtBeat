@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Center,
+  Container,
   createStyles,
   Group,
   Loader,
@@ -25,14 +26,18 @@ import { NFT } from "../../components/EventCard";
 import NFTCard from "../../components/nft/NFTCard";
 import { getAllNFTsById } from "../../utils/getAllNFTsById";
 import { trpc } from "../../utils/trpc";
+import { NextPageWithLayout } from "../_app";
+import WithAppshell from "../../layout/WithAppshell";
+import { Styles } from "../../const";
 
 const useStyles = createStyles((t) => ({
   banner: {
     width: "100%",
     backgroundImage: "url('/profile-banner.png')",
-    height: 281,
+    height: 281 + Styles.PULL_IMG_COVER,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
+    marginTop: `-${Styles.PULL_IMG_COVER}px`,
   },
   detailsWrapper: {
     position: "absolute",
@@ -66,7 +71,7 @@ const useStyles = createStyles((t) => ({
   },
   awardsContainer: {
     width: 300,
-    border: "1px solid #C4811C",
+    border: `1px solid ${t.colors["ocean-blue"][3]}`,
     borderRadius: 16,
     padding: t.spacing.md,
     [t.fn.smallerThan("sm")]: {
@@ -75,7 +80,7 @@ const useStyles = createStyles((t) => ({
   },
 }));
 
-export default function ArtistPage() {
+const ArtistDetailPage: NextPageWithLayout = () => {
   const { classes } = useStyles();
   const router = useRouter();
   const { data, isInitialLoading } = trpc.artist.getById.useQuery({
@@ -101,7 +106,7 @@ export default function ArtistPage() {
     );
   }
   return (
-    <Box mb={96}>
+    <Box sx={{ backgroundColor: "white" }} mb={96}>
       <Box className={classes.banner} />
       <ProfileInfo
         artworks={data.tokenIds.length}
@@ -114,13 +119,13 @@ export default function ArtistPage() {
         image={data.user.image}
       />
 
-      <Box px={"xl"} className={classes.container}>
+      <Container size="xl" pb="8rem" className={classes.container}>
         <Artworks ids={data.tokenIds} />
         <Awards awards={data.awards} />
-      </Box>
+      </Container>
     </Box>
   );
-}
+};
 
 function Artworks({ ids }: { ids: { id: number }[] }) {
   const { classes } = useStyles();
@@ -134,7 +139,7 @@ function Artworks({ ids }: { ids: { id: number }[] }) {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Title color={"#C4811C"} mb={"xl"} size={36} order={2}>
+      <Title color="ocean-blue.3" mb={"xl"} size={36} order={2}>
         Artworks
       </Title>
       <SimpleGrid
@@ -161,7 +166,7 @@ function Awards({ awards }: { awards: { name: string }[] }) {
       <Timeline active={999} mt={"xl"}>
         {awards.map(({ name }, i) => (
           <Timeline.Item key={i}>
-            <Title order={4} color={"brand"} weight={600}>
+            <Title order={4} color="ocean-blue.3" weight={600}>
               {name}
             </Title>
           </Timeline.Item>
@@ -215,7 +220,7 @@ function ProfileInfo({
               </Button>
             </Stack>
           </Stack>
-          <Text sx={{ maxWidth: 500 }} align="center">
+          <Text sx={{ maxWidth: 500, color: "#949494" }} align="center">
             {description}
           </Text>
 
@@ -270,3 +275,9 @@ function ProfileInfo({
     </Center>
   );
 }
+
+ArtistDetailPage.getLayout = (page) => (
+  <WithAppshell headerTransparent>{page}</WithAppshell>
+);
+
+export default ArtistDetailPage;

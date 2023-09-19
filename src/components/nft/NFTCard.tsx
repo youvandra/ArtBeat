@@ -8,7 +8,7 @@ export default function NFTCard({ metadata }: NFT) {
       <Card.Section>
         <Image src={metadata.image} height={160} />
       </Card.Section>
-      <Title mt={"xl"} color={"brand"} order={3}>
+      <Title mt={"xl"} color="ocean-blue.3" order={3}>
         {metadata.title}
       </Title>
       <Group spacing={"xs"} mt={"xs"}>

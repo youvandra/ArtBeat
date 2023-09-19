@@ -20,7 +20,7 @@ import NFTCard from "../../nft/NFTCard";
 const useStyles = createStyles((t) => ({
   container: {
     borderRadius: 8,
-    border: "1px solid #DDAB46",
+    border: `1px solid ${t.colors["ocean-blue"][3]}`,
     padding: 16,
     [t.fn.smallerThan("sm")]: {
       flexDirection: "column",
@@ -38,8 +38,11 @@ const useStyles = createStyles((t) => ({
     flexGrow: 1,
     [t.fn.largerThan("sm")]: {
       paddingLeft: 16,
-      borderLeft: "1px solid #DDAB46",
+      borderLeft: `1px solid ${t.colors["ocean-blue"][3]}`,
     },
+  },
+  green: {
+    color: t.colors["ocean-blue"][3],
   },
 }));
 
@@ -85,7 +88,7 @@ function ArtworkSection({ data }: Props) {
   return (
     <Box className={classes.artwokrsSection}>
       <Title order={3}>
-        <span style={{ color: "#C4811C" }}>Recent</span> Artworks
+        <span className={classes.green}>Recent</span> Artworks
       </Title>
       <SimpleGrid
         spacing={"xl"}
