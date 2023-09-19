@@ -21,6 +21,9 @@ import { showNotification } from "@mantine/notifications";
 import { MdOutlineUpload } from "react-icons/md";
 import { uploadFileToIPFS } from "../utils/pinata";
 import { trpc } from "../utils/trpc";
+import { NextPageWithLayout } from "./_app";
+import WithAppshell from "../layout/WithAppshell";
+import { Styles } from "../const";
 
 const useStyles = createStyles((t) => ({
   banner: {
@@ -30,6 +33,7 @@ const useStyles = createStyles((t) => ({
     backgroundSize: "cover",
     backgroundPosition: "bottom",
     backgroundRepeat: "no-repeat",
+    marginTop: `-${Styles.PULL_IMG_COVER}px`,
   },
   filtersContainer: {
     borderLeft: "1px solid #875A28",
@@ -38,7 +42,7 @@ const useStyles = createStyles((t) => ({
   },
 }));
 
-export default function Settings() {
+const Settings: NextPageWithLayout = () => {
   const { data } = trpc.auth.getSession.useQuery();
   const { classes } = useStyles();
   const updatePhotoMutation = trpc.auth.updatePhoto.useMutation({
@@ -65,7 +69,7 @@ export default function Settings() {
   }
 
   return (
-    <Box>
+    <Box sx={{ backgroundColor: "white" }}>
       <Box className={classes.banner} />
       <Text align="center" weight={500} size={32} my={"xl"}>
         Settings
@@ -101,4 +105,10 @@ export default function Settings() {
       </Center>
     </Box>
   );
-}
+};
+
+Settings.getLayout = (page) => (
+  <WithAppshell headerTransparent>{page}</WithAppshell>
+);
+
+export default Settings;

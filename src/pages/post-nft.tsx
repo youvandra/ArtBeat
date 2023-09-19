@@ -30,6 +30,9 @@ import ImageUpload from "../components/pages/post-nft/ImageUpload";
 import { getServerAuthSession } from "../server/common/get-server-auth-session";
 import { uploadFileToIPFS, uploadJSONToIPFS } from "../utils/pinata";
 import ABI from "../utils/ABI.json";
+import { NextPageWithLayout } from "./_app";
+import WithAppshell from "../layout/WithAppshell";
+import { Styles } from "../const";
 
 const useStyles = createStyles((t) => ({
   banner: {
@@ -41,6 +44,7 @@ const useStyles = createStyles((t) => ({
     backgroundRepeat: "no-repeat",
     backgroundPositionY: "50%",
     position: "relative",
+    marginTop: `-${Styles.PULL_IMG_COVER}px`,
   },
   container: {
     maxWidth: 700,
@@ -55,7 +59,7 @@ const useStyles = createStyles((t) => ({
   },
 }));
 
-export default function PostNFT() {
+const PostNFT: NextPageWithLayout = () => {
   const { classes } = useStyles();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -145,7 +149,7 @@ export default function PostNFT() {
   }
 
   return (
-    <Box mb={96}>
+    <Box sx={{ backgroundColor: "white" }} mb={96}>
       <Box className={classes.banner}>
         <Overlay color={"#111"} zIndex={1} opacity={0.75} />
       </Box>
@@ -295,7 +299,13 @@ export default function PostNFT() {
       </Box>
     </Box>
   );
-}
+};
+
+PostNFT.getLayout = (page) => (
+  <WithAppshell headerTransparent>{page}</WithAppshell>
+);
+
+export default PostNFT;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const session = await getServerAuthSession(ctx);

@@ -1,5 +1,6 @@
 import { User } from "@prisma/client";
 import CreateDummy from "../CreateDummy";
+import bcrypt from "bcryptjs";
 
 export default class UserSeeder {
   async run() {
@@ -10,7 +11,7 @@ export default class UserSeeder {
             ...user,
             email: "admin@gmail.com",
             role: "admin",
-            password: "admin",
+            password: bcrypt.hashSync("admin", 12),
           };
 
           if (index == 0) {
