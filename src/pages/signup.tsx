@@ -21,6 +21,9 @@ import { useRouter } from "next/router";
 import { BiUser, BiEnvelope, BiLock, BiChevronDown } from "react-icons/bi";
 import { getServerAuthSession } from "../server/common/get-server-auth-session";
 import { trpc } from "../utils/trpc";
+import { NextPageWithLayout } from "./_app";
+import WithAppshell from "../layout/WithAppshell";
+import { Styles } from "../const";
 
 const useStyles = createStyles((t) => ({
   banner: {
@@ -29,6 +32,7 @@ const useStyles = createStyles((t) => ({
     height: 350,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
+    marginTop: `-${Styles.PULL_IMG_COVER}px`,
   },
   container: {
     width: 700,
@@ -36,7 +40,7 @@ const useStyles = createStyles((t) => ({
   },
 }));
 
-export default function SignUp() {
+const SignUp: NextPageWithLayout = () => {
   const { classes } = useStyles();
   const router = useRouter();
 
@@ -58,7 +62,7 @@ export default function SignUp() {
   });
 
   return (
-    <Box mb={96}>
+    <Box sx={{ color: "white" }} mb={96}>
       <Box className={classes.banner}></Box>
 
       <Box>
@@ -156,7 +160,13 @@ export default function SignUp() {
       </Box>
     </Box>
   );
-}
+};
+
+SignUp.getLayout = (page) => (
+  <WithAppshell headerTransparent>{page}</WithAppshell>
+);
+
+export default SignUp;
 
 const inputStyles = (t) => ({
   input: {
