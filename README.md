@@ -25,7 +25,7 @@ Block Explorer : https://testscan.bt.io
 
 ## Set .env file
 
-DATABASE_URL='mysql://pij04hz7rhiw0dxl0udb:pscale_pw_KjiCAc9NO60N550io08BVIWwRbK4p5gYPSOxjP7Aub@aws-eu-west-2.connect.psdb.cloud/artbeat?sslaccept=strict'
+DATABASE_URL='mysql://eoko41rx4m3ui7zlpt56:pscale_pw_10jHJyu9ss0TIQtmCzD05cB2N8odWmPaz7aMW2Pxasi@aws.connect.psdb.cloud/artbeat?sslaccept=strict'
 
 NEXTAUTH_SECRET=0EYcoz3wZI2f1MvYWjE7jBeg4pQ9qGj2
 
