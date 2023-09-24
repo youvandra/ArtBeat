@@ -22,6 +22,16 @@ export default class UserSeeder {
             });
           }
 
+          if (index == 1) {
+            return prisma.user.create({
+              data: {
+                ...admin,
+                email: "admin1@gmail.com",
+                password: bcrypt.hashSync("123", 12),
+              },
+            });
+          }
+
           return prisma.user.create({
             data: {
               ...user,

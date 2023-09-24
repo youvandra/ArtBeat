@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Avatar,
   Button,
@@ -13,6 +14,8 @@ import { Box, Container, Title, createStyles } from "@mantine/core";
 
 import { AiOutlineArrowRight } from "react-icons/ai";
 import ArtworkCard from "../../../../ArtworkCard";
+import { NFT } from "../../../../nft/NFTExploreCard";
+import { getAllNFTsById } from "../../../../../utils/getAllNFTsById";
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -24,8 +27,19 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+const ids = [{ id: 1 }, { id: 2 }, { id: 3 }];
+
 const OtherCollections = () => {
   const { classes } = useStyles();
+
+  const [nfts, setNfts] = useState<NFT[]>([]);
+
+  useEffect(() => {
+    async function updateNFTs() {
+      setNfts(await getAllNFTsById(ids));
+    }
+    updateNFTs();
+  }, []);
 
   return (
     <Box className={classes.container} mt="5rem" py="5rem">
@@ -54,15 +68,21 @@ const OtherCollections = () => {
             },
           ]}
         >
-          {[...Array(5)].map((_, i) => (
-            <ArtworkCard
-              key={1}
-              titleProps={{ text: "Van Gogh Portrait" }}
-              artistProps={{ text: "Christian Buehner" }}
-              priceProps={{ text: "$500" }}
-              buttonProps={{ href: "/minting" }}
-            />
-          ))}
+          {nfts.length > 0 ? (
+            nfts.map((nft, i) => (
+              <ArtworkCard
+                key={1}
+                titleProps={{ text: "Van Gogh Portrait" }}
+                artistProps={{ text: "Christian Buehner" }}
+                priceProps={{ text: "$500" }}
+                buttonProps={{ href: "/minting" }}
+                imageProps={{ src: nft.metadata.image }}
+                {...nft}
+              />
+            ))
+          ) : (
+            <div></div>
+          )}
         </SimpleGrid>
       </Container>
     </Box>

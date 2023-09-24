@@ -50,6 +50,8 @@ const MintingPage = () => {
   const [nfts, setNfts] = useState<NFT[]>([]);
   const [isFetching, setIsFetching] = useState(false);
 
+  console.log(nfts);
+
   useEffect(() => {
     setIsFetching(true);
     getAllNFTs()
