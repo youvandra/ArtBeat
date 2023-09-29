@@ -27,7 +27,7 @@ const AuctionSection = () => {
       setLoading(false);
     } catch (error) {
       console.error('Error loading auction:', error);
-      setLoading(false);
+      setLoading(true);
     }
   };
   return (
@@ -65,7 +65,6 @@ const AuctionSection = () => {
               width={500}
               height={500}
             />
-
           <AuctionContent />
         </SimpleGrid>
       </Center>

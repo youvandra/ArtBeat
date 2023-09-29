@@ -19,17 +19,14 @@ const AuctionHeader = () => {
       setLoading(false);
     } catch (error) {
       console.error('Error loading auction:', error);
-      setLoading(false);
+      setLoading(true);
     }
   };
 
   return (
     <Center mt={96} mb={10}>
-      {loading ? (
-        <Center mt={"xl"}>
-          <Loader />
-        </Center>
-      ) : (
+      
+        
       <Stack>
         <Box sx={{ position: "relative" }}>
           <Box sx={{ position: "absolute", right: 0, top: "-6rem" }}>
@@ -52,22 +49,24 @@ const AuctionHeader = () => {
             on This Day
           </Text>
         </Box>
-        
+        {loading ? (
+          <Center mt={"xl"}>
+          </Center>
+        ) : (
         <Text
-            size={50}
-            sx={{
-              fontFamily: theme.headings.fontFamily,
-              color: "white",
-              fontWeight: 700,
-              textAlign: "center",
-            }}
-          >
-           {auction?.name}
-          </Text>
+                  size={50}
+                  sx={{
+                    fontFamily: theme.headings.fontFamily,
+                    color: "white",
+                    fontWeight: 700,
+                    textAlign: "center",
+                  }}
+                >
+                {auction?.name}
+                </Text>
+        )}
           <br></br><br></br>
-
         </Stack>
-      )}
     </Center>
   );
 };

@@ -25,6 +25,9 @@ import { getServerAuthSession } from "../server/common/get-server-auth-session";
 import WithAppshell from "../layout/WithAppshell";
 import { claimPrize, loadAuctions, loadCollections, offerItemOnMarket } from "../utils/auction/services/blockchain";
 import { toast } from "react-toastify";
+import { showNotification } from "@mantine/notifications";
+import theme from "../utils/theme";
+import { useRouter } from "next/router";
 
 const useStyles = createStyles((theme) => ({
   hero: {
@@ -86,6 +89,7 @@ const useStyles = createStyles((theme) => ({
 
 const ListAuction = () => {
   const { classes } = useStyles();
+  const router = useRouter();
   const [auctions, setAuctions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [opened, setOpened] = useState(false);
@@ -152,22 +156,20 @@ const ListAuction = () => {
     }
   
     try {
-      await toast.promise(
-        new Promise<void>(async (resolve, reject) => {
-          await offerItemOnMarket(params)
-            .then(async () => {
-              closeModal();
-              resolve();
-            })
-            .catch(() => reject());
-        }),
-        {
-          success: 'Offered on Market, will reflect within 30sec 👌',
-          error: 'Encountered error 🤯',
-        },
-      );
+      await new Promise<void>(async (resolve, reject) => {
+        await offerItemOnMarket(params)
+          .then(async () => {
+            closeModal();
+            resolve();
+            showNotification({ message: "Offer NFT successfully" });
+          })
+          .catch(() => reject());
+      });
+    setTimeout(() => {
+      router.reload();
+    }, 3000);
     } catch (error) {
-      console.error('Error:', error);
+
     }
   
     closeModal();
@@ -219,46 +221,44 @@ const ListAuction = () => {
                     <Group>
                       <Text size={16}>{truncate(auction.owner, 4, 4, 11)}</Text>
                     </Group>
-                    <Group position="apart">
-                      <Button
-                        onClick={() => openModal(auction.tokenId)}
-                      >
-                        Offer Auction
-                      </Button>
-                      <Modal opened={opened} title="Offer Auction" onClose={closeModal} overlayOpacity={0.1}>
-                        <TextInput
-                          label="Period"
-                          placeholder="Enter period"
-                          type="number"
-                          min={1}
-                          onChange={(e) => setPeriod(e.target.value)}
-                          value={period}
-                        />
-                        <Select
-                          label="Timeline"
-                          data={[
-                            { value: 'sec', label: 'Seconds' },
-                            { value: 'min', label: 'Minutes' },
-                            { value: 'hour', label: 'Hours' },
-                            { value: 'day', label: 'Days' },
-                          ]}
-                          onChange={(value) => setTimeline(value)}
-                        />
-                        <Select
-                          label="Biddable"
-                          data={[
-                            { value: 'true', label: 'Yes' },
-                            { value: 'false', label: 'No' },
-                          ]}
-                          onChange={(value) => setBiddable(value)}
-                        />
-                        <br />
-                        <Button onClick={handleSubmit}>Offer Item</Button>
-                      </Modal>
-                      <Button className={classes.button1}>
-                        Change Prize
-                      </Button>
-                    </Group>
+                    {auction.live && Date.now() < auction.duration ? (
+                          <Button style={{ backgroundColor: theme.colors["ocean-blue"][3] }}>Auction Live</Button>
+                        ) : (
+                            <><Button onClick={() => openModal(auction.tokenId)} >
+                          Offer Auction
+                        </Button><Modal
+                          opened={opened}
+                          title="Offer Auction"
+                          onClose={closeModal}
+                          overlayOpacity={0.1}
+                        >
+                            <TextInput
+                              label="Period"
+                              placeholder="Enter period"
+                              type="number"
+                              min={1}
+                              onChange={(e) => setPeriod(e.target.value)}
+                              value={period} />
+                            <Select
+                              label="Timeline"
+                              data={[
+                                { value: 'sec', label: 'Seconds' },
+                                { value: 'min', label: 'Minutes' },
+                                { value: 'hour', label: 'Hours' },
+                                { value: 'day', label: 'Days' },
+                              ]}
+                              onChange={(value) => setTimeline(value)} />
+                            <Select
+                              label="Biddable"
+                              data={[
+                                { value: 'true', label: 'Yes' },
+                                { value: 'false', label: 'No' },
+                              ]}
+                              onChange={(value) => setBiddable(value)} />
+                            <br />
+                            <Button onClick={handleSubmit}>Offer Item</Button>
+                          </Modal></>
+                        )}
                   </Stack>
                 </Card>
               ))}

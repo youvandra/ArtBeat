@@ -27,7 +27,7 @@ function SelectedArtists() {
   return (
     <Box >
       <Text size={"lg"} weight={500}>
-        Seleted <span style={{ color: "#0f6c57" }}>Artists</span>
+        Artists <span style={{ color: "#0f6c57" }}>List</span>
       </Text>
       <Divider color={"#0f6c57"} />
       <Stack mt={"xl"}>
@@ -52,7 +52,7 @@ function SelectedMuseums() {
   return (
     <Box>
       <Text size={"lg"} weight={500}>
-        Seleted <span style={{ color: "#0f6c57" }}>Museums</span>
+        Museums <span style={{ color: "#0f6c57" }}>List</span>
       </Text>
       <Divider color={"#0f6c57"} />
       <Stack mt={"xl"}>

@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Center,
+  Group,
   Loader,
   Stack,
   Text,
@@ -9,14 +10,16 @@ import {
 } from "@mantine/core";
 import { FaBalanceScaleLeft } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { loadAuction } from "../../../../../utils/auction/services/blockchain";
+import { getBidders, loadAuction } from "../../../../../utils/auction/services/blockchain";
 import Countdown from "../../../Countdown"
 import { NextLink } from "@mantine/next";
+import { truncate } from "../../../../../utils/auction/store";
 
 const AuctionContent = () => {
   const theme = useMantineTheme();
   const [auction, setAuction] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [bidders, setBidders] = useState([]);
 
   useEffect(() => {
     loadAuctionsData();
@@ -24,8 +27,10 @@ const AuctionContent = () => {
 
   const loadAuctionsData = async () => {
     try {
-      const result = await loadAuction(4); // Change the parameter to the auction ID you want to load
+      const result = await loadAuction(4); 
       setAuction(result);
+      const result1 = await getBidders(4);
+      setBidders(result1);
       setLoading(false);
     } catch (error) {
       console.error('Error loading auction:', error);
@@ -45,25 +50,50 @@ const AuctionContent = () => {
           size={32}
           sx={{
             fontFamily: theme.headings.fontFamily,
-            color: "white",
-            fontWeight: 400,
-          }}
-        >
-          Express Emotions
-        </Text><br></br>
-        <Text
-          size={32}
-          sx={{
-            fontFamily: theme.headings.fontFamily,
             fontWeight: 700,
             color: theme.colors["ocean-blue"][1],
           }}
         >
-          <Box<"span"> component="span" sx={{ color: "white" }}>
+          <Box<"span"> component="span" sx={{  color: "white" }}>
             Current Bid :{" "}
           </Box>
-          {auction?.price} BTT
-        </Text><br></br>
+        </Text>
+        <Text 
+              size={20}
+              sx={{
+                fontFamily: theme.headings.fontFamily,
+                color: theme.colors["ocean-blue"][1],
+                fontWeight: 400,
+              }}>{auction.price} BTT</Text>
+        <br></br>
+        
+        <Text
+            size={32}
+            sx={{
+              fontFamily: theme.headings.fontFamily,
+              fontWeight: 700,
+              color: theme.colors["ocean-blue"][1],
+            }}
+          >
+            <Box<"span"> component="span" sx={{ color: "white" }}>
+              Top Bidder :{" "}
+            </Box>
+          </Text>
+          {bidders.map((bidder) => (
+          <Group>
+            <Text
+              size={20}
+              sx={{
+                fontFamily: theme.headings.fontFamily,
+                color: "white",
+                fontWeight: 400,
+              }}
+            >
+              {truncate(bidder.bidder, 6, 6, 18)}
+            </Text>
+          </Group>
+          ))}
+        <br></br>
         <Text
           size={32}
           sx={{
@@ -75,11 +105,13 @@ const AuctionContent = () => {
           <Box<"span"> component="span" sx={{ color: "white" }}>
             End In :{" "}
           </Box><br></br>
+          <span style={{ fontSize: "20px" }}>
           {auction?.duration > Date.now() ? (
             <Countdown timestamp={auction?.duration} />
           ) : (
             '00:00:00'
           )}
+          </span>
         </Text><br></br><br></br>
         <Center>
           <NextLink href={"/auction/4"}>

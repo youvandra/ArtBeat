@@ -57,15 +57,10 @@ export default function RecentArtwork() {
     getAllDrops()
       .then((n) => {
         setNfts(n);
+        setIsFetching(false);
       })
       .catch(() => {
-        showNotification({
-          message: "there was a problem fetching the NFTs",
-          color: "red",
-        });
-      })
-      .finally(() => {
-        setIsFetching(false);
+        setIsFetching(true);
       });
   }, []);
   return (

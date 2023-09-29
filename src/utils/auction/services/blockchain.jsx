@@ -77,7 +77,7 @@ const createNftItem = async ({
     await loadAuctions();
     showNotification({ message: "Create NFT successfully" });
   } catch (error) {
-    toast.error(`${error.message}`);
+    showNotification({ message: "Create NFT failed", color: "red" });
   }
 };
 
@@ -95,7 +95,7 @@ const updatePrice = async ({ tokenId, price }) => {
     await loadAuctions();
     showNotification({ message: "Update Price successfully" });
   } catch (error) {
-    toast.error(`${error.message}`);
+    showNotification({ message: "Update Price Failed" });
   }
 };
 
@@ -118,9 +118,8 @@ const offerItemOnMarket = async ({
     });
     await tx.wait();
     await loadAuctions();
-    showNotification({ message: "Offer NFT successfully" });
   } catch (error) {
-    toast.error(`${error.message}`);
+    showNotification({ message: "Offer NFT Failed", color: "red" });
   }
 };
 

@@ -15,6 +15,7 @@ export default function ConnectWallet() {
   const handleConnect = async () => {
     try {
       await connect();
+      router.reload()
     } catch (error) {
       showNotification({
         message: "Failed to connect with MetaMask",
@@ -44,13 +45,15 @@ export default function ConnectWallet() {
   useEffect(() => {
     if (status === "notConnected") {
       showNotification({
-        message: "MetaMask is not connected yet!",
+        message: "Please connect your wallet to access all data",
         color: "red",
+        autoClose: false,
       });
     } else if (status === "unavailable") {
       showNotification({
         message: "No wallet detected!",
         color: "red",
+        autoClose: false,
       });
     } else if (status === "connected") {
       setWallet(account.toLowerCase());

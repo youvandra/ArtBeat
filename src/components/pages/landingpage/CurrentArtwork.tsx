@@ -4,6 +4,7 @@ import {
   Center,
   Container,
   Divider,
+  Loader,
   Title,
   createStyles,
   useMantineTheme,
@@ -34,22 +35,17 @@ const CurrentArtwork = () => {
   const { classes } = useStyles();
 
   const [nfts, setNfts] = useState<NFT[]>(_nfts);
-  const [isFetching, setIsFetching] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
     setIsFetching(true);
     getAllNFTs()
       .then((n) => {
         setNfts(n);
+        setIsFetching(false);
       })
       .catch(() => {
-        showNotification({
-          message: "there was a problem fetching the NFTs",
-          color: "red",
-        });
-      })
-      .finally(() => {
-        setIsFetching(false);
+        setIsFetching(true);
       });
   }, []);
 
@@ -65,13 +61,20 @@ const CurrentArtwork = () => {
           </Title>
         </Center>
         <Divider mb={60} />
-        <RecentArtworkCarousel>
-          {nfts.map((nft, id) => (
+        
+          {isFetching? (
+            <Center mt={"xl"}>
+              <Loader />
+            </Center>
+          ) : (
+          <RecentArtworkCarousel>
+          {nfts.reverse().slice(0,10).map((nft, id) => (
             <Carousel.Slide key={id}>
               <CurrentArtworkCard {...nft} />
             </Carousel.Slide>
           ))}
-        </RecentArtworkCarousel>
+          </RecentArtworkCarousel>
+          )}
       </Container>
     </Box>
   );

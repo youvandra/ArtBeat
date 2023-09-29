@@ -65,7 +65,7 @@ const ArtworkCard = ({
     <Card className={classes.card} withBorder {...cardProps}>
       <NextLink href={`/artwork/${props.tokenId}`}>
         <Image
-          src="https://www.placehold.co/270x180"
+          src={props.metadata.image}
           width={270}
           height={180}
           mx="auto"

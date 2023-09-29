@@ -191,7 +191,7 @@ const LINKS: NavItemType[] = [
   { label: "Artist", link: "/artist" },
   { label: "Event", link: "/event" },
   { label: "Museum", link: "/museum" },
-  { label: "Explore", link: "/explore" },
+  { label: "All Artworks", link: "/explore" },
   { label: "Minting", link: "/minting" },
   { label: "Auction", link: "/auction/4" },
 ];
