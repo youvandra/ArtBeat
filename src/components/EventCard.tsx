@@ -48,7 +48,6 @@ export default function EventCard({
 }
 
 export interface NFTMetadata {
-  name: string;
   title: string;
   artist: string;
   year: string;
@@ -65,7 +64,6 @@ export interface NFTMetadata {
 }
 
 export interface NFT {
-  id: any;
   price: any;
   tokenId: any;
   seller: any;
