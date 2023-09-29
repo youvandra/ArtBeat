@@ -15,16 +15,16 @@ const { getGlobalState, useGlobalState, setGlobalState } = createGlobalState({
 })
 
 const truncate = (text, startChars, endChars, maxLength) => {
-  if (text.length > maxLength) {
-    let start = text.substring(0, startChars)
-    let end = text.substring(text.length - endChars, text.length)
+  if (text && text.length > maxLength) {
+    let start = text.substring(0, startChars);
+    let end = text.substring(text.length - endChars, text.length);
     while (start.length + end.length < maxLength) {
-      start = start + '.'
+      start = start + '.';
     }
-    return start + end
+    return start + end;
   }
-  return text
-}
+  return text || ''; 
+};
 
 const convertToSeconds = (minutes, hours, days) => {
   const seconds = minutes * 60 + hours * 3600 + days * 86400
