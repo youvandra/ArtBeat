@@ -71,7 +71,6 @@ export default function Hero() {
               </Text>
             </Stack>
             <Space mt={"lg"} />
-            <SearchInput />
           </Stack>
           <Box
             sx={{

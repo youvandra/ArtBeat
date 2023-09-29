@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   Box,
   createStyles,
@@ -15,7 +16,6 @@ import {
 } from "@mantine/core";
 import { inferProcedureOutput } from "@trpc/server";
 import { useRouter } from "next/router";
-import { BiBorderRadius } from "react-icons/bi";
 import {
   FaClock,
   FaMapMarker,
@@ -23,15 +23,16 @@ import {
   FaMapPin,
   FaTicketAlt,
 } from "react-icons/fa";
-
-import { MdArrowBack } from "react-icons/md";
-
+import ABI from "../../utils/ABI/ABI_Ticket.json";
+import { ethers, utils } from "ethers";
 import EventCard from "../../components/EventCard";
 import { AppRouter } from "../../server/trpc/router/_app";
 import { trpc } from "../../utils/trpc";
 import ButtonBack from "../../components/ButtonBack";
-import { NextPageWithLayout } from "../_app";
 import WithAppshell from "../../layout/WithAppshell";
+import { TICKET_ADDRESS } from "../../const";
+import { NextPageWithLayout } from "../_app";
+import { showNotification } from "@mantine/notifications";
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -85,7 +86,68 @@ const EventDetail: NextPageWithLayout = () => {
   const { classes } = useStyles();
   const router = useRouter();
   const id = String(router.query.id);
-  const { data, isInitialLoading } = trpc.event.getById.useQuery({ id });
+  const { isInitialLoading } = trpc.event.getById.useQuery({ id });
+  const [numberOfTickets, setNumberOfTickets] = useState(0);
+  const [ticketData, setTicketData] = useState(null);
+
+  useEffect(() => {
+    const fetchTicketData = async () => {
+      try {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+
+        const contract = new ethers.Contract(
+          TICKET_ADDRESS,
+          ABI,
+          signer
+        );
+
+        const ticketData = await contract.getTicketInfo(id);
+        setTicketData(ticketData);
+      } catch (error) {
+        console.error("Error fetching ticket data:", error);
+      }
+    };
+
+    fetchTicketData();
+  }, [id]);
+
+  const buyTicket = async () => {
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+
+      const contract = new ethers.Contract(
+        TICKET_ADDRESS,
+        ABI,
+        signer
+      );
+
+      const ticketPriceInEther = parseFloat(ethers.utils.formatEther(ticketData.price));
+
+      // Lakukan perkalian dengan numberOfTickets
+      const totalTicketPrice = ticketPriceInEther * numberOfTickets;
+
+      const transaction = await contract.purchaseTicket(id, numberOfTickets, {
+        value: ethers.utils.parseEther(
+          (totalTicketPrice).toString()
+        ),
+      });
+
+      await transaction.wait();
+      showNotification({ message: "Ticket purchased successfully!", autoClose: 5000 });
+      console.log("Tiket berhasil dibeli!");
+
+      
+    } catch (error) {
+      if (numberOfTickets > ticketData.totalTickets){
+        showNotification({message: "Ticket purchase exceeds available quantity.", autoClose: 5000, color: "red"});
+      }else {
+        showNotification({message: "Ticket sold out!", autoClose: 5000, color: "red"})
+      }
+    }
+  };
+
   if (isInitialLoading)
     return (
       <Box pb={64} pt={20} className={classes.container}>
@@ -95,41 +157,48 @@ const EventDetail: NextPageWithLayout = () => {
         </Center>
       </Box>
     );
-  if (data)
+
+  if (ticketData)
     return (
       <>
         <Container size="xl">
           <Box pb={64} pt={20} className={classes.container}>
             <ButtonBack href="/event" />
-            <Title mt={"xl"}>{data.name}</Title>
+            <Title mt={"xl"}>{ticketData.name}</Title>
             <Box className={classes.grid} mt={"xl"}>
               <Image
                 height={420}
                 className={classes.img1}
                 radius={"md"}
-                src={data.mainImage}
+                src={ticketData.mainImage}
               />
 
               <Image
                 className={classes.img2}
                 height={210 - 8}
                 radius={"md"}
-                src={data.image1}
+                src={ticketData.image1}
               />
 
               <Image
                 className={classes.img3}
                 height={210 - 8}
                 radius={"md"}
-                src={data.image2}
+                src={ticketData.image2}
               />
             </Box>
           </Box>
         </Container>
-        <Overview data={data} />
+        <Overview
+          data={ticketData}
+          buyTicket={buyTicket}
+          numberOfTickets={numberOfTickets}
+          setNumberOfTickets={setNumberOfTickets}
+        />
         <RecommendedEvents />
       </>
     );
+
   return (
     <Box pb={64} pt={20} className={classes.container}>
       <ButtonBack href="/event" />
@@ -142,7 +211,12 @@ const EventDetail: NextPageWithLayout = () => {
   );
 };
 
-function Overview({ data }: Props) {
+function Overview({
+  data,
+  buyTicket,
+  numberOfTickets,
+  setNumberOfTickets,
+}) {
   const { classes } = useStyles();
   return (
     <Box py={64} className={classes.overview}>
@@ -155,7 +229,7 @@ function Overview({ data }: Props) {
             <Group noWrap align={"start"}>
               <FaMapMarkerAlt color="#111" size={24} />{" "}
               <Text color="#111" weight={600} size={"lg"}>
-                {data.address}
+                {data.venueAddress}
               </Text>
             </Group>
             <Group noWrap align={"start"}>
@@ -177,14 +251,23 @@ function Overview({ data }: Props) {
             <Title color="ocean-blue.3" order={2}>
               Get Your Ticket
             </Title>
+            <Text size="sm" color="dimmed">
+              Remaining Tickets: {data.totalTickets.toString()}
+            </Text>
             <TextInput
               placeholder="Tickets Quantity"
               icon={<FaTicketAlt size={24} fill={classes.green} />}
               radius={"md"}
               mt={"xl"}
               type={"number"}
+              value={numberOfTickets}
+              onChange={(event) =>
+                setNumberOfTickets(parseInt(event.target.value, 10))
+              }
             />
-            <Button radius={"md"}>Buy Ticket</Button>
+            <Button radius={"md"} onClick={buyTicket}>
+              Buy Ticket
+            </Button>
           </Stack>
         </Box>
       </Container>
@@ -195,6 +278,31 @@ function Overview({ data }: Props) {
 function RecommendedEvents() {
   const { classes } = useStyles();
   const { data, isInitialLoading } = trpc.event.getAll.useQuery();
+  const [ticketInfos, setTicketInfos] = useState([]);
+
+  useEffect(() => {
+    const fetchTicketData = async () => {
+      try {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+
+        const contract = new ethers.Contract(
+        TICKET_ADDRESS, ABI, signer
+      );
+      const ticketDataArray = [];
+        for (let i = 0; i < 1; i++) { // ARRAY EVENT
+          const ticketData = await contract.getTicketInfo(i);
+          ticketDataArray.push(ticketData);
+        }
+
+        setTicketInfos(ticketDataArray);
+      } catch (error) {
+        console.error('Terjadi kesalahan:', error);
+      }
+    };
+
+    fetchTicketData();
+  }, []);
   if (isInitialLoading)
     return (
       <Box py={64} px={"xl"}>
@@ -207,7 +315,7 @@ function RecommendedEvents() {
       </Box>
     );
 
-  if (data)
+  if (ticketInfos)
     return (
       <Box className={classes.overview} py={64} px={"xl"}>
         <Container size="xl">
@@ -223,22 +331,22 @@ function RecommendedEvents() {
               { maxWidth: "xs", cols: 1 },
             ]}
           >
-            {data.map(
-              ({ mainImage, name, date, ticketPrice, address, id }, i) => (
+            {ticketInfos.map
+              ((ticketInfo, i) => (
                 <EventCard
                   key={i}
-                  price={ticketPrice}
-                  details={`${date} | ${address}`}
-                  image={mainImage}
-                  name={name}
-                  id={id}
+                  price={parseFloat(utils.formatUnits(ticketInfo.price, 'ether'))}
+                  details={`${ticketInfo.date} | ${ticketInfo.venueAddress}`}
+                  image={ticketInfo.mainImage}
+                  name={ticketInfo.name}
+                  id={(i).toString()}
                 />
-              )
-            )}
+              ))}
           </SimpleGrid>
         </Container>
       </Box>
     );
+
   return (
     <Box py={64} px={"xl"}>
       <Container size="xl">
@@ -256,9 +364,5 @@ function RecommendedEvents() {
 }
 
 EventDetail.getLayout = (page) => <WithAppshell>{page}</WithAppshell>;
-
-interface Props {
-  data: inferProcedureOutput<AppRouter["event"]["getById"]>;
-}
 
 export default EventDetail;

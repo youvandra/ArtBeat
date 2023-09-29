@@ -1,21 +1,7 @@
 import { useEffect, useState } from "react";
-import {
-  Avatar,
-  Button,
-  Card,
-  Group,
-  Image,
-  SimpleGrid,
-  Space,
-  Stack,
-  Text,
-} from "@mantine/core";
+import { SimpleGrid } from "@mantine/core";
 import { Box, Container, Title, createStyles } from "@mantine/core";
-
-import { AiOutlineArrowRight } from "react-icons/ai";
-import ArtworkCard from "../../../../ArtworkCard";
-import { NFT } from "../../../../nft/NFTExploreCard";
-import { getAllNFTsById } from "../../../../../utils/getAllNFTsById";
+import MintingCard, { MintingCardProps } from "../../lib/MintingCard";
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -27,62 +13,43 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const ids = [{ id: 1 }, { id: 2 }, { id: 3 }];
+type MintingCardsProps = {
+  mintingData: MintingCardProps[];
+};
 
-const OtherCollections = () => {
+const OtherCollections  = (props: MintingCardsProps) => {
   const { classes } = useStyles();
-
-  const [nfts, setNfts] = useState<NFT[]>([]);
-
-  useEffect(() => {
-    async function updateNFTs() {
-      setNfts(await getAllNFTsById(ids));
-    }
-    updateNFTs();
-  }, []);
 
   return (
     <Box className={classes.container} mt="5rem" py="5rem">
       <Container pt="3rem" size="xl">
-        <Title weight={400} color="ocean-blue.3" className={classes.title}>
-          Christian Buehner
+        <Title weight={400} color="ocean-blue.5" className={classes.title}>
+          Other
           <Box<"span"> component="span" ml="sm" sx={{ color: "black" }}>
-            Other Collections
+             Collections
           </Box>
         </Title>
 
         <SimpleGrid
-          mt="xl"
+          mt="md"
           breakpoints={[
             {
               maxWidth: "sm",
               cols: 1,
             },
             {
-              maxWidth: "md",
+              maxWidth: "sm",
               cols: 2,
             },
             {
-              minWidth: "md",
+              minWidth: "sm",
               cols: 3,
             },
           ]}
         >
-          {nfts.length > 0 ? (
-            nfts.map((nft, i) => (
-              <ArtworkCard
-                key={1}
-                titleProps={{ text: "Van Gogh Portrait" }}
-                artistProps={{ text: "Christian Buehner" }}
-                priceProps={{ text: "$500" }}
-                buttonProps={{ href: "/minting" }}
-                imageProps={{ src: nft.metadata.image }}
-                {...nft}
-              />
-            ))
-          ) : (
-            <div></div>
-          )}
+          {props.mintingData && props.mintingData.map((data) => (
+            <MintingCard key={data.tokenId} {...data} />
+          ))}
         </SimpleGrid>
       </Container>
     </Box>

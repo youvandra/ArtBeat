@@ -26,6 +26,8 @@ import { NextPageWithLayout } from "./_app";
 import WithAppshell from "../layout/WithAppshell";
 import { Styles } from "../const";
 import { MdLocalShipping } from "react-icons/md";
+import { useConnectedMetaMask } from "metamask-react";
+import { truncate } from "../utils/auction/store";
 
 const useStyles = createStyles((t) => ({
   banner: {
@@ -70,6 +72,9 @@ function Profile() {
   const { data } = trpc.auth.getSession.useQuery();
   const [nfts, setNfts] = useState<NFT[]>([]);
   const [isFetching, setIsFetching] = useState(false);
+  const { account } = useConnectedMetaMask();
+  
+
   useEffect(() => {
     setIsFetching(true);
     getMyNFTs()
@@ -107,8 +112,8 @@ function Profile() {
                 align={"center"}
               >
                 <Avatar radius={999} src={data?.user?.image} size={140} />
-                <Title mt={"xl"} order={2} color="ocean-blue.3">
-                  {data?.user?.name}
+                <Title size={15} mt={"sm"} order={2} color="ocean-blue.3">
+                {truncate(account, 5, 5, 15)}
                 </Title>
 
                 <Title color={"#111"} mt={"xl"} order={4}>
@@ -124,7 +129,7 @@ function Profile() {
             </Paper>
             <Button
               component={NextLink}
-              href="/#"
+              href="/requestshipping"
               color="ocean-blue"
               leftIcon={<MdLocalShipping />}
             >
@@ -134,7 +139,7 @@ function Profile() {
 
           <Stack className={classes.collection}>
             <Title color="ocean-blue.3" order={1}>
-              My <span style={{ color: "#111" }}>collection</span>
+              My <span style={{ color: "#111" }}>collections</span>
             </Title>
             {isFetching ? (
               <Center mt={"md"}>
@@ -161,7 +166,9 @@ function Profile() {
           </Stack>
         </Group>
       </Container>
+      <br></br>
     </Box>
+    
   );
 }
 const Page: NextPageWithLayout = () => {

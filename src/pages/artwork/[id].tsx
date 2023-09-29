@@ -26,6 +26,8 @@ import ButtonBack from "../../components/ButtonBack";
 import { NextPageWithLayout } from "../_app";
 import WithAppshell from "../../layout/WithAppshell";
 import ArtworkCard from "../../components/ArtworkCard";
+import { useConnectedMetaMask } from "metamask-react";
+import { truncate } from "../../utils/auction/store";
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -71,6 +73,7 @@ const Artwork: NextPageWithLayout = () => {
   const [isFetching, setIsFetching] = useState(false);
   const tokenId = router.query.id;
   const [nft, setNft] = useState<NFT>(null);
+  const { account } = useConnectedMetaMask();
 
   useEffect(() => {
     tokenId &&
@@ -101,6 +104,9 @@ const Artwork: NextPageWithLayout = () => {
         setIsFetching(false);
       });
   }, []);
+
+
+
   return (
     <>
       <Container size="xl">
@@ -122,8 +128,8 @@ const Artwork: NextPageWithLayout = () => {
                       src={nft.metadata.image}
                     />
                     <ArtistCard
-                      name={nft.metadata.artist}
-                      artwokrsCount={900}
+                      name='Artist'
+                      artwokrsCount={nft.metadata.artist}
                     />
                   </Stack>
                 </Grid.Col>
@@ -140,19 +146,42 @@ const Artwork: NextPageWithLayout = () => {
                       />
                       <Property label="Year" value={nft.metadata.year} />
                     </SimpleGrid>
-                    <Text mt={"xl"} size={24} weight={"bold"}>
-                      {nft.metadata.price} BTTC
-                    </Text>
-                    <Button
-                      className={classes.buttonBuy}
-                      onClick={() => {
-                        buyNFT(nft);
-                      }}
-                      radius="lg"
-                      size="xl"
-                    >
-                      Buy now
-                    </Button>
+                    {nft.seller !== nft.owner ? (
+                      <SimpleGrid mt={"xl"}>
+                        <Property label="Owner" value={truncate(nft.seller, 5, 5, 15)} />
+                      </SimpleGrid> 
+                      ) : (
+                        null
+                      )}
+                    {/* {nft.seller.toLowerCase() === account ? ( */}
+                    {nft.seller !== nft.owner ? (
+                      <>
+                      <Text mt={"xl"} size={24} weight={"bold"}>
+                          {nft.metadata.price} BTT
+                      </Text>
+                      <Button
+                        className={classes.buttonBuy}
+                        radius="lg"
+                        size="xl"
+                      >
+                          Owned
+                        </Button></>
+                     ) : (
+                      <>
+                      <Text mt={"xl"} size={24} weight={"bold"}>
+                          {nft.metadata.price} BTT
+                      </Text>
+                      <Button
+                          className={classes.buttonBuy}
+                          onClick={() => {
+                            buyNFT(nft);
+                          } }
+                          radius="lg"
+                          size="xl"
+                        >
+                          Buy now
+                      </Button></>
+                   )}
                   </Stack>
                 </Grid.Col>
               </Grid>

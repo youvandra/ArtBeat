@@ -10,7 +10,8 @@ import {
 } from "@mantine/core";
 import MintingIcon from "../../../icons/MintingIcon";
 import { Styles } from "../../../../const";
-import { NFT } from "../../../nft/NFTExploreCard";
+import { Drop, NFT } from "../../../nft/NFTExploreCard";
+import { ethers } from "ethers";
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -30,9 +31,20 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export type MintingCardProps = NFT;
+export type MintingCardProps = Drop;
 
-const MintingCard = ({ tokenId, metadata, price }: MintingCardProps) => {
+const MintingCard = ({ tokenId,
+  name,
+  artistName,
+  description,
+  totalSupply,
+  pricePerNft,
+  tokenURI,
+  image1,
+  image2,
+  image3,
+  image4,
+  image5, }: MintingCardProps) => {
   const router = useRouter();
   const { classes } = useStyles();
 
@@ -41,7 +53,7 @@ const MintingCard = ({ tokenId, metadata, price }: MintingCardProps) => {
       <Card.Section withBorder>
         <Image
           className={classes.cardImage}
-          src={metadata.image || "https://www.placehold.co/264x253"}
+          src={image1 || "https://www.placehold.co/264x253"}
           width="100%"
           height={253}
           radius="md"
@@ -50,21 +62,19 @@ const MintingCard = ({ tokenId, metadata, price }: MintingCardProps) => {
 
       <Title
         mt="0.5rem"
-        size={18}
+        size={15}
         color="ocean-blue.2"
         weight={400}
         className={classes.cardTitle}
       >
-        {metadata.title}
+        {name}
       </Title>
 
-      <Group spacing="xl" noWrap>
-        <div>
-          <Text>Price</Text>
+      <Group spacing="md" >
+          <Text>Price : </Text>
           <Text mt={2} color="straw.0">
-            {price}
+            {ethers.utils.formatEther(pricePerNft)} BTT
           </Text>
-        </div>
 
         <Button
           className={classes.button}

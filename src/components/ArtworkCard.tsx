@@ -53,6 +53,14 @@ const ArtworkCard = ({
 }: ArtworkCardProps) => {
   const { classes } = useStyles();
 
+  const maxLength = 30; // Jumlah huruf maksimal yang diinginkan
+  const text = String(titleProps.text); // Konversi ke string jika bukan string
+
+  // Memotong teks jika melebihi maxLength
+  const truncatedText = text.length > maxLength
+    ? `${text.slice(0, maxLength)}...`
+    : text;
+
   return (
     <Card className={classes.card} withBorder {...cardProps}>
       <NextLink href={`/artwork/${props.tokenId}`}>
@@ -66,7 +74,7 @@ const ArtworkCard = ({
       </NextLink>
       <Stack mt="md" spacing="md">
         <Title size={20} weight={400} color="ocean-blue.4" {...titleProps}>
-          {titleProps.text}
+          {truncatedText}
         </Title>
         <Group>
           <Avatar radius="xl" {...avatarProps} />
@@ -75,10 +83,9 @@ const ArtworkCard = ({
           </Text>
         </Group>
         <Group position="apart" noWrap>
-          <Text {...priceProps}>Price : {priceProps?.text || "500"} BTTC</Text>
+          <Text {...priceProps}>Price : {priceProps?.text || "500"} BTT</Text>
           <Button
             component={NextLink}
-            variant="subtle"
             color="ocean-blue"
             rightIcon={<AiOutlineArrowRight />}
             href="/"

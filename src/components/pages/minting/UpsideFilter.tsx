@@ -18,17 +18,7 @@ const UpsideFilter = (props: UpsideFilterProps) => {
         paddingTop: "3rem",
       }}
     >
-      <Text>Applied Filters: </Text>
-      {chips.map((chip) => (
-        <FilterChip
-          key={chip.id}
-          {...chip}
-          onClick={() =>
-            setChips((state) => state.filter((_chip) => _chip.id != chip.id))
-          }
-        />
-      ))}
-      <TextInput radius="xl" icon={<HiSearch />} {...props.textInput} />
+      <TextInput placeholder="Search.."radius="xl" icon={<HiSearch />} {...props.textInput} />
     </Group>
   );
 };

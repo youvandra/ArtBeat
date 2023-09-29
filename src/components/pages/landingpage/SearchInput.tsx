@@ -18,7 +18,7 @@ export default function SearchInput() {
           fontWeight: 500,
         },
       }}
-      placeholder="Abstarct Painting"
+      placeholder="Abstract Painting"
       icon={
         <MdSearch
           color="white"

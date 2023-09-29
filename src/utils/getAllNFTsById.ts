@@ -1,6 +1,6 @@
 import axios from "axios";
 import { NFT } from "../components/nft/NFTExploreCard";
-import ABI from "./ABI.json";
+import ABI from "../utils/ABI/ABI.json";
 import { ethers } from "ethers";
 import { getNFTbyId } from "./getNFTbyId";
 

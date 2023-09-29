@@ -29,7 +29,7 @@ import { useState } from "react";
 import ImageUpload from "../components/pages/post-nft/ImageUpload";
 import { getServerAuthSession } from "../server/common/get-server-auth-session";
 import { uploadFileToIPFS, uploadJSONToIPFS } from "../utils/pinata";
-import ABI from "../utils/ABI.json";
+import ABI from "../utils/ABI/ABI.json";
 import { NextPageWithLayout } from "./_app";
 import WithAppshell from "../layout/WithAppshell";
 import { Styles } from "../const";
@@ -182,36 +182,31 @@ const PostNFT: NextPageWithLayout = () => {
                       {...form.getInputProps("title")}
                       type="text"
                       size="md"
-                      label="Title"
-                    />
+                      label="Title" />
                     <TextInput
                       required
                       {...form.getInputProps("artist")}
                       type="text"
                       size="md"
-                      label="Artist"
-                    />
+                      label="Artist" />
                     <TextInput
                       required
                       {...form.getInputProps("year")}
                       type="text"
                       size="md"
-                      label="Year of making"
-                    />
+                      label="Year of making" />
                     <TextInput
                       required
                       {...form.getInputProps("technique")}
                       type="text"
                       size="md"
-                      label="Technique"
-                    />
+                      label="Technique" />
                     <TextInput
                       required
                       {...form.getInputProps("size")}
                       type="text"
                       size="md"
-                      label="Size"
-                    />
+                      label="Size" />
                     <Select
                       required
                       {...form.getInputProps("type")}
@@ -219,44 +214,37 @@ const PostNFT: NextPageWithLayout = () => {
                       size="md"
                       label="Type"
                       data={["Painting", "Sculpture", "Photograph"]}
-                      sx={{ maxWidth: 300 }}
-                    />
+                      sx={{ maxWidth: 300 }} />
                     <TextInput
                       required
                       {...form.getInputProps("edition")}
                       type="text"
                       size="md"
-                      label="Edition"
-                    />
+                      label="Edition" />
                     <TextInput
                       required
                       {...form.getInputProps("condition")}
                       type="text"
                       size="md"
-                      label="Condition"
-                    />
+                      label="Condition" />
                     <TextInput
                       required
                       {...form.getInputProps("frame")}
                       type="text"
                       size="md"
-                      label="Frame"
-                    />
+                      label="Frame" />
                     <TextInput
                       required
                       {...form.getInputProps("status")}
                       type="text"
                       size="md"
-                      label="Status"
-                    />
+                      label="Status" />
                     <Textarea
                       required
                       {...form.getInputProps("description")}
-                      type="text"
                       size="md"
                       label="Description"
-                      minRows={3}
-                    />
+                      minRows={3} />
 
                     <Input.Wrapper required>
                       <Input.Label mb={4}>Image</Input.Label>
@@ -269,8 +257,7 @@ const PostNFT: NextPageWithLayout = () => {
                           src={imageUrl}
                           imageProps={{
                             onLoad: () => URL.revokeObjectURL(imageUrl),
-                          }}
-                        />
+                          }} />
                       )}
                     </Input.Wrapper>
 
@@ -279,8 +266,7 @@ const PostNFT: NextPageWithLayout = () => {
                       {...form.getInputProps("price")}
                       type="text"
                       size="md"
-                      label="Price"
-                    />
+                      label="Price" />
 
                     <Button
                       mt={"xl"}

@@ -16,6 +16,6 @@
     "incremental": true,
     "noUncheckedIndexedAccess": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs", "next.config.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs", "next.config.js", "src/utils/auction/store/index.jsx", "src/pages/auction-list.jsx", "src/utils/auction/services/blockchain.jsx", "src/utils/auction/services/blockchain.jsx", "src/pages/auction-list.jsx"],
   "exclude": ["node_modules"]
 }

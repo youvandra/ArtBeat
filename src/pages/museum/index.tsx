@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Box,
   Center,
@@ -9,20 +10,17 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
-import ArtistCard from "../../components/pages/artist/ArtistCard";
 import MuseumCard from "../../components/pages/museum/MuseumCard";
-import UnderconstructionComponent from "../../components/pages/UnderconsturctionComponent";
 import { NextPageWithLayout } from "../_app";
 import { trpc } from "../../utils/trpc";
 import WithAppshell from "../../layout/WithAppshell";
 import { Styles } from "../../const";
 import { MdSearch } from "react-icons/md";
-// import CreateDummy from "../../utils/CreateDummy";
 
 const useStyles = createStyles(() => ({
   banner: {
     width: "100%",
-    height: 594 + Styles.PULL_IMG_COVER,
+    height: 500,
     backgroundImage: "url('/artists-section-banner.jpg')",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
@@ -48,11 +46,11 @@ const useStyles = createStyles(() => ({
   },
 }));
 
-// const museums = CreateDummy.museums();
-
 function Museum() {
   const { classes } = useStyles();
   const { data, isInitialLoading } = trpc.museumRouter.getAll.useQuery();
+  const [searchTerm, setSearchTerm] = useState("");
+
   if (isInitialLoading)
     return (
       <Box>
@@ -71,72 +69,79 @@ function Museum() {
         </Center>
       </Box>
     );
-  if (data)
-    return (
-      <Box>
-        <Box className={classes.banner}>
-          <Stack spacing={16 * 4} sx={{ textAlign: "center" }}>
-            <div>
-              <Title size={48}>Museums</Title>
 
-              <Text sx={{ maxWidth: 499 }}>
-                Showing a list of museums that own various magnificent art
-                collections made by very talented artists
-              </Text>
-            </div>
+  return (
+    <Box>
+      <Box className={classes.banner}>
+        <Stack spacing={16 * 4} sx={{ textAlign: "center" }}>
+          <div>
+            <Title size={48}>Museums</Title>
 
-            <Center>
-              <TextInput
-                icon={<MdSearch />}
-                radius="xl"
-                className={classes.search}
-              />
-            </Center>
-          </Stack>
-        </Box>
+            <Text sx={{ maxWidth: 499 }}>
+              Showing a list of museums that own various magnificent art
+              collections made by very talented artists
+            </Text>
+          </div>
 
-        <div className={classes.museumList}>
-          <Container size="xl">
-            <Title
+          <Center>
+            <TextInput
+              icon={<MdSearch />}
+              radius="xl"
+              className={classes.search}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search museums"
+            />
+          </Center>
+        </Stack>
+      </Box>
+
+      <div className={classes.museumList}>
+        <Container size="xl">
+          <Title
+            sx={(theme) => ({
+              borderBottom: "1px solid #e1e1e1",
+              [theme.fn.smallerThan("md")]: {
+                borderBottom: "1px solid #000",
+              },
+            })}
+            weight={400}
+            size={36}
+            order={2}
+          >
+            <Box
+              component="span"
               sx={(theme) => ({
-                borderBottom: "1px solid #e1e1e1",
-                [theme.fn.smallerThan("md")]: {
+                [theme.fn.largerThan("md")]: {
                   borderBottom: "1px solid #000",
+                  paddingBottom: 3,
                 },
               })}
-              weight={400}
-              size={36}
-              order={2}
             >
-              <Box
+              <Box<"span">
                 component="span"
                 sx={(theme) => ({
-                  [theme.fn.largerThan("md")]: {
-                    borderBottom: "1px solid #000",
-                    paddingBottom: 3,
-                  },
+                  color: theme.colors["ocean-blue"][3],
                 })}
               >
-                <Box<"span">
-                  component="span"
-                  sx={(theme) => ({
-                    color: theme.colors["ocean-blue"][3],
-                  })}
-                >
-                  Museums
-                </Box>{" "}
-                List
-              </Box>
-            </Title>
-            <Stack mt={32} spacing={48} mb={96} px={"xl"}>
-              {data.map((data) => (
+                Museums
+              </Box>{" "}
+              List
+            </Box>
+          </Title>
+          <Stack mt={32} spacing={48} mb={96} px={"xl"}>
+            {data
+              .filter((museum) =>
+                museum.name.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+              .map((data) => (
                 <MuseumCard key={data.id} data={data} />
               ))}
-            </Stack>
-          </Container>
-        </div>
-      </Box>
-    );
+          </Stack>
+        </Container>
+      </div>
+    </Box>
+  );
 }
 
 const Page: NextPageWithLayout = () => {

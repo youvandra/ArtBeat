@@ -4,91 +4,87 @@ import { useMetaMask } from "metamask-react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { CHAIN_ID, CHAIN_PARAMS } from "../const";
-
-// async function connect() {
-//   if (!window.ethereum)
-//     return showNotification({
-//       message: "A wallet was not detected",
-//       color: "red",
-//     });
-//   await window.ethereum.request({ method: "eth_requestAccounts" });
-
-//   const chainId = "0x405"; // BTT
-
-//   if (window.ethereum.networkVersion !== chainId) {
-//     try {
-//       await window.ethereum.request({
-//         method: "wallet_switchEthereumChain",
-//         params: [{ chainId }],
-//       });
-//     } catch (err) {
-//       // This error code indicates that the chain has not been added to MetaMask
-//       if (err.code === 4902) {
-//         await window.ethereum.request({
-//           method: "wallet_addEthereumChain",
-//           params: [
-//             {
-//               chainName: "BitTorrent Chain Donau",
-//               chainId,
-//               nativeCurrency: { name: "BTT", decimals: 18, symbol: "BTT" },
-//               rpcUrls: ["https://pre-rpc.bt.io/"],
-//               blockExplorerUrls: ["https://testscan.bt.io"],
-//               iconUrls: ["https://static.bt.io/production/logo/1002000.png"],
-//             },
-//           ],
-//         });
-//       }
-//     }
-//   }
-// }
+import { setGlobalState } from '../utils/auction/store/index';
+import { truncate, useGlobalState } from '../utils/auction/store'
 
 export default function ConnectWallet() {
   const router = useRouter();
-  const { status, connect, addChain, chainId, switchChain } = useMetaMask();
+  const { status, connect, addChain, chainId, switchChain, account } = useMetaMask();
+  const [account_wallet, setWallet] = useState('');
 
-  async function handleNetworkChange() {
-    await switchChain(CHAIN_ID)
-      .catch(async (err) => {
-        if (err.code === 4902)
-          await addChain(CHAIN_PARAMS).then(() => switchChain(CHAIN_ID));
-      })
-      .then(() => {
-        router.reload();
+  const handleConnect = async () => {
+    try {
+      await connect();
+    } catch (error) {
+      showNotification({
+        message: "Failed to connect with MetaMask",
+        color: "red",
       });
-  }
+    }
+  };
 
-  const handleClick = () => {
-    if (status === "notConnected")
-      connect().then(() => {
+  const handleNetworkChange = async () => {
+    try {
+      await switchChain(CHAIN_ID);
+      router.reload();
+    } catch (error) {
+      if (error.code === 4902) {
+        await addChain(CHAIN_PARAMS);
+        await switchChain(CHAIN_ID);
         router.reload();
-      });
+      } else {
+        showNotification({
+          message: "Failed to change network",
+          color: "red",
+        });
+      }
+    }
   };
 
   useEffect(() => {
-    if (status === "notConnected")
-      showNotification({ message: "Metamask is not connected!", color: "red" });
-    if (status === "unavailable")
+    if (status === "notConnected") {
       showNotification({
-        message: "A wallet was not detected!",
+        message: "MetaMask is not connected yet!",
         color: "red",
       });
-  }, [status]);
+    } else if (status === "unavailable") {
+      showNotification({
+        message: "No wallet detected!",
+        color: "red",
+      });
+    } else if (status === "connected") {
+      setWallet(account.toLowerCase());
+    }
+  }, [status, account]);
 
   useEffect(() => {
     if (status === "connected" && chainId !== CHAIN_ID) {
       handleNetworkChange();
-      showNotification({ message: "wrong network!", color: "red" });
+      showNotification({ message: "Wrong network!", color: "red" });
     }
-  }, [chainId]);
+  }, [status, chainId]);
+
+  console.log(account_wallet);
   return (
-    <Button
-      loading={status === ("initializing" || "connecting")}
-      onClick={handleClick}
-      variant="white"
-      color={"dark"}
-      radius={"xl"}
-    >
-      {status === "notConnected" ? "Connect" : status}
-    </Button>
+    <>
+      {status === 'initializing' || status === 'notConnected' ? (
+        <Button
+          onClick={handleConnect}
+          variant="white"
+          color="dark"
+          radius="xl"
+        >
+          Connect Wallet
+        </Button>
+      ) : (
+        <Button
+          variant="white"
+          color="dark"
+          radius="xl"
+        >
+          {truncate(account_wallet, 4, 4, 11)}
+        </Button>
+      )}
+    </>
   );
 }

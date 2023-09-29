@@ -4,6 +4,12 @@ import { NFT } from "./NFTExploreCard";
 import { NextLink } from "@mantine/next";
 
 export default function NFTCard({ metadata, tokenId }: NFT) {
+  const maxLength = 17; // Jumlah huruf maksimal yang diinginkan
+
+// Memotong judul jika melebihi maxLength
+  const truncatedTitle = metadata.title.length > maxLength
+    ? `${metadata.title.slice(0, maxLength)}...`
+    : metadata.title;
   return (
     <Card shadow="sm" p="sm" radius="md">
       <Card.Section>
@@ -12,9 +18,10 @@ export default function NFTCard({ metadata, tokenId }: NFT) {
         </NextLink>
       </Card.Section>
       <Title mt={"xl"} color="ocean-blue.3" order={3}>
-        {metadata.title}
+        {truncatedTitle}
       </Title>
       <Group spacing={"xs"} mt={"xs"}>
+
         <Text size={"sm"}>Art by:</Text>
         <Group spacing={"xs"}>
           <Avatar src={metadata.image} radius={999} size={24} />{" "}

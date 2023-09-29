@@ -59,17 +59,23 @@ export default function ArtistCard({ data }: Props) {
 function ArtistSection({ data }: Props) {
   const { classes } = useStyles();
   return (
-    <Stack className={classes.artistSection} align={"center"}>
+    <Stack className={classes.artistSection} align="center">
       <Avatar src={data.user.image} size={180} radius={999} />
-      <Text size={"xl"} weight={600}>
+      <Text size="xl" weight={600} align="center">
         {data.user.name}
       </Text>
       <Text align="center">{data.description}</Text>
-      <Group mt={"xl"} sx={{ color: "#111" }} spacing={"xs"} align={"center"}>
+      <Group mt="xl" color="#111" spacing="xs" align="center">
         <IoMdColorPalette size={24} />
         <Text weight={500}>{data.tokenIds.length} Artworks</Text>
       </Group>
-      <Text variant="link" component={NextLink} href={`/artist/${data.id}`}>
+      <Text
+        variant="link"
+        component={NextLink}
+        href={`/artist/${data.id}`}
+        align="center"
+        color="#007BFF" 
+      >
         See Details
       </Text>
     </Stack>
@@ -91,14 +97,14 @@ function ArtworkSection({ data }: Props) {
         <span className={classes.green}>Recent</span> Artworks
       </Title>
       <SimpleGrid
-        spacing={"xl"}
-        mt={"xl"}
+        spacing="xl" // Atur jarak antar elemen sesuai kebutuhan
+        mt="xl"
         breakpoints={[
-          { maxWidth: "lg", cols: 2 },
-          { maxWidth: "md", cols: 1 },
+          { maxWidth: "lg", cols: 2 }, // Ketika layar berukuran 'lg', tampilkan 2 kolom
+          { maxWidth: "md", cols: 1 }, // Ketika layar berukuran 'md', tampilkan 1 kolom
         ]}
         sx={{ width: "100%" }}
-        cols={3}
+        cols={3} // Secara default, tampilkan 3 kolom
       >
         {nfts.map((nft) => (
           <NFTCard key={nft.tokenId} {...nft} />

@@ -21,9 +21,9 @@ const useStyles = createStyles((t) => ({
     color: "white",
   },
   iframe: {
-    height: 327,
+    height: 400,
     width: "100%",
-    [t.fn.smallerThan("xs")]: {
+    [t.fn.smallerThan("xl")]: {
       width: "auto",
       height: "auto",
     },
@@ -36,9 +36,9 @@ export default function About() {
   const { classes } = useStyles();
 
   return (
-    <Container size="xl" className={classes.banner} py={96}>
+    <Container size="xl" className={classes.banner} py={200}>
       <Stack spacing="xl">
-        <Title size="64px">
+        <Title size="45px">
           NFT Certificate for <br /> Artwork
         </Title>
         <SimpleGrid
@@ -65,6 +65,7 @@ export default function About() {
           </Stack>
         </SimpleGrid>
       </Stack>
+      <br></br><br></br><br></br><br></br>
     </Container>
   );
 }

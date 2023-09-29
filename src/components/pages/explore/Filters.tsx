@@ -7,20 +7,11 @@ import {
   Divider,
   Avatar,
 } from "@mantine/core";
+import { trpc } from "../../../utils/trpc";
 
 export default function Filters() {
   return (
-    <Stack spacing={72}>
-      <Stack spacing={"xs"}>
-        <Group>
-          <ColorSwatch size={16} color="#875A28" />
-          <Text>Verified Arts</Text>
-        </Group>
-        <Group>
-          <ColorSwatch size={16} color="#DDAB46" />
-          <Text>Non - Verified Arts</Text>
-        </Group>
-      </Stack>
+    <Stack spacing={72} >
       <SelectedArtists />
       <SelectedMuseums />
     </Stack>
@@ -28,66 +19,50 @@ export default function Filters() {
 }
 
 function SelectedArtists() {
+  const { data, isInitialLoading } = trpc.artist.getArtists.useQuery();
+  if (isInitialLoading) {
+    // Tampilkan pesan loading atau indikator loading
+    return <p>Loading...</p>;
+  }
   return (
-    <Box>
+    <Box >
       <Text size={"lg"} weight={500}>
-        Seleted <span style={{ color: "#DDAB46" }}>Artists</span>
+        Seleted <span style={{ color: "#0f6c57" }}>Artists</span>
       </Text>
-      <Divider color={"#DDAB46"} />
+      <Divider color={"#0f6c57"} />
       <Stack mt={"xl"}>
-        <SelectedCard
-          body="24 Arts"
-          name="Zack Efron"
-          image="https://images.unsplash.com/photo-1505962577034-fc157cf5b274?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-        />
-        <SelectedCard
-          body="24 Arts"
-          name="Zack Efron"
-          image="https://images.unsplash.com/photo-1505962577034-fc157cf5b274?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-        />
-        <SelectedCard
-          body="24 Arts"
-          name="Zack Efron"
-          image="https://images.unsplash.com/photo-1505962577034-fc157cf5b274?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-        />
-        <SelectedCard
-          body="24 Arts"
-          name="Zack Efron"
-          image="https://images.unsplash.com/photo-1505962577034-fc157cf5b274?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-        />
+      {data.slice(0, 7).map((data) => (
+          <SelectedCard
+            body=""
+            name={data.user.name}
+            image={data.user.image}
+          />
+        ))}
       </Stack>
     </Box>
   );
 }
 
 function SelectedMuseums() {
+  const { data, isInitialLoading } = trpc.museumRouter.getAll.useQuery();
+  if (isInitialLoading) {
+    // Tampilkan pesan loading atau indikator loading
+    return <p>Loading...</p>;
+  }
   return (
     <Box>
       <Text size={"lg"} weight={500}>
-        Seleted <span style={{ color: "#DDAB46" }}>Museums</span>
+        Seleted <span style={{ color: "#0f6c57" }}>Museums</span>
       </Text>
-      <Divider color={"#DDAB46"} />
+      <Divider color={"#0f6c57"} />
       <Stack mt={"xl"}>
-        <SelectedCard
-          body="24 Collections"
-          name="Van Gogh Museum"
-          image="https://images.unsplash.com/photo-1624120975245-288d94b05f0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-        />
-        <SelectedCard
-          body="24 Collections"
-          name="Van Gogh Museum"
-          image="https://images.unsplash.com/photo-1624120975245-288d94b05f0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-        />
-        <SelectedCard
-          body="24 Collections"
-          name="Van Gogh Museum"
-          image="https://images.unsplash.com/photo-1624120975245-288d94b05f0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-        />
-        <SelectedCard
-          body="24 Collections"
-          name="Van Gogh Museum"
-          image="https://images.unsplash.com/photo-1624120975245-288d94b05f0a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-        />
+      {data.slice(0, 7).map((data) => (
+          <SelectedCard
+            body=""
+            name={data.name}
+            image={data.image1}
+          />
+        ))}
       </Stack>
     </Box>
   );

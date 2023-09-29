@@ -3,7 +3,7 @@ import { NextLink } from "@mantine/next";
 
 export default function MuseumCard({ image, location, name, id }: Props) {
   return (
-    <Card sx={{ border: "1px solid #875A28" }} p="xs" radius={"lg"}>
+    <Card sx={{ border: "1px solid #0f6c57" }} p="xs" radius={"lg"}>
       <Image radius={"md"} height={160} src={image} />
 
       <Stack sx={{ textAlign: "center" }} spacing={0} mt={"xl"}>

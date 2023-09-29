@@ -94,7 +94,7 @@ const SignIn: NextPageWithLayout = () => {
                       label="email"
                       color="brand"
                       placeholder="example@email.com"
-                      icon={<BiEnvelope color="#875A28" size={24} />}
+                      icon={<BiEnvelope color="#0f6c57" size={24} />}
                     />
 
                     <PasswordInput
@@ -103,7 +103,8 @@ const SignIn: NextPageWithLayout = () => {
                       styles={inputStyles}
                       label="password"
                       color="brand"
-                      icon={<BiLock color="#875A28" size={24} />}
+                      placeholder="Input password"
+                      icon={<BiLock color="#0f6c57" size={24} />}
                     />
 
                     <Stack mt={"xl"}>
@@ -148,7 +149,7 @@ export default SignIn;
 
 const inputStyles = (t) => ({
   input: {
-    border: `1px solid #875A28`,
+    border: `1px solid #0f6c57`,
 
     borderRadius: t.radius.md,
   },

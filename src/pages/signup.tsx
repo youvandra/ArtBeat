@@ -91,7 +91,7 @@ const SignUp: NextPageWithLayout = () => {
                       label="email"
                       color="brand"
                       placeholder="example@email.com"
-                      icon={<BiEnvelope color="#875A28" size={24} />}
+                      icon={<BiEnvelope color="#0f6c57" size={24} />}
                     />
                     <TextInput
                       {...form.getInputProps("name")}
@@ -100,22 +100,23 @@ const SignUp: NextPageWithLayout = () => {
                       label="name"
                       color="brand"
                       placeholder="John Doe"
-                      icon={<BiUser color="#875A28" size={24} />}
+                      icon={<BiUser color="#0f6c57" size={24} />}
                     />
                     <PasswordInput
                       {...form.getInputProps("password")}
                       size="md"
                       styles={inputStyles}
                       label="password"
+                      placeholder="Input password"
                       color="brand"
-                      icon={<BiLock color="#875A28" size={24} />}
+                      icon={<BiLock color="#0f6c57" size={24} />}
                     />
                     <Select
                       sx={{ maxWhidth: 300 }}
                       {...form.getInputProps("role")}
                       size="md"
                       styles={inputStyles}
-                      rightSection={<BiChevronDown color="#875A28" size={24} />}
+                      rightSection={<BiChevronDown color="#0f6c57" size={24} />}
                       label="Role"
                       placeholder="Choose your role"
                       data={[
@@ -170,7 +171,7 @@ export default SignUp;
 
 const inputStyles = (t) => ({
   input: {
-    border: `1px solid #875A28`,
+    border: `1px solid #0f6c57`,
     borderRadius: t.radius.md,
   },
   root: { color: t.colors.brand[5] },

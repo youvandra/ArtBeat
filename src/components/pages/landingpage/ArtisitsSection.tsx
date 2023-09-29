@@ -13,7 +13,7 @@ const useStyles = createStyles((t) => ({
     backgroundPositionY: "50%",
     position: "relative",
     color: "white",
-    minHeight: 720,
+    minHeight: 300,
   },
 }));
 

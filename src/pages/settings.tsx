@@ -36,7 +36,7 @@ const useStyles = createStyles((t) => ({
     marginTop: `-${Styles.PULL_IMG_COVER}px`,
   },
   filtersContainer: {
-    borderLeft: "1px solid #875A28",
+    borderLeft: "1px solid #0f6c57",
     width: 300,
     height: "100%",
   },

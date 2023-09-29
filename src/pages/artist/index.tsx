@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Box,
   Center,
@@ -7,6 +8,7 @@ import {
   Loader,
   Stack,
   Text,
+  TextInput,
   Title,
   useMantineTheme,
 } from "@mantine/core";
@@ -14,11 +16,12 @@ import ArtistCard from "../../components/pages/artist/ArtistCard";
 import WithAppshell from "../../layout/WithAppshell";
 import { trpc } from "../../utils/trpc";
 import { Styles } from "../../const";
+import { MdSearch } from "react-icons/md";
 
 const useStyles = createStyles((t) => ({
   banner: {
     width: "100%",
-    height: 594 + Styles.PULL_IMG_COVER,
+    height: 400,
     backgroundImage: "url('/artist-banner.jpg')",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
@@ -27,12 +30,27 @@ const useStyles = createStyles((t) => ({
     placeItems: "center",
     color: "white",
   },
+  search: {
+    width: "100%",
+    maxWidth: 495,
+    input: {
+      backgroundColor: "transparent",
+      color: "white",
+    },
+  },
 }));
 
 const Artist = () => {
   const theme = useMantineTheme();
   const { classes } = useStyles();
   const { data, isInitialLoading } = trpc.artist.getArtists.useQuery();
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredArtists = data
+    ? data.filter((artist) =>
+        artist.user.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
 
   return (
     <Box
@@ -43,9 +61,21 @@ const Artist = () => {
     >
       <Box py={155} className={classes.banner}>
         <Box sx={{ textAlign: "center" }}>
-          <Title size={48}>Artists</Title>
-
-          <Text>Showing a list of talented artists all over the world</Text>
+          <Stack spacing={16 * 4} sx={{ textAlign: "center" }}>
+            <div>
+              <Title size={48}>Artists</Title>
+              <Text>Showing a list of talented artists all over the world</Text>
+            </div>
+            <Center>
+              <TextInput
+                icon={<MdSearch />}
+                radius="xl"
+                className={classes.search}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </Center>
+          </Stack>
         </Box>
       </Box>
 
@@ -64,14 +94,15 @@ const Artist = () => {
           <Center>
             <Loader />
           </Center>
-        ) : data ? (
+        ) : (
           <Stack mt={32} spacing={48} mb={96} px={"xl"}>
-            {data.map((artist) => (
+            {filteredArtists.map((artist) => (
               <ArtistCard key={artist.id} data={artist} />
             ))}
           </Stack>
-        ) : null}
+        )}
       </Container>
+      <br></br>
     </Box>
   );
 };

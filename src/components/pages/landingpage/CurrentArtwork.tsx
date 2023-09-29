@@ -25,7 +25,7 @@ const useStyles = createStyles((theme) => ({
     backgroundPosition: "center",
     position: "relative",
     color: "white",
-    minHeight: 720,
+    minHeight: 300,
   },
 }));
 

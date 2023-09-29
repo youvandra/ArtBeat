@@ -2,7 +2,7 @@ import { showNotification } from "@mantine/notifications";
 import { ethers } from "ethers";
 import { NFT } from "../components/nft/NFTExploreCard";
 import { CONTRACT_ADDRESS } from "../const";
-import ABI from "./ABI.json";
+import ABI from "../utils/ABI/ABI.json";
 
 export async function buyNFT(nft: NFT) {
   try {

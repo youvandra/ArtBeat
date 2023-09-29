@@ -27,6 +27,28 @@ export default function MainUserButton({ color = "white" }) {
                 List an NFT
               </Menu.Item>
             )}
+            {data.user.role === "admin" && (
+              <Menu.Item href={"/post-drop"} component={NextLink}>
+                List Drop
+              </Menu.Item>
+            )}
+            {data.user.role === "admin" && (
+              <Menu.Item href={"/post-auction"} component={NextLink}>
+                List Auction
+              </Menu.Item>
+            )}
+            {data.user.role === "admin" && (
+              <Menu.Item href={"/post-ticket"} component={NextLink}>
+                List Ticket
+              </Menu.Item>
+            )}
+            {data.user.role === "admin" && (
+              <Menu.Item href={"/auction-list"} component={NextLink}>
+                Auction List
+              </Menu.Item>
+            )}
+            
+            
             <Menu.Divider></Menu.Divider>
 
             <Menu.Item

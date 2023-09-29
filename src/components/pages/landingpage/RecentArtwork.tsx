@@ -16,12 +16,14 @@ import { Carousel } from "@mantine/carousel";
 import { NextLink } from "@mantine/next";
 import { showNotification } from "@mantine/notifications";
 
-import NFTExploreCard, { NFT } from "../../nft/NFTExploreCard";
+import NFTExploreCard, { Drop, NFT } from "../../nft/NFTExploreCard";
 import RecentArtworkCarousel from "./lib/Carousel/RecentArtworkCarousel";
 
 import CirclePattern from "../../icons/CirclePattern";
 
 import { getAllNFTs } from "../../../utils/getAllNFTs";
+import { getAllDrops } from "../../../utils/getAllDrop";
+import DropExploreCard from "../../nft/DropExploreCard";
 
 const nft: NFT = {
   tokenId: "random01",
@@ -47,12 +49,12 @@ export default function RecentArtwork() {
     { getInitialValueInEffect: false }
   );
 
-  const [nfts, setNfts] = useState<NFT[]>(_nfts);
+  const [nfts, setNfts] = useState<Drop[]>([]);
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
     setIsFetching(true);
-    getAllNFTs()
+    getAllDrops()
       .then((n) => {
         setNfts(n);
       })
@@ -118,7 +120,7 @@ export default function RecentArtwork() {
             <RecentArtworkCarousel>
               {nfts.reverse().map((nft, i) => (
                 <Carousel.Slide key={i}>
-                  <NFTExploreCard {...nft} />
+                  <DropExploreCard {...nft} />
                 </Carousel.Slide>
               ))}
             </RecentArtworkCarousel>

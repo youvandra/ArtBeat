@@ -27,8 +27,8 @@ const useStyles = createStyles((theme) => ({
     border: "1px solid white",
   },
   description: {
-    maxWidth: 100,
-    fontSize: 16,
+    maxWidth: 120,
+    fontSize: 17,
     color: "white",
     fontFamily: theme.headings.fontFamily,
   },
@@ -62,7 +62,7 @@ export default function NFTExploreCard({
       {...cardProps}
     >
       <Card.Section sx={{ padding: "1rem" }}>
-        <Image src={metadata.image} />
+        <Image src={metadata.image} width={257} height={179} />
       </Card.Section>
 
       <Box>
@@ -83,7 +83,7 @@ export default function NFTExploreCard({
       <Group mt="xl">
         <Stack spacing="xs" className={classes.price}>
           <Text {...priceProps}>Price</Text>
-          <Text sx={{ color: theme.colors.straw[0] }}>{price} BTTC</Text>
+          <Text sx={{ color: theme.colors.straw[0] }}>{price} BTT</Text>
         </Stack>
         {/* <Space w="md" /> */}
 
@@ -137,4 +137,33 @@ export interface NFT {
   seller: any;
   owner: any;
   metadata: NFTMetadata;
+}
+
+export interface Event {
+  id: string;
+  name: string;
+  address: string;
+  description: string;
+  date: string;
+  time: string;
+  mainImage: string;
+  image1: string;
+  image2: string;
+  ticketPrice: any;
+}
+
+
+export interface Drop {
+  tokenId: any;
+  name: any;
+  artistName: any;
+  description: any;
+  totalSupply: any;
+  pricePerNft: any;
+  tokenURI: any;
+  image1: any;
+  image2: any;
+  image3: any;
+  image4: any;
+  image5: any;
 }

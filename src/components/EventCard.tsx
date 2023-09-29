@@ -38,7 +38,7 @@ export default function EventCard({
         </Text>
       </Box>
       <Group mt={"lg"} position="apart">
-        <Text weight={"bold"}>{price} $</Text>
+        <Text weight={"bold"}>{price} BTT</Text>
         <Button component={NextLink} href={`/event/${id}`} size="xs">
           Details
         </Button>
@@ -48,6 +48,7 @@ export default function EventCard({
 }
 
 export interface NFTMetadata {
+  name: string;
   title: string;
   artist: string;
   year: string;
@@ -64,9 +65,23 @@ export interface NFTMetadata {
 }
 
 export interface NFT {
+  id: any;
   price: any;
   tokenId: any;
   seller: any;
   owner: any;
   metadata: NFTMetadata;
+}
+
+export interface Event {
+  id: string;
+  name: string;
+  address: string;
+  description: string;
+  date: string;
+  time: string;
+  mainImage: string;
+  image1: string;
+  image2: string;
+  ticketPrice: any;
 }
