@@ -4,9 +4,8 @@ import { NFT } from "./NFTExploreCard";
 import { NextLink } from "@mantine/next";
 
 export default function NFTCard({ metadata, tokenId }: NFT) {
-  const maxLength = 17; // Jumlah huruf maksimal yang diinginkan
+  const maxLength = 17; 
 
-// Memotong judul jika melebihi maxLength
   const truncatedTitle = metadata.title.length > maxLength
     ? `${metadata.title.slice(0, maxLength)}...`
     : metadata.title;

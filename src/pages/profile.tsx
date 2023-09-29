@@ -158,9 +158,13 @@ function Profile() {
                   { maxWidth: "xs", cols: 1 },
                 ]}
               >
-                {nfts.map((props, i) => (
-                  <NFTCard key={i} {...props} />
-                ))}
+                {nfts && nfts.length > 0 ? (
+                  nfts.map((props, i) => (
+                    <NFTCard key={i} {...props} />
+                  ))
+                ) : (
+                  <Text>No artworks found.</Text>
+                )}
               </SimpleGrid>
             )}
           </Stack>
