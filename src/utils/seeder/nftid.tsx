@@ -12,17 +12,17 @@ import {
     Title,
     createStyles,
   } from "@mantine/core";
-  import { Styles } from "../const";
+  import { Styles } from "../../const";
   import { Text } from "@mantine/core";
   import { Carousel } from "@mantine/carousel";
   import { AiOutlineArrowRight } from "react-icons/ai";
-  import { useGlobalState } from "../utils/auction/store";
+  import { useGlobalState } from "../../utils/auction/store";
   import { useState } from "react";
   import { GetServerSideProps } from "next";
-  import { getServerAuthSession } from "../server/common/get-server-auth-session";
-  import WithAppshell from "../layout/WithAppshell";
-  import RightDetailAuction from "../components/pages/auction/RightDetail";
-  import RecentArtworkCarousel from "../components/pages/landingpage/lib/Carousel/RecentArtworkCarousel";
+  import { getServerAuthSession } from "../../server/common/get-server-auth-session";
+  import WithAppshell from "../../layout/WithAppshell";
+  import RightDetailAuction from "../../components/pages/auction/RightDetail";
+  import RecentArtworkCarousel from "../../components/pages/landingpage/lib/Carousel/RecentArtworkCarousel";
   
   const useStyles = createStyles((theme) => ({
     hero: {
