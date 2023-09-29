@@ -26,7 +26,7 @@ import { NextPageWithLayout } from "./_app";
 import WithAppshell from "../layout/WithAppshell";
 import { Styles } from "../const";
 import { MdLocalShipping } from "react-icons/md";
-import { useConnectedMetaMask } from "metamask-react";
+import { useMetaMask  } from "metamask-react";
 import { truncate } from "../utils/auction/store";
 
 const useStyles = createStyles((t) => ({
@@ -72,7 +72,7 @@ function Profile() {
   const { data } = trpc.auth.getSession.useQuery();
   const [nfts, setNfts] = useState<NFT[]>([]);
   const [isFetching, setIsFetching] = useState(false);
-  const { account } = useConnectedMetaMask();
+  const { account } = useMetaMask();
   
 
   useEffect(() => {

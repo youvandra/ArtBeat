@@ -26,7 +26,6 @@ import ButtonBack from "../../components/ButtonBack";
 import { NextPageWithLayout } from "../_app";
 import WithAppshell from "../../layout/WithAppshell";
 import ArtworkCard from "../../components/ArtworkCard";
-import { useConnectedMetaMask } from "metamask-react";
 import { truncate } from "../../utils/auction/store";
 
 const useStyles = createStyles((theme) => ({
@@ -73,7 +72,6 @@ const Artwork: NextPageWithLayout = () => {
   const [isFetching, setIsFetching] = useState(false);
   const tokenId = router.query.id;
   const [nft, setNft] = useState<NFT>(null);
-  const { account } = useConnectedMetaMask();
 
   useEffect(() => {
     tokenId &&

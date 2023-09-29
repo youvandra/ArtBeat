@@ -23,7 +23,7 @@ import {
   import WithAppshell from "../layout/WithAppshell";
   import { Styles } from "../const";
   import { ReactNode, useEffect, useState } from "react";
-  import { useConnectedMetaMask, useMetaMask } from "metamask-react";
+  import { useMetaMask } from "metamask-react";
 import { getMyNFTs } from "../utils/getMyNFTs";
 import { showNotification } from "@mantine/notifications";
 import { trpc } from "../utils/trpc";
