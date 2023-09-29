@@ -122,7 +122,7 @@ function Profile() {
                 <Group sx={{ color: "#111" }} spacing={"xs"} align={"center"}>
                   <IoMdColorPalette size={24} />
                   <Text weight={500}>
-                    {nfts.length} Artwork{nfts.length > 1 ? "s" : ""}
+                    {nfts && nfts.length > 0 ? `${nfts.length} Artworks` : 'No Artworks'}
                   </Text>
                 </Group>
               </Stack>

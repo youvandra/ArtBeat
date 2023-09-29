@@ -56,9 +56,10 @@ const ArtworkCard = ({
   const maxLength = 30; 
   const text = String(titleProps.text); 
 
-  const truncatedText = text.length > maxLength
-    ? `${text.slice(0, maxLength)}...`
-    : text;
+  const truncatedText = (text && text.length > maxLength)
+  ? `${text.slice(0, maxLength)}...`
+  : text;
+
 
   return (
     <Card className={classes.card} withBorder {...cardProps}>

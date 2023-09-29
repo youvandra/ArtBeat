@@ -67,7 +67,9 @@ function ArtistSection({ data }: Props) {
       <Text align="center">{data.description}</Text>
       <Group mt="xl" color="#111" spacing="xs" align="center">
         <IoMdColorPalette size={24} />
-        <Text weight={500}>{data.tokenIds.length} Artworks</Text>
+        <Text weight={500}>
+          {data.tokenIds ? `${data.tokenIds.length} Artworks` : 'Loading...'}
+        </Text>
       </Group>
       <Text
         variant="link"

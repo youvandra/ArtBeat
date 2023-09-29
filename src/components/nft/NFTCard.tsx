@@ -6,9 +6,9 @@ import { NextLink } from "@mantine/next";
 export default function NFTCard({ metadata, tokenId }: NFT) {
   const maxLength = 17; 
 
-  const truncatedTitle = metadata.title.length > maxLength
-    ? `${metadata.title.slice(0, maxLength)}...`
-    : metadata.title;
+  const truncatedTitle = (metadata.title && metadata.title.length > maxLength)
+  ? `${metadata.title.slice(0, maxLength)}...`
+  : metadata.title;
   return (
     <Card shadow="sm" p="sm" radius="md">
       <Card.Section>
