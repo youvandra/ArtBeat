@@ -28,7 +28,7 @@ const useStyles = createStyles((theme) => ({
     border: "1px solid white",
   },
   description: {
-    maxWidth: 120,
+    maxWidth: 110,
     fontSize: 17,
     color: "white",
     fontFamily: theme.headings.fontFamily,
