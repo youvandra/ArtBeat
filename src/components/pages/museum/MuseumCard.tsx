@@ -107,7 +107,7 @@ function ArtworkSection({ data, dataartist }: Props& PropsArtist) {
         cols={3} // Secara default, tampilkan 3 kolom
       >
         {nfts.slice(0, 6).map((nft) => (
-        <NFTCard data={dataartist} key={nft.tokenId} {...nft} />
+        <NFTCard key={nft.tokenId} {...nft} />
           ))}
 
           {nfts.length > 6 && (
