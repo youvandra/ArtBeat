@@ -64,7 +64,7 @@ const AuctionContent = () => {
                 fontFamily: theme.headings.fontFamily,
                 color: theme.colors["ocean-blue"][1],
                 fontWeight: 400,
-              }}>{auction.price} BTT</Text>
+              }}>{parseFloat(auction.price).toFixed(0)} BTT</Text>
         <br></br>
         
         <Text

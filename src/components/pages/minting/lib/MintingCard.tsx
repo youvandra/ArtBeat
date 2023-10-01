@@ -73,7 +73,7 @@ const MintingCard = ({ tokenId,
       <Group spacing="md" >
           <Text>Price : </Text>
           <Text mt={2} color="straw.0">
-            {ethers.utils.formatEther(pricePerNft)} BTT
+            {parseFloat(ethers.utils.formatEther(pricePerNft)).toFixed(0)} BTT
           </Text>
 
         <Button

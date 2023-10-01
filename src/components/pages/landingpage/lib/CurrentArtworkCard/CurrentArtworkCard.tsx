@@ -54,7 +54,7 @@ const CurrentArtworkCard = ({ metadata, ...nft }: NFT) => {
       <Space h="xl" />
 
       <Group position="apart">
-        <Text>{nft.price} BTT</Text>
+        <Text>{parseFloat(nft.price).toFixed(0)} BTT</Text>
         <Button
           component={NextLink}
           href={`/artwork/${nft.tokenId}`}

@@ -144,7 +144,7 @@ console.log(tokenId)
         <Stack>
           <Text>Current Bid:</Text>
           <Text weight={600} size={32} color="ocean-blue.4">
-            {auction?.price} BTT
+            {parseFloat(auction?.price).toFixed(0)} BTT
           </Text>
           <Title size={48}>{auction?.name}</Title>
           <Text sx={{ maxWidth: 449 }}>{auction?.description}</Text>
@@ -180,7 +180,7 @@ console.log(tokenId)
           {bidders.map((bidder) => (
             <Group>
             <Text sx={{ color: 'rgb(103, 228, 164)' }}>{truncate(bidder.bidder, 5, 5, 15)}</Text>
-            <Text color="ocean-blue.3">{bidder.price} BTT</Text>
+            <Text color="ocean-blue.3">{parseFloat(bidder.price).toFixed(0)} BTT</Text>
           </Group>
           ))}
         </Stack>

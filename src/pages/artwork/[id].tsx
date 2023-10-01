@@ -191,7 +191,7 @@ const Artwork: NextPageWithLayout = () => {
                       )}
                     {/* {nft.seller.toLowerCase() === account ? ( */}
                     <Text mt={"xl"} size={24} weight={"bold"}>
-                          {nft.metadata.price} BTT
+                          {parseFloat(nft.metadata.price).toFixed(0)} BTT
                     </Text>
                     {nft.seller !== "0x07F6Dd340e9f687583E88562269F03084C246a4e" ? (
                         nft.seller.toLowerCase() === account ? (

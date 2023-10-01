@@ -193,7 +193,7 @@ const NFTAuctionPage = () => {
                       <Text size={16}>{truncate(auction.owner, 4, 4, 11)}</Text>
                     </Group>
                     <Group position="apart">
-                      <Text>{auction.price} BTT</Text>
+                      <Text>{parseFloat(auction.price).toFixed(0)} BTT</Text>
                       <NextLink href={`/auction/${auction.tokenId}`} passHref>
                       <Button
                         color="ocean-blue"

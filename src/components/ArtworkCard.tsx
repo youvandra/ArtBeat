@@ -83,7 +83,7 @@ const ArtworkCard = ({
           </Text>
         </Group>
         <Group position="apart" noWrap>
-          <Text {...priceProps}>Price : {priceProps?.text || "500"} BTT</Text>
+          <Text {...priceProps}>Price : {parseFloat(priceProps?.text.toString()).toFixed(0) || "500"} BTT</Text>
           <Button
             component={NextLink}
             color="ocean-blue"

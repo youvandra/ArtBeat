@@ -82,7 +82,7 @@ export default function NFTExploreCard({ tokenId,
       <Group mt="xl">
         <Stack spacing="xs" className={classes.price}>
           <Text>Price</Text>
-          <Text sx={{ color: theme.colors.straw[0] }}>{ethers.utils.formatUnits(pricePerNft)} BTT</Text>
+          <Text sx={{ color: theme.colors.straw[0] }}>{parseFloat(ethers.utils.formatUnits(pricePerNft)).toFixed(0)} BTT</Text>
         </Stack>
         {/* <Space w="md" /> */}
 

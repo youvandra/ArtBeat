@@ -113,7 +113,7 @@ export default function RecentArtwork() {
               sx={{ position: "absolute", right: 0, top: "-5rem" }}
             />
             <RecentArtworkCarousel>
-              {nfts.reverse().map((nft, i) => (
+              {nfts.map((nft, i) => (
                 <Carousel.Slide key={i}>
                   <DropExploreCard {...nft} />
                 </Carousel.Slide>

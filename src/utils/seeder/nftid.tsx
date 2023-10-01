@@ -189,7 +189,7 @@ import {
                       <Text size={16}>Christian Buehner</Text>
                     </Group>
                     <Group position="apart">
-                      <Text>Price : 500 BTTC</Text>
+                      <Text>Price : 500 BTT</Text>
                       <Button
                         variant="subtle"
                         color="ocean-blue"

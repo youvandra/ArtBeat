@@ -112,7 +112,7 @@ const MintingDetailLeft = ({ router }) => {
       <Group>
         <Text>Price : </Text>
         <Text color="ocean-blue.1">
-          {ethers.utils.formatUnits(nftDrop.pricePerNft, "ether")} BTT
+          {parseFloat(ethers.utils.formatUnits(nftDrop.pricePerNft, "ether")).toFixed(0)} BTT
         </Text>
       </Group>
       <Group>
