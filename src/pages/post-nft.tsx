@@ -33,7 +33,7 @@ import ABI from "../utils/ABI/ABI.json";
 import { NextPageWithLayout } from "./_app";
 import WithAppshell from "../layout/WithAppshell";
 import { Styles } from "../const";
-
+import { CONTRACT_ADDRESS } from "../const";
 const useStyles = createStyles((t) => ({
   banner: {
     width: "100%",
@@ -79,6 +79,7 @@ const PostNFT: NextPageWithLayout = () => {
       description: "",
       image: undefined,
       price: "",
+      certificate: "",
     },
   });
   const imageUrl = form.values.image && URL.createObjectURL(form.values.image);
@@ -123,7 +124,7 @@ const PostNFT: NextPageWithLayout = () => {
 
       //Pull the deployed contract instance
       const contract = new ethers.Contract(
-        "0xFf32dA47e3088e49710536570595DcCB58dfF853",
+        CONTRACT_ADDRESS,
         ABI,
         signer
       );
@@ -267,6 +268,12 @@ const PostNFT: NextPageWithLayout = () => {
                       type="text"
                       size="md"
                       label="Price" />
+                      <TextInput
+                      required
+                      {...form.getInputProps("certificate")}
+                      type="text"
+                      size="md"
+                      label="Certificate Link" />
 
                     <Button
                       mt={"xl"}

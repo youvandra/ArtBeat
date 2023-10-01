@@ -62,12 +62,12 @@ const ArtworkCard = ({
 
 
   return (
-    <Card className={classes.card} withBorder {...cardProps}>
+    <Card className={classes.card} withBorder {...cardProps} sx={{ height: "100%", overflow: "hidden" }} radius={20}> 
       <NextLink href={`/artwork/${props.tokenId}`}>
         <Image
           src={props.metadata.image}
-          width={270}
-          height={180}
+          width={300}
+          height={200}
           mx="auto"
           {...imageProps}
         />

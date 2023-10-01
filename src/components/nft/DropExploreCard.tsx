@@ -127,6 +127,7 @@ export interface NFTMetadata {
   description: string;
   image: string;
   price: string;
+  certificate: string;
 }
 
 export interface NFT {
@@ -148,6 +149,7 @@ export interface Event {
   image1: string;
   image2: string;
   ticketPrice: any;
+  totalTickets: any;
 }
 
 

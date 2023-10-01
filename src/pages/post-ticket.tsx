@@ -25,7 +25,7 @@ import ABI from "../utils/ABI/ABI_Ticket.json";
 import { NextPageWithLayout } from "./_app";
 import WithAppshell from "../layout/WithAppshell";
 import { Styles } from "../const";
-
+import { TICKET_ADDRESS } from "../const";
 const useStyles = createStyles((t) => ({
   banner: {
     width: "100%",
@@ -68,6 +68,7 @@ const PostTicket: NextPageWithLayout = () => {
       image1: "",
       image2: "",
       ticketPrice: "0",
+      totalTickets: "",
     },
   });
 
@@ -79,7 +80,7 @@ const PostTicket: NextPageWithLayout = () => {
 
       // Kontrak TicketArtbeat
       const contract = new ethers.Contract(
-        "0x87b7933Ef5548849636D9C1C9789e332E4e155a0", // Gantilah dengan alamat kontrak yang sesuai
+        TICKET_ADDRESS, // Gantilah dengan alamat kontrak yang sesuai
         ABI, // Gantilah dengan ABI yang sesuai
         signer
       );
@@ -98,9 +99,10 @@ const PostTicket: NextPageWithLayout = () => {
         form.values.ticketPrice,
         "ether"
       );
+      const totalTickets = form.values.totalTickets;
 
       // Panggil fungsi createEvent pada kontrak TicketArtbeat
-      const transaction = await contract.createEvent(
+      const transaction = await contract.createTicket(
         id,
         name,
         address,
@@ -110,7 +112,8 @@ const PostTicket: NextPageWithLayout = () => {
         mainImage,
         image1,
         image2,
-        ticketPrice
+        ticketPrice,
+        totalTickets,
       );
       await transaction.wait();
 
@@ -176,13 +179,6 @@ const PostTicket: NextPageWithLayout = () => {
                       size="md"
                       label="Address"
                     />
-                    <TextInput
-                      required
-                      {...form.getInputProps("time")}
-                      type="text"
-                      size="md"
-                      label="Total Ticket"
-                    />
                     <Textarea
                       required
                       {...form.getInputProps("description")}
@@ -199,21 +195,28 @@ const PostTicket: NextPageWithLayout = () => {
                     />
                     <TextInput
                       required
-                      {...form.getInputProps("image1")}
+                      {...form.getInputProps("time")}
+                      type="text"
+                      size="md"
+                      label="Time"
+                    />
+                    <TextInput
+                      required
+                      {...form.getInputProps("mainImage")}
                       type="text"
                       size="md"
                       label="image1"
                     />
                     <TextInput
                       required
-                      {...form.getInputProps("image2")}
+                      {...form.getInputProps("image1")}
                       type="text"
                       size="md"
                       label="image2"
                     />
                     <TextInput
                       required
-                      {...form.getInputProps("image3")}
+                      {...form.getInputProps("image2")}
                       type="text"
                       size="md"
                       label="image3"
@@ -225,6 +228,13 @@ const PostTicket: NextPageWithLayout = () => {
                       type="text"
                       size="md"
                       label="Price"
+                    />
+                    <TextInput
+                      required
+                      {...form.getInputProps("totalTickets")}
+                      type="text"
+                      size="md"
+                      label="Total Tickets"
                     />
 
                     <Button

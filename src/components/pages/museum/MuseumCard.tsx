@@ -50,14 +50,17 @@ const useStyles = createStyles((theme) => ({
       },
     },
   },
+  green: {
+    color: theme.colors["ocean-blue"][3],
+  },
 }));
 
-export default function MuseumCard({ data }: Props) {
+export default function MuseumCard({ data, dataartist }: Props&PropsArtist) {
   const { classes } = useStyles();
   return (
     <Group py={"xl"} noWrap align={"stretch"} className={classes.container}>
       <MuseumSection data={data} />
-      <ArtworkSection data={data} />
+      <ArtworkSection data={data} dataartist={dataartist} />
     </Group>
   );
 }
@@ -79,7 +82,7 @@ function MuseumSection({ data }: Props) {
   );
 }
 
-function ArtworkSection({ data }: Props) {
+function ArtworkSection({ data, dataartist }: Props& PropsArtist) {
   const { classes } = useStyles();
   const [nfts, setNfts] = useState<NFT[]>([]);
   useEffect(() => {
@@ -91,26 +94,27 @@ function ArtworkSection({ data }: Props) {
   return (
     <Box className={classes.artworksSection}>
       <Title order={3}>
-        <span>Recent</span> Collections
+        <span className={classes.green}>Recent</span> Artworks
       </Title>
       <SimpleGrid
+        spacing="xl" // Atur jarak antar elemen sesuai kebutuhan
+        mt="xl"
         breakpoints={[
-          { maxWidth: "md", cols: 1 },
-          { minWidth: "md", cols: 2 },
+          { maxWidth: "lg", cols: 2 }, // Ketika layar berukuran 'lg', tampilkan 2 kolom
+          { maxWidth: "md", cols: 1 }, // Ketika layar berukuran 'md', tampilkan 1 kolom
         ]}
+        sx={{ width: "100%" }}
+        cols={3} // Secara default, tampilkan 3 kolom
       >
-        {nfts.map((nft) => (
-          <ArtworkCard
-            key={nft.tokenId}
-            imageProps={{ src: nft.metadata.image }}
-            titleProps={{ text: nft.metadata.title }}
-            avatarProps={{ sx: { display: "none" } }}
-            artistProps={{ text: `Art By: ${nft.metadata.artist}` }}
-            priceProps={{ sx: { display: "none" } }}
-            buttonProps={{ sx: { display: "none" }, href: "/" }}
-            {...nft}
-          />
-        ))}
+        {nfts.slice(0, 6).map((nft) => (
+        <NFTCard data={dataartist} key={nft.tokenId} {...nft} />
+          ))}
+
+          {nfts.length > 6 && (
+            <Text variant="link" component={NextLink} href={`/museum/${data.id}`}>
+            See {nfts.length - 6} other artworks.
+          </Text>
+          )}
       </SimpleGrid>
     </Box>
   );
@@ -118,4 +122,8 @@ function ArtworkSection({ data }: Props) {
 
 interface Props {
   data: inferProcedureOutput<AppRouter["museumRouter"]["getById"]>;
+}
+
+interface PropsArtist {
+  dataartist: inferProcedureOutput<AppRouter["artist"]["getArtists"]>[number];
 }

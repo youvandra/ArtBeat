@@ -48,7 +48,13 @@ export default function About() {
             { minWidth: "md", cols: 2 },
           ]}
         >
-          <iframe className={classes.iframe} src={YOUTUBE_VIDEO} />
+          <iframe
+            className={classes.iframe}
+            src={YOUTUBE_VIDEO}
+            style={{
+              boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.3)", // Meningkatkan lebar bayangan
+            }}
+          />
           <Stack spacing="md">
             <Text size={24} sx={{ maxWidth: 544 }}>
               ArtBeat uses blockchain technology and NFT to create the

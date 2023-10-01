@@ -68,7 +68,7 @@ const CurrentArtwork = () => {
             </Center>
           ) : (
           <RecentArtworkCarousel>
-          {nfts.reverse().slice(0,10).map((nft, id) => (
+          {nfts.slice(0,10).map((nft, id) => (
             <Carousel.Slide key={id}>
               <CurrentArtworkCard {...nft} />
             </Carousel.Slide>

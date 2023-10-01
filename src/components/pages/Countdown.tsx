@@ -28,7 +28,7 @@ const Countdown: React.FC<CountdownProps> = ({ timestamp }) => {
 
   return (
     <div>
-      {days} D : {hours} H : {minutes} M : {seconds} S
+      {days} d : {hours} h : {minutes} m : {seconds} s
     </div>
   );
 };

@@ -31,10 +31,10 @@ export default function EventCard({
 
       <Box>
         <Title mt={"xl"} color={"brand"} size={18} order={3}>
-          {name}
+          {name.length > 15 ? name.substring(0, 15) + "...": name}
         </Title>
         <Text mt={4} size={"sm"}>
-          {details}
+          {details.length > 60 ? details.substring(0, 60) + "..." : details}
         </Text>
       </Box>
       <Group mt={"lg"} position="apart">
@@ -61,6 +61,7 @@ export interface NFTMetadata {
   description: string;
   image: string;
   price: string;
+  certificate: string;
 }
 
 export interface NFT {
@@ -82,4 +83,5 @@ export interface Event {
   image1: string;
   image2: string;
   ticketPrice: any;
+  totalTickets: any;
 }

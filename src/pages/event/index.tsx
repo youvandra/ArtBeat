@@ -62,8 +62,9 @@ const Event: NextPageWithLayout = () => {
         const contract = new ethers.Contract(
         TICKET_ADDRESS, ABI, signer
       );
+      const totalAllTickets = await contract.getTicketCount();
       const ticketDataArray = [];
-        for (let i = 0; i < 1; i++) { // ARRAY EVENT
+        for (let i = 0; i < totalAllTickets; i++) { // ARRAY EVENT
           const ticketData = await contract.getTicketInfo(i);
           ticketDataArray.push(ticketData);
         }

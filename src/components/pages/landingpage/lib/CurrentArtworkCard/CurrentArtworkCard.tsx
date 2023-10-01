@@ -19,20 +19,16 @@ const CurrentArtworkCard = ({ metadata, ...nft }: NFT) => {
   const theme = useMantineTheme();
 
   return (
-    <Card
-      sx={{
-        width: 370,
-        // height: 300,
-      }}
-    >
+    <Card sx={{ width: 370 }} radius={10} shadow="xl">
       <Card.Section>
         <Image
           src={metadata.image}
           height={235}
           sx={{
-            // @ts-ignore
             img: {
-              objectFit: "contain !important",
+              objectFit: "contain",
+              width: "100%",
+              height: "100%", 
             },
           }}
         />
@@ -70,6 +66,7 @@ const CurrentArtworkCard = ({ metadata, ...nft }: NFT) => {
         </Button>
       </Group>
     </Card>
+
   );
 };
 

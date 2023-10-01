@@ -61,6 +61,7 @@ const useStyles = createStyles((t) => ({
 
 const CreateDrop = () => {
   const [boxModal] = useGlobalState('boxModal')
+  const [isLoading, setIsLoading] = useState(false);
   const { classes } = useStyles();
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
@@ -185,7 +186,7 @@ const CreateDrop = () => {
                       type="submit"
                       color={"brand"}
                     >
-                      List Drop
+                      List Auction
                     </Button>
                   </Stack>
                 </form>

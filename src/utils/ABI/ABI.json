@@ -73,6 +73,25 @@
 		"type": "function"
 	},
 	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_fromTokenId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_toTokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "BatchMetadataUpdate",
+		"type": "event"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "string",
@@ -108,6 +127,19 @@
 		"outputs": [],
 		"stateMutability": "payable",
 		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "MetadataUpdate",
+		"type": "event"
 	},
 	{
 		"inputs": [
@@ -327,7 +359,7 @@
 						"type": "bool"
 					}
 				],
-				"internalType": "struct NFTMarketplace.ListedToken[]",
+				"internalType": "struct ArtbeatMarketplace.ListedToken[]",
 				"name": "",
 				"type": "tuple[]"
 			}
@@ -399,7 +431,7 @@
 						"type": "bool"
 					}
 				],
-				"internalType": "struct NFTMarketplace.ListedToken",
+				"internalType": "struct ArtbeatMarketplace.ListedToken",
 				"name": "",
 				"type": "tuple"
 			}
@@ -445,7 +477,7 @@
 						"type": "bool"
 					}
 				],
-				"internalType": "struct NFTMarketplace.ListedToken",
+				"internalType": "struct ArtbeatMarketplace.ListedToken",
 				"name": "",
 				"type": "tuple"
 			}
@@ -498,7 +530,7 @@
 						"type": "bool"
 					}
 				],
-				"internalType": "struct NFTMarketplace.ListedToken[]",
+				"internalType": "struct ArtbeatMarketplace.ListedToken[]",
 				"name": "",
 				"type": "tuple[]"
 			}
@@ -538,6 +570,19 @@
 				"internalType": "string",
 				"name": "",
 				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address payable",
+				"name": "",
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",

@@ -97,6 +97,7 @@ const ListAuction = () => {
   const [biddable, setBiddable] = useState('');
   const [timeline, setTimeline] = useState('');
   const [tokenId, setTokenId] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     loadAuctionsData();
@@ -128,7 +129,7 @@ const ListAuction = () => {
     if (!period || !biddable || !timeline) {
       return;
     }
-  
+    
     const params = {
       tokenId,
       biddable: biddable === 'true',
@@ -154,7 +155,7 @@ const ListAuction = () => {
       default:
         break;
     }
-  
+    setIsLoading(true);
     try {
       await new Promise<void>(async (resolve, reject) => {
         await offerItemOnMarket(params)
@@ -166,6 +167,7 @@ const ListAuction = () => {
           .catch(() => reject());
       });
     setTimeout(() => {
+      setIsLoading(false);
       router.reload();
     }, 3000);
     } catch (error) {
@@ -256,7 +258,9 @@ const ListAuction = () => {
                               ]}
                               onChange={(value) => setBiddable(value)} />
                             <br />
-                            <Button onClick={handleSubmit}>Offer Item</Button>
+                            <Button onClick={handleSubmit} disabled={isLoading}>
+                              {isLoading ? 'Loading...' : 'Offer Item'}
+                            </Button>
                           </Modal></>
                         )}
                   </Stack>

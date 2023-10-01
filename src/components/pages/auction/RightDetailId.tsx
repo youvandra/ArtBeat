@@ -84,9 +84,25 @@ const RightDetailAuctionId = () => {
     loadBiddersData();
   }, [tokenId]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleBid = () => {
+    setIsLoading(true);
+
+    bidOnNFT({ tokenId: tokenId, price: bidPrice });
+
+    setBidPrice("");
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 4000);
+  };
+
   if (loading) {
     return <Center mt={"xl"}><Loader /></Center>;
   }
+
+
+
 console.log(tokenId)
   return (
     <Stack>
@@ -149,13 +165,13 @@ console.log(tokenId)
           radius="md" 
           value={bidPrice}
           onChange={(e) => setBidPrice(e.target.value)}/>
-          <Button 
-          ml="-2.5rem" 
-          className={classes.button} 
-          onClick={() => {bidOnNFT({ tokenId: tokenId, price: bidPrice }); // Memanggil fungsi bidOnNFT dengan data yang sesuai
-          setBidPrice(""); // Mengosongkan input setelah penawaran
-          }}>
-            Place a Bid
+          <Button
+            ml="-2.5rem"
+            className={classes.button}
+            onClick={handleBid}
+            disabled={isLoading}
+          >
+            {isLoading ? 'Loading...' : 'Place a Bid'}
           </Button>
           </Group>
           <Group>

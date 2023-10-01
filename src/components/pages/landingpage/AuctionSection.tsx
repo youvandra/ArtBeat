@@ -22,7 +22,7 @@ const AuctionSection = () => {
 
   const loadAuctionsData = async () => {
     try {
-      const result = await loadAuction(4); // Change the parameter to the auction ID you want to load
+      const result = await loadAuction(1); // Change the parameter to the auction ID you want to load
       setAuction(result);
       setLoading(false);
     } catch (error) {
@@ -60,10 +60,13 @@ const AuctionSection = () => {
                 border: "1px solid white",
                 float: "left",
                 marginRight: "70px", 
+                borderRadius: "50px",
+                boxShadow: "20px 20px 25px rgba(0, 0, 0, 0.2)",
               }}
               src={auction?.image}
               width={500}
               height={500}
+              
             />
           <AuctionContent />
         </SimpleGrid>

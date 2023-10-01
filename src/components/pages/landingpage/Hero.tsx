@@ -8,10 +8,12 @@ import {
   Box,
   Space,
   Container,
+  Button,
 } from "@mantine/core";
 import { NextLink } from "@mantine/next";
 import SearchInput from "./SearchInput";
 import RectangleCircleShape from "./lib/RectangleCircleShape/RectangleCircleShape";
+import theme from "../../../utils/theme";
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -59,16 +61,20 @@ export default function Hero() {
                 Curated art marketplace that helps you discover and buy
                 authentic artworks also helping to advance small businesses
               </Text>{" "}
-              <Text
-                variant="link"
-                sx={{ color: "white" }}
-                mt={"md"}
-                weight={500}
-                href={"/explore"}
-                component={NextLink}
+              <Button
+                size="md"
+                component={NextLink} 
+                href="/explore"
+                sx={{
+                  color: 'black',
+                  width: 250,
+                  borderRadius: 20,
+                  marginTop: 10,
+                  fontWeight: 400,
+                }}
               >
                 More Arts
-              </Text>
+              </Button>
             </Stack>
             <Space mt={"lg"} />
           </Stack>

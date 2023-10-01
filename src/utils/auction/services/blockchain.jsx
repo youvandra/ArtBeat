@@ -1,11 +1,11 @@
 import abi from '../../ABI/ABI_Auction.json';
-import address from '../../ABI/contractAddress.json';
+import { AUCTION_ADDRESS } from '../../../const';
 import { getGlobalState, setGlobalState } from '../store';
 import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
 import { showNotification } from "@mantine/notifications";
 
-const ContractAddress = address.address;
+const ContractAddress = AUCTION_ADDRESS;
 const ContractAbi = abi;
 let tx;
 

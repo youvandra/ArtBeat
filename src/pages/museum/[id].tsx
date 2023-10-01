@@ -55,7 +55,6 @@ const useStyles = createStyles((theme) => ({
   },
   overviewContainer: {
     backgroundColor: "white",
-    minHeight: "100vh",
   },
   collectionsContainer: {
     backgroundColor: "white",
@@ -182,7 +181,7 @@ function RecommendedEvents({ data }: Props) {
         </Title>
         <SimpleGrid
           mt={"xl"}
-          cols={4}
+          cols={3}
           breakpoints={[
             { maxWidth: "lg", cols: 3 },
             { maxWidth: "md", cols: 2 },

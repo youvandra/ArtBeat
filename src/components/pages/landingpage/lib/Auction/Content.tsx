@@ -27,9 +27,9 @@ const AuctionContent = () => {
 
   const loadAuctionsData = async () => {
     try {
-      const result = await loadAuction(4); 
+      const result = await loadAuction(1); 
       setAuction(result);
-      const result1 = await getBidders(4);
+      const result1 = await getBidders(1);
       setBidders(result1);
       setLoading(false);
     } catch (error) {
@@ -105,7 +105,7 @@ const AuctionContent = () => {
           <Box<"span"> component="span" sx={{ color: "white" }}>
             End In :{" "}
           </Box><br></br>
-          <span style={{ fontSize: "20px" }}>
+          <span style={{ fontSize: "25px" }}>
           {auction?.duration > Date.now() ? (
             <Countdown timestamp={auction?.duration} />
           ) : (
@@ -114,12 +114,12 @@ const AuctionContent = () => {
           </span>
         </Text><br></br><br></br>
         <Center>
-          <NextLink href={"/auction/4"}>
+          <NextLink href={"/auction/1"}>
           <Button
             leftIcon={<FaBalanceScaleLeft />}
             size="md"
             sx={{
-              color: theme.colors["ocean-blue"][3],
+              color: 'black',
               width: 250,
               borderRadius: 20,
               marginTop: 10,

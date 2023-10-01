@@ -27,6 +27,12 @@ import { NextPageWithLayout } from "../_app";
 import WithAppshell from "../../layout/WithAppshell";
 import ArtworkCard from "../../components/ArtworkCard";
 import { truncate } from "../../utils/auction/store";
+import { useDisclosure } from '@mantine/hooks';
+import { Modal } from '@mantine/core';
+import { useMetaMask } from "metamask-react";
+import { ethers } from "ethers";
+import { CONTRACT_ADDRESS } from "../../const";
+import ABI from "../../utils/ABI/ABI.json"
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -63,15 +69,19 @@ const useStyles = createStyles((theme) => ({
   green: {
     color: theme.colors["ocean-blue"][4],
   },
+  
 }));
 
 const Artwork: NextPageWithLayout = () => {
+  const [opened, { open, close }] = useDisclosure(false);
   const { classes } = useStyles();
   const router = useRouter();
   const [nfts, setNfts] = useState<NFT[]>([]);
   const [isFetching, setIsFetching] = useState(false);
   const tokenId = router.query.id;
   const [nft, setNft] = useState<NFT>(null);
+  const { account } = useMetaMask();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     tokenId &&
@@ -103,6 +113,34 @@ const Artwork: NextPageWithLayout = () => {
       });
   }, []);
 
+  const downloadCertificate = (certificateUrl, certificateTitle) => {
+    // Membuat permintaan unduhan menggunakan fetch
+    fetch(certificateUrl)
+      .then((response) => response.blob())
+      .then((blob) => {
+        // Membuat objek URL dari blob gambar
+        const url = window.URL.createObjectURL(blob);
+  
+        // Membuat elemen <a> untuk mengunduh
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${certificateTitle}.png`; // Nama file yang akan diunduh
+        link.click();
+  
+        // Membebaskan objek URL yang dibuat sebelumnya
+        window.URL.revokeObjectURL(url);
+      });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      setIsLoading(true);
+      await buyNFT(nft); 
+      setIsLoading(false); 
+    } catch (error) {
+      setIsLoading(false);
+    }
+  };
 
 
   return (
@@ -144,7 +182,7 @@ const Artwork: NextPageWithLayout = () => {
                       />
                       <Property label="Year" value={nft.metadata.year} />
                     </SimpleGrid>
-                    {nft.seller !== nft.owner ? (
+                    {nft.seller !== "0x07F6Dd340e9f687583E88562269F03084C246a4e" ? (
                       <SimpleGrid mt={"xl"}>
                         <Property label="Owner" value={truncate(nft.seller, 5, 5, 15)} />
                       </SimpleGrid> 
@@ -152,34 +190,74 @@ const Artwork: NextPageWithLayout = () => {
                         null
                       )}
                     {/* {nft.seller.toLowerCase() === account ? ( */}
-                    {nft.seller !== nft.owner ? (
-                      <>
-                      <Text mt={"xl"} size={24} weight={"bold"}>
+                    <Text mt={"xl"} size={24} weight={"bold"}>
                           {nft.metadata.price} BTT
-                      </Text>
-                      <Button
-                        className={classes.buttonBuy}
-                        radius="lg"
-                        size="xl"
-                      >
-                          Owned
-                        </Button></>
-                     ) : (
-                      <>
-                      <Text mt={"xl"} size={24} weight={"bold"}>
-                          {nft.metadata.price} BTT
-                      </Text>
-                      <Button
+                    </Text>
+                    {nft.seller !== "0x07F6Dd340e9f687583E88562269F03084C246a4e" ? (
+                        nft.seller.toLowerCase() === account ? (
+                          <><Button
                           className={classes.buttonBuy}
-                          onClick={() => {
-                            buyNFT(nft);
-                          } }
                           radius="lg"
                           size="xl"
+                          onClick={open}
                         >
-                          Buy now
-                      </Button></>
-                   )}
+                          Get certificate
+                        </Button>
+                        <Modal
+                          opened={opened}
+                          onClose={close}
+                          title={`${nft.metadata.title} Certificate`}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                          }}
+                        >
+                          <div
+                            style={{
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                            }}
+                          >
+                            <Image
+                              alt={nft.metadata.title}
+                              radius="md"
+                              src={nft.metadata.certificate}
+                            /><br></br>
+                            <Button
+                              className={classes.buttonBuy}
+                              radius="lg"
+                              size="md"
+                              style={{ margin: 'auto' }}
+                              onClick={() => downloadCertificate(nft.metadata.certificate, nft.metadata.title)}
+                            >
+                              Download Certificate
+                            </Button>
+                          </div>
+                        </Modal>
+                          </>
+                        ) : (
+                          <Button
+                            className={classes.buttonBuy}
+                            radius="lg"
+                            size="xl"
+                          >
+                            Owned
+                          </Button>
+                        )
+                      ) : (
+                        <Button
+                          className={classes.buttonBuy}
+                          onClick={handleSubmit}
+                          radius="lg"
+                          size="xl"
+                          disabled={isLoading}
+                        >
+                          {isLoading ? 'Buying NFT...' : 'Buy now'}
+                        </Button>
+                      )}
                   </Stack>
                 </Grid.Col>
               </Grid>
@@ -187,42 +265,54 @@ const Artwork: NextPageWithLayout = () => {
           )}
         </Box>
       </Container>
-      <Box className={classes.recommendedArtworks} py={64}>
-        <Container size="xl">
-          <Title size={36} order={2}>
-            <span className={classes.green}>Recommended</span> Artworks
-          </Title>
-          {isFetching ? (
-            <Center mt={"xl"}>
-              <Loader />
-            </Center>
-          ) : (
-            <SimpleGrid
-              breakpoints={[
-                { maxWidth: "lg", cols: 3 },
-                { maxWidth: "md", cols: 2 },
-                { maxWidth: "xs", cols: 1 },
-              ]}
-              spacing={"lg"}
-              mt={"xl"}
-              cols={4}
-            >
-              {nfts.map((props, i) => (
-                <ArtworkCard
-                  {...props}
-                  key={i}
-                  imageProps={{ src: props.metadata.image }}
-                  titleProps={{ text: props.metadata.title }}
-                  avatarProps={{ sx: { display: "none" } }}
-                  artistProps={{ text: `Art By: ${props.metadata.artist}` }}
-                  priceProps={{ text: props.price }}
-                  buttonProps={{ href: `/artwork/${props.tokenId}` }}
-                />
-              ))}{" "}
-            </SimpleGrid>
-          )}
-        </Container>
-      </Box>
+      <Box
+          className={classes.recommendedArtworks}
+          py={64}
+          style={{
+            borderRadius: "20px",
+            boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.4)",
+          }}
+        >
+          <Container size="xl">
+            <Title size={36} order={2}>
+              <span className={classes.green}>Recommended</span> Artworks
+            </Title>
+            {isFetching ? (
+              <Center mt={"xl"}>
+                <Loader />
+              </Center>
+            ) : (
+              <SimpleGrid
+                breakpoints={[
+                  { maxWidth: "lg", cols: 3 },
+                  { maxWidth: "md", cols: 2 },
+                  { maxWidth: "xs", cols: 1 },
+                ]}
+                spacing={"lg"}
+                mt={"xl"}
+                cols={4}
+              >
+                {nfts.map((props, i) => (
+                  <ArtworkCard
+                    {...props}
+                    key={i}
+                    imageProps={{
+                      src: props.metadata.image,
+                      width: 250, 
+                      height: 250,
+                    }}
+                    titleProps={{ text: props.metadata.title }}
+                    avatarProps={{ sx: { display: "none" } }}
+                    artistProps={{ text: `Art By: ${props.metadata.artist}` }}
+                    priceProps={{ text: props.price }}
+                    buttonProps={{ href: `/artwork/${props.tokenId}` }}
+                  />
+                ))}
+              </SimpleGrid>
+            )}
+          </Container>
+        </Box>
+
     </>
   );
 };

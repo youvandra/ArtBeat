@@ -137,16 +137,18 @@ const NFTAuctionPage = () => {
               </Center>
             ) : (
               <div>
-                <div className={classes.imageContainer}>
-                  {auction_hero && (
-                    <Image
-                      src={(auction_hero as any)?.image}
-                      width="100%"
-                      height={409}
-                      alt="Auction Hero"
-                    />
-                  )}
-                </div>
+                {auction_hero && (
+                  <img
+                    src={(auction_hero as any)?.image}
+                    width={500}
+                    height={500}
+                    alt="Auction Hero"
+                    style={{
+                      borderRadius: "20px", 
+                      boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.4)", // Bayangan lebih tebal
+                    }}
+                  />
+                )}
               </div>
             )}
             <RightDetailAuctionId />
@@ -178,7 +180,7 @@ const NFTAuctionPage = () => {
               ]}
             >
               {auctions.map((auction, i) => (
-                <Card key={i} withBorder>
+                <Card key={i} withBorder radius={20} shadow="sm">
                   <Image
                     src={auction.image}
                     width={270}
