@@ -64,7 +64,7 @@ function ArtistSection({ data }: Props) {
       <Text size="xl" weight={600} align="center">
         {data.user.name}
       </Text>
-      <Text align="center">{data.description.length > 100 ? data.description.slice(0, 100) + '...' : data.description}</Text>
+      <Text align="center">{data.description}</Text>
       <Group mt="xl" color="#111" spacing="xs" align="center">
         <IoMdColorPalette size={24} />
         <Text weight={500}>
@@ -109,7 +109,7 @@ function ArtworkSection({ data }: Props) {
         cols={3} // Secara default, tampilkan 3 kolom
       >
         {nfts.map((nft) => (
-          <NFTCard data={data} key={nft.tokenId} {...nft} />
+          <NFTCard key={nft.tokenId} {...nft} />
         ))}
       </SimpleGrid>
     </Box>
