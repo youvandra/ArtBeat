@@ -27,18 +27,18 @@ export default function ConnectWallet() {
   const handleNetworkChange = async () => {
     try {
       await switchChain(CHAIN_ID);
-      router.reload();
     } catch (error) {
       if (error.code === 4902) {
         await addChain(CHAIN_PARAMS);
         await switchChain(CHAIN_ID);
-        router.reload();
       } else {
         showNotification({
           message: "Failed to change network",
           color: "red",
         });
       }
+    } finally {
+      location.reload(); // Ini akan selalu dijalankan, baik terjadi kesalahan atau tidak
     }
   };
 
