@@ -55,12 +55,12 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export default function MuseumCard({ data, dataartist }: Props&PropsArtist) {
+export default function MuseumCard({ data  }: Props) {
   const { classes } = useStyles();
   return (
     <Group py={"xl"} noWrap align={"stretch"} className={classes.container}>
       <MuseumSection data={data} />
-      <ArtworkSection data={data} dataartist={dataartist} />
+      <ArtworkSection data={data} />
     </Group>
   );
 }
@@ -82,7 +82,7 @@ function MuseumSection({ data }: Props) {
   );
 }
 
-function ArtworkSection({ data, dataartist }: Props& PropsArtist) {
+function ArtworkSection({ data }: Props) {
   const { classes } = useStyles();
   const [nfts, setNfts] = useState<NFT[]>([]);
   useEffect(() => {
