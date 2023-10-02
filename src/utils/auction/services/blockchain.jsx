@@ -12,33 +12,6 @@ let tx;
 const toWei = (num) => ethers.utils.parseEther(num.toString());
 const fromWei = (num) => ethers.utils.formatEther(num);
 
-const isWalletConnected = async () => {
-  try {
-    if (!window.ethereum) return alert('Please install Metamask');
-    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-    setGlobalState('connectedAccount', accounts[0]?.toLowerCase());
-
-    window.ethereum.on('chainChanged', (chainId) => {
-      window.location.reload();
-    });
-
-    window.ethereum.on('accountsChanged', async () => {
-      setGlobalState('connectedAccount', accounts[0]?.toLowerCase());
-      await isWalletConnected();
-      await loadCollections();
-    });
-
-    if (accounts.length) {
-      setGlobalState('connectedAccount', accounts[0]?.toLowerCase());
-    } else {
-      alert('Please connect your wallet.');
-      console.log('No accounts found.');
-    }
-  } catch (error) {
-    reportError(error);
-  }
-};
-
 const connectWallet = async () => {
   try {
     if (!window.ethereum) return alert('Please install Metamask');
@@ -274,7 +247,6 @@ const reportError = (error) => {
 };
 
 export {
-  isWalletConnected,
   connectWallet,
   createNftItem,
   loadAuctions,

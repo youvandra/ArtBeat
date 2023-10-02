@@ -101,7 +101,13 @@ const RightDetailAuctionId = () => {
     return <Center mt={"xl"}><Loader /></Center>;
   }
 
+  const handlePrizeClaim = async (id: number) => {
+    try {
+      await claimPrize({ tokenId: tokenId, id })
+    }catch{
 
+    }
+  }
 
 console.log(tokenId)
   return (
@@ -177,10 +183,22 @@ console.log(tokenId)
           <Group>
             <Text>Top Bidder :</Text>
           </Group>
-          {bidders.map((bidder) => (
+          {bidders.map((bidder, i) => (
             <Group>
             <Text sx={{ color: 'rgb(103, 228, 164)' }}>{truncate(bidder.bidder, 5, 5, 15)}</Text>
-            <Text color="ocean-blue.3">{parseFloat(bidder.price).toFixed(0)} BTT</Text>
+            <Text color="ocean-blue.3">{parseFloat(bidder.price).toFixed(0)} BTT</Text><br></br>
+            {bidder.bidder == auction?.winner &&
+            !bidder.won &&
+            Date.now() > auction?.duration ? (
+              <Button
+                ml="2.5rem"
+                className={classes.button}
+                onClick={() => handlePrizeClaim(i)}
+                disabled={isLoading}
+              >
+                Claim Prize
+              </Button>
+            ) : null}
           </Group>
           ))}
         </Stack>
