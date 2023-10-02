@@ -28,6 +28,7 @@ import { toast } from "react-toastify";
 import { showNotification } from "@mantine/notifications";
 import theme from "../utils/theme";
 import { useRouter } from "next/router";
+import { useMetaMask } from "metamask-react";
 
 const useStyles = createStyles((theme) => ({
   hero: {
@@ -98,7 +99,7 @@ const ListAuction = () => {
   const [timeline, setTimeline] = useState('');
   const [tokenId, setTokenId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const { account } = useMetaMask()
   useEffect(() => {
     loadAuctionsData();
   }, []);
@@ -226,9 +227,19 @@ const ListAuction = () => {
                     {auction.live && Date.now() < auction.duration ? (
                           <Button style={{ backgroundColor: theme.colors["ocean-blue"][3] }}>Auction Live</Button>
                         ) : (
-                            <><Button onClick={() => openModal(auction.tokenId)} >
-                          Offer Auction
-                        </Button><Modal
+                            <>
+                        {account.toLowerCase() !== '0x07f6dd340e9f687583e88562269f03084c246a4e' ? (
+                          <Button>
+                            Collection
+                          </Button>
+                        ) : (
+                          <Button onClick={() => openModal(auction.tokenId)}>
+                            Offer Auction
+                          </Button>
+                        )}
+
+                        
+                        <Modal
                           opened={opened}
                           title="Offer Auction"
                           onClose={closeModal}
