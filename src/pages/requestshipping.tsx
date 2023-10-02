@@ -92,7 +92,7 @@ import { NFT } from "../components/EventCard";
                 align={"center"}
                 justify={"center"}
               >
-                <Title>List Auction</Title>
+                <Title>Request Shipping</Title>
               </Stack>
             </Center>
             <Center>
