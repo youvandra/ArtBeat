@@ -164,7 +164,6 @@ const loadAuctions = async () => {
 
 const loadAuction = async (id) => {
   try {
-    if (!window.ethereum) return alert('Please install Metamask and connected to our website');
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(ContractAddress, ContractAbi, signer);
