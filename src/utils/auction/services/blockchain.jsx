@@ -14,7 +14,6 @@ const fromWei = (num) => ethers.utils.formatEther(num);
 
 const connectWallet = async () => {
   try {
-    if (!window.ethereum) return alert('Please install Metamask');
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
     setGlobalState('connectedAccount', accounts[0]?.toLowerCase());
   } catch (error) {
@@ -30,7 +29,6 @@ const createNftItem = async ({
   price,
 }) => {
   try {
-    if (!window.ethereum) return alert('Please install Metamask');
     const connectedAccount = getGlobalState('connectedAccount');
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
@@ -56,7 +54,6 @@ const createNftItem = async ({
 
 const updatePrice = async ({ tokenId, price }) => {
   try {
-    if (!window.ethereum) return alert('Please install Metamask');
     const connectedAccount = getGlobalState('connectedAccount');
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
@@ -81,7 +78,6 @@ const offerItemOnMarket = async ({
   day,
 }) => {
   try {
-    if (!window.ethereum) return alert('Please install Metamask');
     const connectedAccount = getGlobalState('connectedAccount');
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
@@ -98,7 +94,6 @@ const offerItemOnMarket = async ({
 
 const buyNFTItem = async ({ tokenId, price }) => {
   try {
-    if (!window.ethereum) return alert('Please install Metamask');
     const connectedAccount = getGlobalState('connectedAccount');
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
@@ -118,7 +113,6 @@ const buyNFTItem = async ({ tokenId, price }) => {
 
 const bidOnNFT = async ({ tokenId, price }) => {
   try {
-    if (!window.ethereum) return alert('Please install Metamask');
     const connectedAccount = getGlobalState('connectedAccount');
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
@@ -141,7 +135,6 @@ const bidOnNFT = async ({ tokenId, price }) => {
 
 const claimPrize = async ({ tokenId, id }) => {
   try {
-    if (!window.ethereum) return alert('Please install Metamask');
     const connectedAccount = getGlobalState('connectedAccount');
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
@@ -159,7 +152,6 @@ const claimPrize = async ({ tokenId, id }) => {
 
 const loadAuctions = async () => {
   try {
-    if (!window.ethereum) return alert('Please install Metamask');
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(ContractAddress, ContractAbi, signer);
@@ -172,7 +164,7 @@ const loadAuctions = async () => {
 
 const loadAuction = async (id) => {
   try {
-    if (!window.ethereum) return alert('Please install Metamask');
+    if (!window.ethereum) return alert('Please install Metamask and connected to our website');
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(ContractAddress, ContractAbi, signer);
@@ -186,7 +178,6 @@ const loadAuction = async (id) => {
 
 const getBidders = async (id) => {
   try {
-    if (!window.ethereum) return alert('Please install Metamask');
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(ContractAddress, ContractAbi, signer);
@@ -200,7 +191,6 @@ const getBidders = async (id) => {
 
 const loadCollections = async () => {
   try {
-    if (!window.ethereum) return alert('Please install Metamask');
     const connectedAccount = getGlobalState('connectedAccount');
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
