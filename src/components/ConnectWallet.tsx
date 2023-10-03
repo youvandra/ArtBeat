@@ -51,7 +51,7 @@ export default function ConnectWallet() {
       });
     } else if (status === "unavailable") {
       showNotification({
-        message: "No wallet detected!",
+        message: "Please install metamask and connected to our platform!",
         color: "red",
         autoClose: false,
       });
