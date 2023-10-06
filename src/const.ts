@@ -1,4 +1,4 @@
-export const YOUTUBE_VIDEO = "https://www.youtube.com/embed/AhyqQeS-xj4";
+export const YOUTUBE_VIDEO = "https://www.youtube.com/embed/S18bREDCUs4?si=AsBTUOpuVJNWmCrH";
 
 export const CONTRACT_ADDRESS = "0x2886dF071280862C1e5262F0b65ce5703BF5c9d8";
 
