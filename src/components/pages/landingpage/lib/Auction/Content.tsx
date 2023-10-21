@@ -27,9 +27,9 @@ const AuctionContent = () => {
 
   const loadAuctionsData = async () => {
     try {
-      const result = await loadAuction(1); 
+      const result = await loadAuction(4); 
       setAuction(result);
-      const result1 = await getBidders(1);
+      const result1 = await getBidders(4);
       setBidders(result1);
       setLoading(false);
     } catch (error) {
