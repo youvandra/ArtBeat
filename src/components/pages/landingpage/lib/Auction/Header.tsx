@@ -14,7 +14,7 @@ const AuctionHeader = () => {
 
   const loadAuctionsData = async () => {
     try {
-      const result = await loadAuction(1); // Change the parameter to the auction ID you want to load
+      const result = await loadAuction(4); // Change the parameter to the auction ID you want to load
       setAuction(result);
       setLoading(false);
     } catch (error) {
