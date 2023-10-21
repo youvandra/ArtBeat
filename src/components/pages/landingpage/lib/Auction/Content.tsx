@@ -114,7 +114,7 @@ const AuctionContent = () => {
           </span>
         </Text><br></br><br></br>
         <Center>
-          <NextLink href={"/auction/1"}>
+          <NextLink href={"/auction/4"}>
           <Button
             leftIcon={<FaBalanceScaleLeft />}
             size="md"
