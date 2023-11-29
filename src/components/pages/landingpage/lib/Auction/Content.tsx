@@ -27,9 +27,9 @@ const AuctionContent = () => {
 
   const loadAuctionsData = async () => {
     try {
-      const result = await loadAuction(4); 
+      const result = await loadAuction(1); 
       setAuction(result);
-      const result1 = await getBidders(4);
+      const result1 = await getBidders(1);
       setBidders(result1);
       setLoading(false);
     } catch (error) {
@@ -114,7 +114,7 @@ const AuctionContent = () => {
           </span>
         </Text><br></br><br></br>
         <Center>
-          <NextLink href={"/auction/4"}>
+          <NextLink href={"/auction/1"}>
           <Button
             leftIcon={<FaBalanceScaleLeft />}
             size="md"

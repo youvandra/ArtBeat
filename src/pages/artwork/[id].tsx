@@ -182,7 +182,7 @@ const Artwork: NextPageWithLayout = () => {
                       />
                       <Property label="Year" value={nft.metadata.year} />
                     </SimpleGrid>
-                    {nft.seller !== "0x07F6Dd340e9f687583E88562269F03084C246a4e" ? (
+                    {nft.seller !== "0x42734AE1bB82821d4035069391ca09D94caA9ED1" ? (
                       <SimpleGrid mt={"xl"}>
                         <Property label="Owner" value={truncate(nft.seller, 5, 5, 15)} />
                       </SimpleGrid> 
@@ -193,7 +193,7 @@ const Artwork: NextPageWithLayout = () => {
                     <Text mt={"xl"} size={24} weight={"bold"}>
                           {parseFloat(nft.metadata.price).toFixed(0)} BTT
                     </Text>
-                    {nft.seller !== "0x07F6Dd340e9f687583E88562269F03084C246a4e" ? (
+                    {nft.seller !== "0x42734AE1bB82821d4035069391ca09D94caA9ED1" ? (
                         nft.seller.toLowerCase() === account ? (
                           <><Button
                           className={classes.buttonBuy}

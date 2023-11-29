@@ -228,7 +228,7 @@ const ListAuction = () => {
                           <Button style={{ backgroundColor: theme.colors["ocean-blue"][3] }}>Auction Live</Button>
                         ) : (
                             <>
-                        {account.toLowerCase() !== '0x07f6dd340e9f687583e88562269f03084c246a4e' ? (
+                        {account.toLowerCase() !== '0x42734AE1bB82821d4035069391ca09D94caA9ED1' ? (
                           <Button>
                             Collection
                           </Button>

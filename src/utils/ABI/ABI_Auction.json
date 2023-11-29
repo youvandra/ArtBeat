@@ -101,38 +101,6 @@
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "_fromTokenId",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "_toTokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "BatchMetadataUpdate",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "_tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "MetadataUpdate",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
 				"indexed": true,
 				"internalType": "address",
 				"name": "from",
@@ -345,7 +313,7 @@
 						"type": "uint256"
 					}
 				],
-				"internalType": "struct AuctionArtbeat.AuctionStruct[]",
+				"internalType": "struct Artbeat_Auction.AuctionStruct[]",
 				"name": "Auctions",
 				"type": "tuple[]"
 			}
@@ -450,7 +418,7 @@
 						"type": "uint256"
 					}
 				],
-				"internalType": "struct AuctionArtbeat.AuctionStruct",
+				"internalType": "struct Artbeat_Auction.AuctionStruct",
 				"name": "",
 				"type": "tuple"
 			}
@@ -496,7 +464,7 @@
 						"type": "bool"
 					}
 				],
-				"internalType": "struct AuctionArtbeat.BidderStruct[]",
+				"internalType": "struct Artbeat_Auction.BidderStruct[]",
 				"name": "",
 				"type": "tuple[]"
 			}
@@ -589,7 +557,7 @@
 						"type": "uint256"
 					}
 				],
-				"internalType": "struct AuctionArtbeat.AuctionStruct[]",
+				"internalType": "struct Artbeat_Auction.AuctionStruct[]",
 				"name": "Auctions",
 				"type": "tuple[]"
 			}
@@ -669,7 +637,7 @@
 						"type": "uint256"
 					}
 				],
-				"internalType": "struct AuctionArtbeat.AuctionStruct[]",
+				"internalType": "struct Artbeat_Auction.AuctionStruct[]",
 				"name": "Auctions",
 				"type": "tuple[]"
 			}
@@ -749,7 +717,7 @@
 						"type": "uint256"
 					}
 				],
-				"internalType": "struct AuctionArtbeat.AuctionStruct[]",
+				"internalType": "struct Artbeat_Auction.AuctionStruct[]",
 				"name": "Auctions",
 				"type": "tuple[]"
 			}
@@ -829,7 +797,7 @@
 						"type": "uint256"
 					}
 				],
-				"internalType": "struct AuctionArtbeat.AuctionStruct[]",
+				"internalType": "struct Artbeat_Auction.AuctionStruct[]",
 				"name": "Auctions",
 				"type": "tuple[]"
 			}
@@ -986,7 +954,7 @@
 			},
 			{
 				"internalType": "bytes",
-				"name": "data",
+				"name": "_data",
 				"type": "bytes"
 			}
 		],
