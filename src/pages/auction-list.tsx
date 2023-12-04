@@ -232,6 +232,7 @@ const ListAuction = () => {
                           <Button>
                             Collection
                           </Button>
+                          
                         ) : (
                           <Button onClick={() => openModal(auction.tokenId)}>
                             Offer Auction
