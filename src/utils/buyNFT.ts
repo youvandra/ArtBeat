@@ -22,7 +22,7 @@ export async function buyNFT(nft: NFT) {
     showNotification({ message: "You successfully bought the NFT!" });
   } catch (e) {
     showNotification({
-      message: "There was a problem buying NFt check the console",
+      message: "Make sure the balance is sufficient.",
       color: "red",
     });
     console.error(e);
